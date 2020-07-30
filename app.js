@@ -13,11 +13,11 @@ let path = require("path");
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname+'client/build/index.html'));
 });
 
-app.listen(process.env.PORT || 4000, function () {
+app.listen(process.env.PORT || 5000, function () {
   console.log("Node app is working!");
 });
 
