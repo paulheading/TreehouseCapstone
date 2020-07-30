@@ -1,4 +1,3 @@
-
 // **********************************************************************
 // CREATE SERVER ********************************************************
 // **********************************************************************
@@ -7,15 +6,14 @@ let express = require("express");
 let app = express();
 let path = require("path");
 
-app.use(express.static(path.join(__dirname, 'build')));
+// https://www.freecodecamp.org/news/deploy-a-react-node-app-to/
+// Use React Build folder
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.use(express.static(path.join(__dirname, "client/build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
-
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname, "index.html"));
-// });
 
 app.listen(process.env.PORT || 4000, function () {
   console.log("Node app is working!");
@@ -54,25 +52,23 @@ sequelize.sync({ force: true }).then(() => {
     { note: "pick up some bread after work", tag: "shopping" },
     { note: "remember to write up meeting notes", tag: "work" },
     { note: "learn how to use node orm", tag: "work" },
-  ])
-    .then(function () {
-      return Note.findAll();
-    })
-    .then(function (notes) {
-      console.log(notes);
-    });
+  ]).then(function () {
+    return Note.findAll();
+  });
 });
 
 // **********************************************************************
 // CREATE ROUTES ********************************************************
 // **********************************************************************
 
-app.get('/notes', (req, res) => {
-  Note.findAll().then(notes => res.json(notes));
+app.get("/notes", (req, res) => {
+  Note.findAll().then((notes) => res.json(notes));
 });
 
 // Place wildcard routes last *******************************************
 
-app.get('/notes/:id', (req, res) => {
-  Note.findAll({ where: { id: req.params.id } }).then(notes => res.json(notes));
+app.get("/notes/:id", (req, res) => {
+  Note.findAll({ where: { id: req.params.id } }).then((notes) =>
+    res.json(notes)
+  );
 });
