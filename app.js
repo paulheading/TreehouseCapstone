@@ -9,10 +9,10 @@ let path = require("path");
 // https://www.freecodecamp.org/news/deploy-a-react-node-app-to/
 // Use React Build folder
 
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 });
 
 app.listen(process.env.PORT || 4000, function () {
