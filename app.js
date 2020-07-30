@@ -19,7 +19,7 @@ let buildPath;
   
 // }
 
-buildPath = path.join(__dirname, 'build');
+buildPath = path.join(__dirname, 'client/build');
 
 // console.log(process.env);
 // console.log(process.env.NODE_ENV);
@@ -31,12 +31,16 @@ buildPath = path.join(__dirname, 'build');
 
 app.use(express.static(buildPath));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
-});
-
 app.listen(process.env.PORT || 5000, function () {
   console.log("Node app is working!");
+});
+
+app.get('/params', (req, res) => {
+  res.status(200).json(process.env);
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 
 // **********************************************************************
