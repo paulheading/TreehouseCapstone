@@ -7,12 +7,14 @@ let app = express();
 let path = require("path");
 
 // https://www.freecodecamp.org/news/deploy-a-react-node-app-to/
+// https://dev.to/loujaybee/using-create-react-app-with-express
+// https://dev.to/nburgess/creating-a-react-app-with-react-router-and-an-express-backend-33l3
 // Use React Build folder
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 app.listen(process.env.PORT || 4000, function () {
