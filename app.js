@@ -13,11 +13,13 @@ let app = express();
 let path = require("path");
 let buildPath;
 
-if (process.env.NODE_ENV !== 'production') {
-  buildPath = path.join(__dirname, 'client/build');
-} else {
-  buildPath = path.join(__dirname, '..', 'client/build');
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   buildPath = path.join(__dirname, 'client/build');
+// } else {
+  
+// }
+
+buildPath = path.join(__dirname, '..', 'client/build');
 
 // console.log(process.env);
 console.log(process.env.NODE_ENV);
