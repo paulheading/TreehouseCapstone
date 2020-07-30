@@ -14,15 +14,15 @@ let path = require("path");
 let buildPath;
 
 // if (process.env.NODE_ENV !== 'production') {
-//   buildPath = path.join(__dirname, 'client/build');
+//   buildPath = path.join(__dirname, 'build');
 // } else {
   
 // }
 
-buildPath = path.join(__dirname, 'app', 'client/build');
+buildPath = path.join(__dirname, 'build');
 
 // console.log(process.env);
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 // https://www.freecodecamp.org/news/deploy-a-react-node-app-to/
 // https://dev.to/loujaybee/using-create-react-app-with-express
