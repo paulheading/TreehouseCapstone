@@ -19,7 +19,7 @@ let buildPath;
   
 // }
 
-buildPath = path.join(__dirname, 'build');
+buildPath = path.join(__dirname, '../client/build');
 
 // console.log(process.env);
 console.log(process.env.NODE_ENV);
