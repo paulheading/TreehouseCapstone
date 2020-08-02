@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== "production") {
 let express = require("express");
 let app = express();
 let path = require("path");
-let buildPath = path.join(__dirname, "client/build");
+let buildPath = path.join(__dirname, "build");
 
 // .env context switching; if heroku needs different production settings
 
