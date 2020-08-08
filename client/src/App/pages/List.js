@@ -26,13 +26,13 @@ class List extends Component {
 
     return (
       <div className="App">
-        <h1>List of Items</h1>
+        <h1>List of Items..</h1>
         {/* Check to see if any items are found*/}
         {list.length ? (
           <div>
             {/* Render the list of items */}
             {list.map((item) => {
-              return <div>{item}</div>;
+              return <div>{item.item}</div>;
             })}
           </div>
         ) : (
