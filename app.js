@@ -203,9 +203,7 @@ const Sequelize = require("sequelize");
 
 // live database setup
 
-const sequelize = new Sequelize(
-  "mysql://tf4yp7nya0dny6gq:oj3rlwdr0w078369@e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/njm1oz2jrc6xnqkq"
-);
+const sequelize = new Sequelize(process.env.JAWSDB_URL);
 
 sequelize
   .authenticate()
