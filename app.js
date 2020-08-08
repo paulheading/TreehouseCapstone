@@ -14,7 +14,6 @@ let express = require("express");
 let app = express();
 let path = require("path");
 let buildPath = path.join(__dirname, "public");
-let port = 5000;
 
 // spotify variables
 let request = require("request");
@@ -46,7 +45,7 @@ app.get("/params", (req, res) => {
   res.status(200).json(process.env);
 });
 
-app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Node app is working!");
 });
 
@@ -56,9 +55,10 @@ app.listen(process.env.PORT || port, () => {
 
 // https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
 
+let client_url = process.env.CLIENT_URL;
 let client_id = process.env.CLIENT_ID; // Your client id
 let client_secret = process.env.CLIENT_SECRET; // Your secret
-let redirect_uri = `http://localhost:${port}/callback`; // Your redirect uri
+let redirect_uri = `${client_url}/callback`; // Your redirect uri
 
 let generateRandomString = function (length) {
   let text = "";
@@ -141,7 +141,7 @@ app.get("/callback", function (req, res) {
 
         // we can also pass the token to the browser to make requests from there
         res.redirect(
-          `http://localhost:${port}/#` +
+          `${client_url}/#` +
             querystring.stringify({
               access_token: access_token,
               refresh_token: refresh_token,
