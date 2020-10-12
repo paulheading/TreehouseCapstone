@@ -64,16 +64,18 @@ let client_secret = process.env.CLIENT_SECRET;
 let localhost = "http://localhost";
 let siteurl = "https://fierce-brushlands-13980.herokuapp.com";
 
-if (node_env === "staging") {
-  client_url = `${localhost}:${process.env.PORT}`;
-} else if (node_env === "production") {
-  client_url = siteurl;
-}
-
 if (node_env === "dev") {
   client_url = `${localhost}:${process.env.PORT}`;
   bounce = `${localhost}:3000/#`;
-} else {
+}
+
+if (node_env === "staging") {
+  client_url = `${localhost}:${process.env.PORT}`;
+  bounce = `${client_url}/#`;
+}
+
+if (node_env === "production") {
+  client_url = siteurl;
   bounce = `${client_url}/#`;
 }
 

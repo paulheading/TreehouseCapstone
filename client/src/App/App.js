@@ -115,7 +115,8 @@ export default function App() {
   }
 
   async function searchFilm(delta) {
-    let get = await fetch(`http://www.omdbapi.com/?t=${delta}&apikey=34720659`);
+    // let api_key = process.env.API_KEY;
+    let get = await fetch(`//www.omdbapi.com/?t=${delta}&apikey=34720659`);
     setFilm(await get.json());
   }
 
