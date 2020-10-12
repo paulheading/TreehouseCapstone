@@ -1,0 +1,101 @@
+@import "../../../extends";
+
+.account-overlay {
+  &__container {
+    @include overlayContainer;
+  }
+  &__exit-icon {
+    @include overlayGap;
+    @extend %overlay-exit-icon;
+  }
+  &__form {
+    position: relative;
+    z-index: 2;
+  }
+  &__wrap {
+    @include overlayGap;
+    @include overlayWrap(32rem);
+
+    .nav-tabs {
+      border-bottom-color: $purple;
+
+      .nav-link {
+        padding: 1rem 2.5rem;
+        text-align: center;
+        font-size: 2rem;
+        width: 50%;
+
+        &:hover {
+          border-color: transparent;
+        }
+        &.active {
+          @include modal(
+            $bord: false,
+            $rad: 0.3rem 0.3rem 0 0,
+            $pad: 1rem 2.5rem
+          );
+          border-color: $purple $purple transparent;
+          font-weight: bold;
+        }
+      }
+    }
+    .tab-content {
+      @include modal($rad: 0 0 0.3rem 0.3rem, $pad: 7rem 2rem);
+      text-align: center;
+      border-top: 0;
+
+      .table {
+        border-bottom: 1px solid $purple;
+        border-right: 1px solid $purple;
+        border-left: 1px solid $purple;
+        text-transform: capitalize;
+        font-style: italic;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: left;
+        color: $purple;
+
+        &-striped tbody tr:nth-of-type(odd) {
+          background-color: $purple--tint;
+        }
+
+        td {
+          border-color: $purple;
+        }
+      }
+    }
+  }
+  &__exit {
+    @extend %overlay-exit;
+  }
+}
+
+table.table {
+  margin: 0;
+}
+
+.profile-tab {
+  &__avatar {
+    fill: $purple;
+  }
+  &__name {
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+  &__since {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+  }
+  &__log-out {
+    margin-top: 2rem;
+  }
+}
+
+.saved-table {
+  &__term {
+    padding-top: 0.2rem;
+  }
+  .btn + .btn {
+    margin-left: 1rem;
+  }
+}

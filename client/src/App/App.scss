@@ -1,0 +1,161 @@
+// https://carterbancroft.com/sass-and-webpack/
+
+@import "variables";
+@import "extends";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: roboto, sans-serif;
+  color: $gray--dark;
+  font-size: 1.6rem;
+}
+
+.container {
+  padding: 3rem;
+}
+
+.row {
+  display: block;
+  margin: 0;
+}
+
+.btn {
+  &-link {
+    @extend %btn-link;
+  }
+  &-inline {
+    padding: 0;
+    border: 0;
+  }
+  &-light {
+    @extend %btn-light;
+  }
+  &-primary {
+    @extend %btn-primary;
+  }
+  &-outline-primary {
+    @extend %btn-outline;
+  }
+  &-md {
+    font-size: 1.8rem;
+  }
+  &-lg {
+    font-size: 2.2rem;
+  }
+}
+
+.form {
+  &-group {
+    margin-bottom: 2rem;
+  }
+  &-control {
+    border-color: $purple;
+    font-size: inherit;
+    padding: 2rem 1rem;
+    color: $purple;
+
+    &::placeholder {
+      color: $purple;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($purple, 0.2);
+      border-color: $purple;
+      color: $purple;
+    }
+  }
+}
+
+.card-deck {
+  transition: all 200ms;
+  max-width: 60rem;
+  column-gap: 2rem;
+  margin: 0 auto;
+  display: grid;
+  flex: none;
+
+  @media #{$min680} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media #{$min960} {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 88rem;
+  }
+
+  .card {
+    margin: 3rem auto;
+    flex: none;
+
+    &-header {
+      border-radius: 0.3rem 0.3rem 0 0;
+      overflow: hidden;
+    }
+
+    &-body {
+      padding: 2rem;
+    }
+  }
+}
+
+.table {
+  td {
+    padding: 0.8rem 1.2rem;
+    line-height: 1;
+  }
+}
+
+h1 {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.list-group {
+  &-primary {
+    .list-group-item {
+      @include modal($gray--dark, $gray--fade);
+    }
+  }
+  &-secondary {
+    .list-group-item {
+      @include modal;
+    }
+  }
+  &.not-found {
+    text-align: center;
+    font-size: 1.8rem;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+}
+
+a {
+  color: $purple;
+
+  &:hover {
+    color: $purple;
+  }
+}
+
+.md {
+  &-down {
+    @media #{$min768} {
+      display: none;
+    }
+  }
+  &-up {
+    @media #{$max767} {
+      display: none;
+    }
+  }
+}

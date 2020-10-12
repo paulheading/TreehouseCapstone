@@ -1,0 +1,16 @@
+@import "../../variables";
+
+.start {
+  &.container {
+    background-color: $purple;
+    justify-content: center;
+    align-items: center;
+    max-width: none;
+    display: flex;
+    height: 100vh;
+  }
+
+  &.wrap {
+    text-align: center;
+  }
+}

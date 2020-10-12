@@ -1,0 +1,95 @@
+@import "../../variables";
+@import "../../extends";
+
+.album-results {
+  &.container {
+    padding: 1rem;
+    max-width: none !important;
+  }
+  &.card-deck {
+    justify-content: center;
+  }
+  &.card {
+    max-width: 28rem;
+  }
+  &.card-header {
+    position: relative;
+    padding: 0;
+  }
+  &.card-title {
+    font-size: 1.6rem;
+  }
+  &.card-subtitle {
+    margin-top: 1rem;
+    h2 {
+      font-weight: normal;
+    }
+  }
+}
+
+.remove-album {
+  &.btn {
+    position: absolute;
+    top: -2.2rem;
+    width: 100%;
+    z-index: 2;
+    right: 0;
+    left: 0;
+  }
+}
+
+.find-album {
+  &.btn {
+    margin-top: 1rem;
+  }
+}
+
+img.album-results {
+  max-width: 100%;
+}
+
+.related-artists {
+  &.container {
+    border: $related-artists-border;
+    position: relative;
+    margin-top: 2rem;
+    padding: 0;
+  }
+  &.wrap {
+    max-height: 14rem;
+    overflow: hidden;
+  }
+  &.btn {
+    @extend %btn-link;
+    font-size: 1.3rem;
+    padding: 0;
+  }
+  &.table {
+    tr {
+      td {
+        border-top: $related-artists-border;
+      }
+      &:first-of-type {
+        td {
+          border-top: none;
+        }
+      }
+    }
+  }
+  &.prev {
+    @extend %related-page-icon;
+    height: 0;
+    top: 0;
+
+    svg.icon-prev {
+      position: relative;
+      top: -1.8rem;
+    }
+  }
+  &.next {
+    @extend %related-page-icon;
+    background: linear-gradient(transparent, rgba($gray--fade, 0.8));
+    padding-top: 0.2rem;
+    bottom: 0;
+  }
+}

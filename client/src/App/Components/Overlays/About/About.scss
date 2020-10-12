@@ -1,0 +1,26 @@
+@import "../../../_extends";
+
+.about-overlay {
+  &__container {
+    @include overlayContainer;
+    font-size: 1.8rem;
+  }
+  &__wrap {
+    @include overlayWrap(40rem);
+  }
+  &__exit-icon {
+    @include overlayGap;
+    @extend %overlay-exit-icon;
+  }
+  &__exit {
+    @extend %overlay-exit;
+  }
+  &.list-group {
+    @include overlayGap;
+  }
+}
+
+p.terms {
+  font-size: 1.6rem;
+  margin-bottom: 0;
+}

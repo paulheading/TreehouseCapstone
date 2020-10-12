@@ -1,0 +1,13 @@
+.first-time {
+  &.container {
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+    right: 0;
+    left: 0;
+  }
+  &.badge {
+    font-size: 100%;
+    padding: 0.8em;
+  }
+}

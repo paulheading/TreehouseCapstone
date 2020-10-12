@@ -1,0 +1,148 @@
+@import "variables";
+
+@mixin zeros {
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+@mixin center {
+  &:before {
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: -0.25em;
+    height: 100%;
+    content: "";
+  }
+}
+
+%btn-base {
+  padding: 0.35rem 1rem 0.5rem;
+  border-radius: 0.35rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+%btn-outline {
+  @extend %btn-base;
+  background-color: white;
+  border-color: $purple;
+  color: $purple;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $purple !important;
+    border-color: $purple !important;
+  }
+}
+
+%btn-primary {
+  @extend %btn-base;
+  background-color: $purple;
+  border-color: $purple;
+  color: white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $purple !important;
+    border-color: $purple !important;
+  }
+}
+
+%btn-light {
+  @extend %btn-base;
+  padding: 0.7rem 3rem 1rem;
+  background-color: $pink;
+  border-color: $pink;
+  color: $purple;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $pink !important;
+    border-color: $pink !important;
+    color: $purple !important;
+  }
+}
+
+%btn-link {
+  @extend %btn-base;
+  color: inherit;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+  }
+}
+
+@mixin overlayContainer {
+  @include zeros;
+  background-color: $purple--tint;
+  overflow: scroll;
+  position: fixed;
+  color: $purple;
+  z-index: 3;
+}
+
+@mixin overlayGap {
+  margin-top: 6rem;
+
+  @media #{$min768} {
+    margin-top: 8rem;
+  }
+}
+
+%overlay {
+  &-exit-icon {
+    position: relative;
+    margin: 0 auto;
+    width: 3.4rem;
+    z-index: 2;
+  }
+  &-exit {
+    @include zeros;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+%related-page-icon {
+  text-align: center;
+  position: absolute;
+  cursor: pointer;
+  height: 2.5rem;
+  z-index: 2;
+  right: 0;
+  left: 0;
+}
+
+@mixin overlayWrap($max: 36rem) {
+  padding-right: 2rem;
+  padding-left: 2rem;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: $max;
+  z-index: 2;
+}
+
+@mixin modal(
+  $col: $purple,
+  $bg: $purple--fade,
+  $bord: true,
+  $rad: 0.3rem,
+  $pad: 2rem
+) {
+  background-color: $bg;
+  border-radius: $rad;
+  padding: $pad;
+  color: $col;
+
+  @if $bord {
+    border: 1px solid $col;
+  }
+}

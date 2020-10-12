@@ -1,0 +1,48 @@
+@import "../../variables";
+@import "../../extends";
+
+.related-artists {
+  &.container {
+    border: $related-artists-border;
+    position: relative;
+    margin-top: 2rem;
+    padding: 0;
+  }
+  &.wrap {
+    max-height: 14rem;
+    overflow: hidden;
+  }
+  &.btn {
+    @extend %btn-link;
+    font-size: 1.3rem;
+    padding: 0;
+  }
+  &.table {
+    tr {
+      td {
+        border-top: $related-artists-border;
+      }
+      &:first-of-type {
+        td {
+          border-top: none;
+        }
+      }
+    }
+  }
+  &.prev {
+    @extend %related-page-icon;
+    height: 0;
+    top: 0;
+
+    svg.icon-prev {
+      position: relative;
+      top: -1.8rem;
+    }
+  }
+  &.next {
+    @extend %related-page-icon;
+    background: linear-gradient(transparent, rgba($gray--fade, 0.8));
+    padding-top: 0.2rem;
+    bottom: 0;
+  }
+}

@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.logo {
+  &__block {
+    margin-bottom: 4rem;
+    display: block;
+    width: 25rem;
+    fill: $pink;
+  }
+
+  &__inline {
+    min-width: 22.5rem;
+    fill: $purple;
+  }
+}
