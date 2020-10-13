@@ -128,7 +128,7 @@ export default function App() {
   });
 
   return (
-    <div className={"App " + applyClass(loggedIn, "loggedIn")}>
+    <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
       {loggedIn[0] && !expired ? (
         <div className="app-component">
           <Overlays

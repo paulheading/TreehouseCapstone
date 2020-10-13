@@ -196,3 +196,25 @@ export function HelpIcon() {
     </svg>
   );
 }
+
+export function SquiggleIcon() {
+  return (
+    <svg
+      version="1.1"
+      className="icon-squiggle"
+      width="220"
+      height="200"
+      viewBox="0 0 220 200"
+    >
+      <path
+        d="M142.5,170.2c16-16,33.4-30.7,48-48.1c8.4-10-16.3-63.4-30-72C127.5,29.4,92.4,58.6,59.3,51c-12.9-3-22.1-13-31.5-21.2"
+        fill="none"
+        stroke="#3900E5"
+        strokeWidth="54"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeMiterlimit="10"
+      />
+    </svg>
+  );
+}
