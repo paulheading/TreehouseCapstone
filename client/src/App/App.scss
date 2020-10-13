@@ -1,7 +1,7 @@
 // https://carterbancroft.com/sass-and-webpack/
 
-@import "variables";
-@import "extends";
+@import "./scss/variables";
+@import "./scss/extends";
 
 html {
   font-size: 62.5%;
@@ -11,6 +11,13 @@ body {
   font-family: roboto, sans-serif;
   color: $gray--dark;
   font-size: 1.6rem;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
 }
 
 .container {
