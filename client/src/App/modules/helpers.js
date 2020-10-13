@@ -65,11 +65,13 @@ export function filterDate(input) {
 
 export function isSaved(arr, query) {
   let saved = false;
-  arr.forEach((value) => {
-    if (value.searchTerm === query) {
-      saved = true;
-    }
-  });
+  if (arr.length) {
+    arr.forEach((value) => {
+      if (value.searchTerm === query) {
+        saved = true;
+      }
+    });
+  }
   return saved;
 }
 

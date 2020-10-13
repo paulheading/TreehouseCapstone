@@ -1,16 +1,19 @@
 @import "../../variables";
+@import "../../extends";
 
 .start {
   &.container {
     background-color: $purple;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     max-width: none;
-    display: flex;
     height: 100vh;
+    padding: 0;
+
+    @include center;
   }
 
   &.wrap {
-    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
   }
 }

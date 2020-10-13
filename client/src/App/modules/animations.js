@@ -49,3 +49,12 @@ export function changeNavbar(input) {
     target.classList.add("collapse");
   }
 }
+
+export function spinMe(target) {
+  gsap.to(target, {
+    rotateZ: "+=360",
+    ease: "none",
+    duration: 2,
+    repeat: -1,
+  });
+}

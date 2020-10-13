@@ -41,7 +41,6 @@
     }
     .tab-content {
       @include modal($rad: 0 0 0.3rem 0.3rem, $pad: 7rem 2rem);
-      text-align: center;
       border-top: 0;
 
       .table {
@@ -72,6 +71,12 @@
 
 table.table {
   margin: 0;
+}
+
+.tab-pane {
+  &.profile {
+    text-align: center;
+  }
 }
 
 .profile-tab {

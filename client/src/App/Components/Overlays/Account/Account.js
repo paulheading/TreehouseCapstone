@@ -40,12 +40,8 @@ export default function Account({
           <RemoveIcon variant="secondary" />
         </div>
         <div className="account-overlay__wrap">
-          <Tabs
-            defaultActiveKey="profile"
-            transition={false}
-            id="noanim-tab-example"
-          >
-            <Tab eventKey="profile" title="Profile">
+          <Tabs defaultActiveKey="profile" transition={false}>
+            <Tab eventKey="profile" title="Profile" className="profile">
               <div className="profile-tab__avatar">
                 <AvatarIcon />
               </div>

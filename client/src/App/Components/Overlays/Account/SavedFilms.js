@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, ListGroup } from "react-bootstrap";
 import { delRoute, limitString } from "../../../modules/helpers";
 import PropTypes from "prop-types";
 import { RemoveIcon, SearchIcon } from "../../SvgIcon/SvgIcon";
@@ -64,7 +64,12 @@ export default function SavedFilms({
       </tbody>
     </Table>
   ) : (
-    <span>somin else</span>
+    <ListGroup variant="secondary">
+      <ListGroup.Item>
+        Use <strong>MovieTunes</strong> to save your favourite soundtracks. It’s
+        free to use, so have fun!
+      </ListGroup.Item>
+    </ListGroup>
   );
 }
 
