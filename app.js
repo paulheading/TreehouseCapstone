@@ -62,7 +62,6 @@ let node_env = process.env.NODE_ENV;
 let client_id = process.env.CLIENT_ID;
 let client_secret = process.env.CLIENT_SECRET;
 let localhost = "http://localhost";
-let siteurl = "https://fierce-brushlands-13980.herokuapp.com";
 
 if (node_env === "dev") {
   client_url = `${localhost}:${process.env.PORT}`;
@@ -75,7 +74,7 @@ if (node_env === "staging") {
 }
 
 if (node_env === "production") {
-  client_url = siteurl;
+  client_url = process.env.SITE_URL;
   bounce = `${client_url}/#`;
 }
 

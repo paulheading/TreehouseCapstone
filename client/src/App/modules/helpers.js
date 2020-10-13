@@ -1,6 +1,9 @@
 // https://thomlom.dev/setup-eslint-prettier-react/
 
-export const api = "http://localhost:5000";
+export const site_url =
+  process.env.REACT_APP_ENV === "production"
+    ? process.env.REACT_APP_SITE_URL
+    : "http://localhost:5000";
 
 // POST functions
 
@@ -10,7 +13,7 @@ export async function createRoute(route, custom) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(custom),
   };
-  let post = await fetch(`${api}/${route}`, options);
+  let post = await fetch(`${site_url}/${route}`, options);
   return await post.json();
 }
 
@@ -22,7 +25,7 @@ export async function delRoute(route, custom) {
     headers: { "Content-Type": "application/json" },
   };
   try {
-    let del = await fetch(`${api}/${route}/${custom}`, options);
+    let del = await fetch(`${site_url}/${route}/${custom}`, options);
     return await del.json();
   } catch (error) {
     console.log(error);
@@ -32,7 +35,7 @@ export async function delRoute(route, custom) {
 // GET functions
 
 export async function getRoute(route, custom) {
-  let get = await fetch(`${api}/${route}/${custom}`);
+  let get = await fetch(`${site_url}/${route}/${custom}`);
   return await get.json();
 }
 
@@ -40,7 +43,7 @@ export async function getAuthRoute(route, name, pass) {
   let headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", "Basic " + btoa(name + ":" + pass));
-  let get = await fetch(`${api}/${route}`, { headers });
+  let get = await fetch(`${site_url}/${route}`, { headers });
   return await get.json();
 }
 

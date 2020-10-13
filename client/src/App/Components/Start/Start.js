@@ -8,7 +8,15 @@ export default function Start() {
     <Container className="start">
       <div className="start wrap">
         <BlockLogo />
-        <Button variant="light" href="http://localhost:5000/login">
+        <Button
+          variant="light"
+          size="lg"
+          href={
+            process.env.REACT_APP_ENV === "production"
+              ? `${process.env.REACT_APP_SITE_URL}/login`
+              : "http://localhost:5000/login"
+          }
+        >
           Start
         </Button>
       </div>

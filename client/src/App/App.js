@@ -21,6 +21,7 @@ import "./App.scss";
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
 
 export default function App() {
+  require("dotenv").config();
   // spotify variables
   const params = getHashParams();
   const token = params.access_token;
@@ -116,7 +117,9 @@ export default function App() {
 
   async function searchFilm(delta) {
     // let api_key = process.env.API_KEY;
-    let get = await fetch(`//www.omdbapi.com/?t=${delta}&apikey=34720659`);
+    let get = await fetch(
+      `//www.omdbapi.com/?t=${delta}&apikey=${process.env.REACT_APP_OMDB_API}`
+    );
     setFilm(await get.json());
   }
 
