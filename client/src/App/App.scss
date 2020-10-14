@@ -5,27 +5,19 @@
 
 html {
   font-size: 62.5%;
-  height: 100%;
 }
 
 body {
   font-family: roboto, sans-serif;
   color: $gray--dark;
   font-size: 1.6rem;
-  height: 100%;
 }
 
-#root {
-  height: 100%;
-}
-
+html,
+body,
+#root,
 .App {
-  background-color: $purple;
   height: 100%;
-
-  &.loggedIn {
-    background-color: transparent;
-  }
 }
 
 .container {

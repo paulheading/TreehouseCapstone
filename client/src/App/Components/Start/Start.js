@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import { BlockLogo } from "../Logo/Logo";
-import { HelpIcon, SquiggleIcon } from "../SvgIcon/SvgIcon";
+import { HelpIcon } from "../SvgIcon/SvgIcon";
 import { spinMe } from "../../modules/animations";
 import "./Start.scss";
 
@@ -11,11 +11,6 @@ export default function Start() {
   });
   return (
     <Container className="start">
-      <div className="squiggle container">
-        <div className="squiggle wrap">
-          <SquiggleIcon />
-        </div>
-      </div>
       <div className="start wrap">
         <HelpIcon />
         <BlockLogo />

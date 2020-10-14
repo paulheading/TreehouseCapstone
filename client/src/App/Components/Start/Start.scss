@@ -3,6 +3,7 @@
 
 .start {
   &.container {
+    background-color: $purple;
     text-align: center;
     max-width: none;
     height: 100%;
@@ -11,22 +12,6 @@
     @include center;
   }
 
-  &.wrap {
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
-    z-index: 2;
-  }
-}
-
-.squiggle {
-  &.container {
-    @include zeros;
-    position: absolute;
-    z-index: 1;
-
-    @include center;
-  }
   &.wrap {
     vertical-align: middle;
     display: inline-block;
