@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { XLinkIcon, NextIcon, PrevIcon } from "../SvgIcon/SvgIcon";
+import { XLinkIcon, NextIcon, PrevIcon } from "../Icons/Icons";
+import { limitString } from "../../modules/helpers";
 import PropTypes from "prop-types";
-import "./RelatedArtists.scss";
+import "./RelatedResults.scss";
 
-export default function RelatedArtists({ related }) {
+export default function RelatedResults({ related }) {
   const artist = {
     total: related.length,
     minimum: 3,
@@ -15,7 +16,7 @@ export default function RelatedArtists({ related }) {
 
   function displayNext() {
     if (artist.total > artist.minimum) {
-      if (nextClicks < artist.excess) {
+      if (nextClicks <= artist.excess) {
         return (
           <div className="related-artists next">
             <NextIcon
@@ -56,7 +57,7 @@ export default function RelatedArtists({ related }) {
                       target="_blank"
                       variant="link"
                     >
-                      {name}
+                      {limitString(name, 20)}
                     </Button>
                   </td>
                   <td style={{ width: "5rem" }}>
@@ -80,6 +81,6 @@ export default function RelatedArtists({ related }) {
   );
 }
 
-RelatedArtists.propTypes = {
+RelatedResults.propTypes = {
   related: PropTypes.array,
 };

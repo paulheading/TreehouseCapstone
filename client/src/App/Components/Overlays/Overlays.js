@@ -9,22 +9,25 @@ import "./Overlays.scss";
 
 export default function Overlays({
   currentUser,
-  setCurrentUser,
   isAboutOpen,
-  setIsAboutOpen,
   isAccountOpen,
-  setIsAccountOpen,
   isLoginOpen,
-  setIsLoginOpen,
   isSignupOpen,
-  setIsSignupOpen,
   savedFilms,
-  setSavedFilms,
   blackLists,
-  setBlackLists,
   doSearch,
+  searchTerm,
   isFirstTime,
+  setCurrentUser,
+  setIsAboutOpen,
+  setIsAccountOpen,
+  setIsLoginOpen,
+  setIsSignupOpen,
+  setSavedFilms,
+  setBlackLists,
   setIsFirstTime,
+  setResultSaved,
+  setUpdateSearch,
 }) {
   function aboutState() {
     if (isAboutOpen) {
@@ -35,15 +38,16 @@ export default function Overlays({
     if (isAccountOpen) {
       return (
         <Account
-          setIsAccountOpen={setIsAccountOpen}
           currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
           savedFilms={savedFilms}
-          setSavedFilms={setSavedFilms}
           blackLists={blackLists}
-          setBlackLists={setBlackLists}
           doSearch={doSearch}
+          setIsAccountOpen={setIsAccountOpen}
+          setCurrentUser={setCurrentUser}
+          setSavedFilms={setSavedFilms}
+          setBlackLists={setBlackLists}
           setIsFirstTime={setIsFirstTime}
+          setResultSaved={setResultSaved}
         />
       );
     }
@@ -52,11 +56,15 @@ export default function Overlays({
     if (isLoginOpen) {
       return (
         <Login
+          searchTerm={searchTerm}
+          doSearch={doSearch}
+          setResultSaved={setResultSaved}
           setIsLoginOpen={setIsLoginOpen}
           setIsSignupOpen={setIsSignupOpen}
           setCurrentUser={setCurrentUser}
           setBlackLists={setBlackLists}
           setSavedFilms={setSavedFilms}
+          setUpdateSearch={setUpdateSearch}
         />
       );
     }

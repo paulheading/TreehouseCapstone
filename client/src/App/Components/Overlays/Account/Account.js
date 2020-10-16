@@ -2,20 +2,21 @@ import React from "react";
 import "./Account.scss";
 import { Button, Tabs, Tab } from "react-bootstrap";
 import { filterDate } from "../../../modules/helpers";
-import { RemoveIcon, AvatarIcon } from "../../SvgIcon/SvgIcon";
+import { RemoveIcon, AvatarIcon } from "../../Icons/Icons";
 import PropTypes from "prop-types";
 import SavedFilms from "./SavedFilms";
 
 export default function Account({
-  setIsAccountOpen,
   currentUser,
-  setCurrentUser,
   blackLists,
-  setBlackLists,
   doSearch,
+  setIsAccountOpen,
+  setCurrentUser,
+  setBlackLists,
   savedFilms,
   setSavedFilms,
   setIsFirstTime,
+  setResultSaved,
 }) {
   if (currentUser) {
     function sinceDate(date) {
@@ -74,6 +75,7 @@ export default function Account({
                 setIsAccountOpen={setIsAccountOpen}
                 setBlackLists={setBlackLists}
                 setSavedFilms={setSavedFilms}
+                setResultSaved={setResultSaved}
               />
             </Tab>
           </Tabs>

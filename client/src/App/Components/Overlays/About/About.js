@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.scss";
 import { ListGroup } from "react-bootstrap";
-import { RemoveIcon } from "../../SvgIcon/SvgIcon";
+import { RemoveIcon } from "../../Icons/Icons";
 
 export default function About({ setIsAboutOpen }) {
   return (

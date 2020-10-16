@@ -9,7 +9,7 @@
     padding: 0;
   }
   &.wrap {
-    max-height: 14rem;
+    max-height: 11.6rem;
     overflow: hidden;
   }
   &.btn {
@@ -41,7 +41,6 @@
   }
   &.next {
     @extend %related-page-icon;
-    background: linear-gradient(transparent, rgba($gray--fade, 0.8));
     padding-top: 0.2rem;
     bottom: 0;
   }

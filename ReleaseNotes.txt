@@ -1,0 +1,29 @@
+
+
+**Features**
+
+
+The user can create an account and
+
+ - save searches for future reference
+
+ - edit search results and the results will be automatically saved
+
+ - the login button will display a personal greeting. On mobile it will read 'account'
+
+
+Each card displays a relevant album, featuring a list of artists related to that album.
+
+
+The hero card displays a search result from the OMDB database.
+
+
+**Bugs**
+
+
+The list of related artists usually does not appear on first search. It also does not appear if the web inspector window is open. 
+
+
+If the user searches for a film => then logs in and already has an edited search saved => the search results do not immediately update. 
+
+The user must click search again to see their edited results.

@@ -1,5 +1,5 @@
 import React from "react";
-import { RemoveIcon } from "../SvgIcon/SvgIcon";
+import { RemoveIcon } from "../Icons/Icons";
 import { changeNavbar } from "../../modules/animations";
 
 export default function Exit({ className }) {

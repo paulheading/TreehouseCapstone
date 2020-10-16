@@ -1,14 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
+import { Card } from "react-bootstrap";
+import { applyClass } from "../../modules/helpers";
+import { SaveButton } from "../Buttons/Buttons";
 import PropTypes from "prop-types";
-import { Card, Button } from "react-bootstrap";
-import {
-  createRoute,
-  getRoute,
-  isSaved,
-  applyClass,
-} from "../../modules/helpers";
-import { animateHeart } from "../../modules/animations";
-import { HeartIcon } from "../SvgIcon/SvgIcon";
 import "./FilmResults.scss";
 
 export default function FilmResults({
@@ -16,38 +10,26 @@ export default function FilmResults({
   currentUser,
   searchTerm,
   savedFilms,
+  blackLists,
+  resultSaved,
   setIsLoginOpen,
   setSavedFilms,
+  setBlackLists,
+  setResultSaved,
 }) {
-  const saveBtn = useRef(null);
   return (
-    <Card
-      className={`film-result ${applyClass(
-        isSaved(savedFilms, searchTerm),
-        "saved"
-      )}`}
-    >
-      <Button
-        ref={saveBtn}
-        variant="link"
-        className="save-film"
-        onClick={async () => {
-          if (currentUser) {
-            if (!isSaved(savedFilms, searchTerm)) {
-              createRoute("saved", {
-                userId: currentUser.id,
-                searchTerm,
-              });
-              setSavedFilms(await getRoute("saved", currentUser.id));
-              animateHeart(saveBtn.current);
-            }
-          } else {
-            setIsLoginOpen(true);
-          }
-        }}
-      >
-        <HeartIcon saved={isSaved(savedFilms, searchTerm)} />
-      </Button>
+    <Card className={`film-result ${applyClass(resultSaved, "saved")}`}>
+      <SaveButton
+        currentUser={currentUser}
+        savedFilms={savedFilms}
+        searchTerm={searchTerm}
+        blackLists={blackLists}
+        resultSaved={resultSaved}
+        setSavedFilms={setSavedFilms}
+        setBlackLists={setBlackLists}
+        setIsLoginOpen={setIsLoginOpen}
+        setResultSaved={setResultSaved}
+      />
       <Card.Header className="film-result">
         <h1 className="film-result title">{film.Title}</h1>
         <p className="film-result year">{film.Year}</p>

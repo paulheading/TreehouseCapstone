@@ -1,5 +1,5 @@
 import React from "react";
-import { BurgerIcon } from "../SvgIcon/SvgIcon";
+import { BurgerIcon } from "../Icons/Icons";
 import { changeNavbar } from "../../modules/animations";
 
 export default function Burger() {

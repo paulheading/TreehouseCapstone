@@ -1,13 +1,23 @@
 import Exit from "./Exit";
+import Help from "./Help";
+import Save from "./Save";
 import Burger from "./Burger";
+import RemoveSaved from "./RemoveSaved";
+import RemoveResult from "./RemoveResult";
 import SignupDesktop from "./SignupDesktop";
 import SignupMobile from "./SignupMobile";
 import LoginDesktop from "./LoginDesktop";
 import LoginMobile from "./LoginMobile";
+import LoginForm from "./LoginForm";
 
 export const ExitButton = Exit;
+export const HelpButton = Help;
+export const SaveButton = Save;
 export const BurgerButton = Burger;
+export const RemoveSavedButton = RemoveSaved;
+export const RemoveResultButton = RemoveResult;
 export const SignupDesktopButton = SignupDesktop;
 export const SignupMobileButton = SignupMobile;
 export const LoginDesktopButton = LoginDesktop;
 export const LoginMobileButton = LoginMobile;
+export const LoginFormButton = LoginForm;

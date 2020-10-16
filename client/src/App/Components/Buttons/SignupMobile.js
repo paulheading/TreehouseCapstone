@@ -10,22 +10,23 @@ export default function SignupMobile({
   setIsFirstTime,
   setIsSignupOpen,
 }) {
+  function doSignup() {
+    changeNavbar("close");
+    if (currentUser) {
+      setCurrentUser(null);
+      setSavedFilms(null);
+      setBlackLists(null);
+      setIsFirstTime(false);
+    } else {
+      setIsSignupOpen(true);
+    }
+  }
   return (
     <Button
       className="md-down"
       variant="outline-primary"
       size="lg"
-      onClick={() => {
-        changeNavbar("close");
-        if (currentUser) {
-          setCurrentUser(null);
-          setSavedFilms(null);
-          setBlackLists(null);
-          setIsFirstTime(false);
-        } else {
-          setIsSignupOpen(true);
-        }
-      }}
+      onClick={doSignup}
     >
       {currentUser ? "Log out" : "Sign up"}
     </Button>

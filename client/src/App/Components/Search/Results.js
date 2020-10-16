@@ -15,6 +15,9 @@ export default function Results({
   setBlackLists,
   setIsLoginOpen,
   setSavedFilms,
+  blackLists,
+  resultSaved,
+  setResultSaved,
 }) {
   let printResults;
   if (film) {
@@ -28,19 +31,23 @@ export default function Results({
                 currentUser={currentUser}
                 searchTerm={searchTerm}
                 savedFilms={savedFilms}
+                resultSaved={resultSaved}
                 setBlackLists={setBlackLists}
                 setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}
+                setResultSaved={setResultSaved}
               />
               <AlbumResults
                 currentUser={currentUser}
                 searchTerm={searchTerm}
                 albums={albums}
+                blackLists={blackLists}
                 savedFilms={savedFilms}
                 setAlbums={setAlbums}
                 setBlackLists={setBlackLists}
                 setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}
+                setResultSaved={setResultSaved}
               />
             </div>
           );
@@ -52,6 +59,9 @@ export default function Results({
                 currentUser={currentUser}
                 searchTerm={searchTerm}
                 savedFilms={savedFilms}
+                blackLists={blackLists}
+                resultSaved={resultSaved}
+                setResultSaved={setResultSaved}
                 setBlackLists={setBlackLists}
                 setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}

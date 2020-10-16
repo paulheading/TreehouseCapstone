@@ -8,25 +8,25 @@ export const site_url =
 // POST functions
 
 export async function createRoute(route, custom) {
-  let options = {
+  const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(custom),
   };
-  let post = await fetch(`${site_url}/${route}`, options);
-  return await post.json();
+  const response = await fetch(`${site_url}/${route}`, options);
+  const data = await response.json();
+  return data;
 }
 
 // DELETE functions
 
 export async function delRoute(route, custom) {
-  let options = {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-  };
   try {
-    let del = await fetch(`${site_url}/${route}/${custom}`, options);
-    return await del.json();
+    const response = await fetch(`${site_url}/${route}/${custom}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -35,16 +35,18 @@ export async function delRoute(route, custom) {
 // GET functions
 
 export async function getRoute(route, custom) {
-  let get = await fetch(`${site_url}/${route}/${custom}`);
-  return await get.json();
+  const response = await fetch(`${site_url}/${route}/${custom}`);
+  const data = await response.json();
+  return data;
 }
 
 export async function getAuthRoute(route, name, pass) {
   let headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", "Basic " + btoa(name + ":" + pass));
-  let get = await fetch(`${site_url}/${route}`, { headers });
-  return await get.json();
+  const response = await fetch(`${site_url}/${route}`, { headers });
+  const data = await response.json();
+  return data;
 }
 
 // FILTER functions

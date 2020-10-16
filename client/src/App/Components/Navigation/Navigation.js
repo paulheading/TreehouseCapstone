@@ -2,7 +2,7 @@ import React from "react";
 import "./Navigation.scss";
 import { Navbar, Button } from "react-bootstrap";
 import { changeNavbar } from "../../modules/animations";
-import { InlineLogo, MobileLogo } from "../Logo/Logo";
+import { InlineLogo, MobileLogo } from "../Logos/Logos";
 import PropTypes from "prop-types";
 import {
   ExitButton,
@@ -11,7 +11,7 @@ import {
   SignupMobileButton,
   LoginDesktopButton,
   LoginMobileButton,
-} from "../Button/Button";
+} from "../Buttons/Buttons";
 
 export default function Navigation({
   currentUser,

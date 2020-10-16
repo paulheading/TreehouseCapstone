@@ -1,8 +1,10 @@
 import React from "react";
 import { Table, Button, ListGroup } from "react-bootstrap";
-import { delRoute, limitString } from "../../../modules/helpers";
+import { limitString } from "../../../modules/helpers";
+import { SearchIcon } from "../../Icons/Icons";
+import { RemoveSavedButton } from "../../Buttons/Buttons";
 import PropTypes from "prop-types";
-import { RemoveIcon, SearchIcon } from "../../SvgIcon/SvgIcon";
+
 export default function SavedFilms({
   savedFilms,
   blackLists,
@@ -10,6 +12,7 @@ export default function SavedFilms({
   setIsAccountOpen,
   setBlackLists,
   setSavedFilms,
+  setResultSaved,
 }) {
   return savedFilms.length > 0 ? (
     <Table striped className="saved-table">
@@ -28,35 +31,20 @@ export default function SavedFilms({
                   onClick={() => {
                     doSearch(searchTerm);
                     setIsAccountOpen(false);
+                    setResultSaved(true);
                   }}
                 >
                   <SearchIcon variant="secondary" size="sm" />
                 </Button>
-                <Button
-                  variant="inline"
-                  onClick={() => {
-                    delRoute("saved", id);
-                    if (blackLists) {
-                      blackLists.forEach((value) => {
-                        if (value.searchTerm === searchTerm) {
-                          delRoute("blacklist", value.albumId);
-                        }
-                      });
-                      setBlackLists(
-                        blackLists.filter((value) => {
-                          return value.searchTerm !== searchTerm;
-                        })
-                      );
-                    }
-                    setSavedFilms(
-                      savedFilms.filter((value) => {
-                        return value.id !== id;
-                      })
-                    );
-                  }}
-                >
-                  <RemoveIcon variant="secondary" size="sm" />
-                </Button>
+                <RemoveSavedButton
+                  id={id}
+                  savedFilms={savedFilms}
+                  blackLists={blackLists}
+                  searchTerm={searchTerm}
+                  setResultSaved={setResultSaved}
+                  setBlackLists={setBlackLists}
+                  setSavedFilms={setSavedFilms}
+                />
               </td>
             </tr>
           );

@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { applyClass, applyVariant } from "../../modules/helpers";
 import { moveDown, moveUp } from "../../modules/animations.js";
-import "./SvgIcon.scss";
+import "./Icons.scss";
 
-export function HeartIcon({ saved }) {
+export function SaveIcon({ resultSaved }) {
   return (
     <svg
       version="1.1"
-      className={`icon-heart ${applyClass(saved, "saved")}`}
+      className={`icon-save ${applyClass(resultSaved, "saved")}`}
       width="36"
       height="32.4"
       viewBox="0 0 36 32.4"

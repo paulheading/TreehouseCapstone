@@ -1,19 +1,16 @@
 import gsap from "gsap";
 
 export const lines = {
-  visible: 4,
+  visible: 3,
   height: 39,
-  split: 13,
 };
 
 export function moveRelated(value, clicks, limit) {
   let tl = gsap.timeline({ defaults: { duration: 0.3 } });
   limit = limit - lines.visible;
 
-  if (clicks < limit) {
+  if (clicks <= limit) {
     tl.to(value, { y: -(clicks * lines.height) });
-  } else if (clicks === limit) {
-    tl.to(value, { y: -(clicks * lines.height + lines.split) });
   }
 }
 
@@ -27,16 +24,9 @@ export function moveUp(value, clicks, limit) {
   moveRelated(value, clicks, limit);
 }
 
-export function animateHeart(value) {
+export function animateSave(value) {
   value = value.children[0].children[0];
   gsap.to(value, { fill: "#FF8A80" });
-}
-
-export function clearHeart(value) {
-  value = value.parentNode.parentNode.nextSibling.children[0].querySelector(
-    "path.fill"
-  );
-  return value !== null ? gsap.set(value, { clearProps: "all" }) : null;
 }
 
 export function changeNavbar(input) {
@@ -57,4 +47,28 @@ export function spinMe(target) {
     duration: 2,
     repeat: -1,
   });
+}
+
+export function addClass(name, places) {
+  if (places.length) {
+    places.forEach((value) => {
+      let target = document.querySelector(value);
+      target.classList.add(name);
+    });
+  } else {
+    let target = document.querySelector(places);
+    target.classList.add(name);
+  }
+}
+
+export function removeClass(name, places) {
+  if (places.length) {
+    places.forEach((value) => {
+      let target = document.querySelector(value);
+      target.classList.remove(name);
+    });
+  } else {
+    let target = document.querySelector(places);
+    target.classList.remove(name);
+  }
 }

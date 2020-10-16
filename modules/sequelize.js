@@ -35,6 +35,21 @@ sequelize.sync({ force: true }).then(() => {
     password: "$2a$10$BYqOQKj98RXZwLzrs6LaMOBa6/sHoKaLfYGbRhleaD1Lb/qrxN7v2",
     level: "free",
   });
+  Blacklist.create({
+    searchTerm: "grease",
+    albumId: "5n47Dui0H3pGpZSOxITmoq",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "grease",
+    albumId: "5WVPtycFFSm3uGhufMKwGn",
+    userId: "1",
+  });
+  Saved.create({
+    id: "1",
+    searchTerm: "grease",
+    userId: "1",
+  });
 });
 
 const User = sequelize.define("user", {

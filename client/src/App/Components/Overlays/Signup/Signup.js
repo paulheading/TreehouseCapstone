@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { createRoute } from "../../../modules/helpers";
-import { RemoveIcon } from "../../SvgIcon/SvgIcon";
+import { RemoveIcon } from "../../Icons/Icons";
 import PropTypes from "prop-types";
 import "./Signup.scss";
 

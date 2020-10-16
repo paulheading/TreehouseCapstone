@@ -70,6 +70,7 @@
 
 %btn-link {
   @extend %btn-base;
+  text-align: inherit;
   color: inherit;
 
   &:hover,

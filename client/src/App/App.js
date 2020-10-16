@@ -21,6 +21,7 @@ import "./App.scss";
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
 
 export default function App() {
+  // environment variables
   require("dotenv").config();
   // spotify variables
   const params = getHashParams();
@@ -40,6 +41,8 @@ export default function App() {
   const [blackLists, setBlackLists] = useState([]);
   const [expired, setExpired] = useState(false);
   const [isFirstTime, setIsFirstTime] = useState(false);
+  const [resultSaved, setResultSaved] = useState(false);
+  const [updateSearch, setUpdateSearch] = useState(null);
 
   if (token) {
     spotifyApi.setAccessToken(token);
@@ -56,10 +59,11 @@ export default function App() {
       .then((data) => {
         return data.albums.items.map(
           ({ name, id, external_urls, images, release_date }) => {
+            const url = external_urls.spotify;
             return {
               name,
               id,
-              external_urls,
+              url,
               images,
               release_date,
             };
@@ -89,8 +93,8 @@ export default function App() {
           spotifyApi.getAlbumTracks(value.id).then(({ items }) => {
             items.forEach(({ artists }) => {
               artists.forEach(({ external_urls, name }) => {
+                const url = external_urls.spotify;
                 let exists = false;
-                let url = external_urls.spotify;
                 value.related.forEach((value) => {
                   if (value.name === name) {
                     exists = true;
@@ -116,7 +120,6 @@ export default function App() {
   }
 
   async function searchFilm(delta) {
-    // let api_key = process.env.API_KEY;
     let get = await fetch(
       `//www.omdbapi.com/?t=${delta}&apikey=${process.env.REACT_APP_OMDB_API}`
     );
@@ -125,38 +128,40 @@ export default function App() {
 
   useEffect(() => {
     document.title = "MovieTunes | Homepage";
-  });
+  }, []);
 
   return (
-    <div className={"App " + applyClass(loggedIn, "loggedIn")}>
+    <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
       {loggedIn[0] && !expired ? (
-        <div className="app-component">
+        <div className="dashboard-screen">
           <Overlays
             currentUser={currentUser}
+            isAboutOpen={isAboutOpen}
+            isAccountOpen={isAccountOpen}
+            isFirstTime={isFirstTime}
+            isLoginOpen={isLoginOpen}
+            isSignupOpen={isSignupOpen}
+            savedFilms={savedFilms}
+            blackLists={blackLists}
+            searchTerm={searchTerm}
             setCurrentUser={(delta) => {
               setCurrentUser(delta);
             }}
-            isAboutOpen={isAboutOpen}
             setIsAboutOpen={(delta) => {
               setIsAboutOpen(delta);
             }}
-            isAccountOpen={isAccountOpen}
             setIsAccountOpen={(delta) => {
               setIsAccountOpen(delta);
             }}
-            isLoginOpen={isLoginOpen}
             setIsLoginOpen={(delta) => {
               setIsLoginOpen(delta);
             }}
-            isSignupOpen={isSignupOpen}
             setIsSignupOpen={(delta) => {
               setIsSignupOpen(delta);
             }}
-            savedFilms={savedFilms}
             setSavedFilms={(delta) => {
               setSavedFilms(delta);
             }}
-            blackLists={blackLists}
             setBlackLists={(delta) => {
               setBlackLists(delta);
             }}
@@ -164,9 +169,14 @@ export default function App() {
               searchFilm(delta);
               searchAlbums(delta);
             }}
-            isFirstTime={isFirstTime}
             setIsFirstTime={(delta) => {
               setIsFirstTime(delta);
+            }}
+            setResultSaved={(delta) => {
+              setResultSaved(delta);
+            }}
+            setUpdateSearch={(delta) => {
+              setUpdateSearch(delta);
             }}
           />
           <Navigation
@@ -197,9 +207,18 @@ export default function App() {
             }}
           />
           <SearchForm
+            currentUser={currentUser}
+            savedFilms={savedFilms}
+            updateSearch={updateSearch}
             doSearch={(delta) => {
               searchFilm(delta);
               searchAlbums(delta);
+            }}
+            setResultSaved={(delta) => {
+              setResultSaved(delta);
+            }}
+            setUpdateSearch={(delta) => {
+              setUpdateSearch(delta);
             }}
           />
           {searchTerm ? (
@@ -209,6 +228,10 @@ export default function App() {
               albums={albums}
               film={film}
               savedFilms={savedFilms}
+              resultSaved={resultSaved}
+              setResultSaved={(delta) => {
+                setResultSaved(delta);
+              }}
               setSavedFilms={(delta) => {
                 setSavedFilms(delta);
               }}
@@ -231,7 +254,19 @@ export default function App() {
           )}
         </div>
       ) : (
-        <Start />
+        <div className="home-screen">
+          <Overlays
+            isAboutOpen={isAboutOpen}
+            setIsAboutOpen={(delta) => {
+              setIsAboutOpen(delta);
+            }}
+          />
+          <Start
+            setIsAboutOpen={(delta) => {
+              setIsAboutOpen(delta);
+            }}
+          />
+        </div>
       )}
     </div>
   );

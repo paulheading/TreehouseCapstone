@@ -20,3 +20,12 @@
     @extend %overlay-exit;
   }
 }
+
+.list-group.user-denied {
+  text-align: center;
+  margin: 2rem auto;
+
+  .list-group-item {
+    padding: 1rem;
+  }
+}

@@ -1,20 +1,26 @@
-import React, { useRef } from "react";
-import { Form, Button } from "react-bootstrap";
-import { getAuthRoute, getRoute } from "../../../modules/helpers";
-import { RemoveIcon } from "../../SvgIcon/SvgIcon";
+import React, { useState, useRef } from "react";
+import { Form, Button, ListGroup } from "react-bootstrap";
+import { LoginFormButton } from "../../Buttons/Buttons";
+import { RemoveIcon } from "../../Icons/Icons";
 import "./Login.scss";
 
 // https://www.reddit.com/r/learnjavascript/comments/iei80j/why_a_function_still_returns_me_promise_pending/#t1_g2gp49m
 
 export default function Login({
+  searchTerm,
+  doSearch,
+  setResultSaved,
   setIsLoginOpen,
   setCurrentUser,
   setBlackLists,
   setSavedFilms,
   setIsSignupOpen,
+  setUpdateSearch,
 }) {
+  const [userDenied, setUserDenied] = useState(null);
   const emailAddress = useRef(null);
   const password = useRef(null);
+
   return (
     <div className="login-overlay__container">
       <div
@@ -44,30 +50,28 @@ export default function Login({
               placeholder="Password"
             />
           </Form.Group>
-          <Button
-            block
-            size="md"
-            variant="primary"
-            type="submit"
-            onClick={async (e) => {
-              e.preventDefault();
-              let getUser = await getAuthRoute(
-                "users",
-                emailAddress.current.value,
-                password.current.value
-              );
-              if (getUser.message) {
-                console.log(getUser.message);
-              } else {
-                setCurrentUser(getUser);
-                setSavedFilms(await getRoute("saved", getUser.id));
-                setBlackLists(await getRoute("blacklist", getUser.id));
-                setIsLoginOpen(false);
-              }
+
+          {userDenied ? (
+            <ListGroup variant="secondary" className="user-denied">
+              <ListGroup.Item>{userDenied}</ListGroup.Item>
+            </ListGroup>
+          ) : null}
+
+          <LoginFormButton
+            emailAddress={emailAddress}
+            password={password}
+            searchTerm={searchTerm}
+            doSearch={doSearch}
+            setCurrentUser={setCurrentUser}
+            setSavedFilms={setSavedFilms}
+            setBlackLists={setBlackLists}
+            setIsLoginOpen={setIsLoginOpen}
+            setResultSaved={setResultSaved}
+            setUpdateSearch={setUpdateSearch}
+            setUserDenied={(delta) => {
+              setUserDenied(delta);
             }}
-          >
-            Log in
-          </Button>
+          />
         </Form>
         <p className="has-account">
           Don't have an account?

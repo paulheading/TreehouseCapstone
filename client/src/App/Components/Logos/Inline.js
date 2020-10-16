@@ -1,5 +1,5 @@
 import React from "react";
-import "./Logo.scss";
+import "./Logos.scss";
 
 export default function Inline({ className }) {
   return (
