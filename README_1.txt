@@ -1,5 +1,11 @@
 
 
+Fix/Improve: 
+
+- Welcome greeting
+- Sign up on focus
+
+
 **Features**
 
 
@@ -18,12 +24,16 @@ Each card displays a relevant album, featuring a list of artists related to that
 The hero card displays a search result from the OMDB database.
 
 
+On first time login, user receives a personal greeting
+
+
 **Bugs**
 
+The list of related artists renders unpredictably. Often you will need to repeat a search to see it.
 
-The list of related artists usually does not appear on first search. It also does not appear if the web inspector window is open. 
+The list of saved searches (in the account area) renders unpredictably. Often you will need to refresh the page to update it.
 
 
-If the user searches for a film => then logs in and already has an edited search saved => the search results do not immediately update. 
+If the user searches for a film => then logs in and already has an edited saved version => the search results do not immediately update. 
 
 The user must click search again to see their edited results.
