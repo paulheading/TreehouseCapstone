@@ -21,32 +21,101 @@ if (node_env === "production") {
     dialect: "sqlite",
     storage: "database.sqlite",
   });
-  // local database reset
-  sequelize.sync({ force: true }).then(() => {
-    User.create({
-      firstName: "Paul",
-      lastName: "Heading",
-      emailAddress: "paulheading@me.com",
-      password: "$2a$10$BYqOQKj98RXZwLzrs6LaMOBa6/sHoKaLfYGbRhleaD1Lb/qrxN7v2",
-      level: "free",
-    });
-    Blacklist.create({
-      searchTerm: "grease",
-      albumId: "5n47Dui0H3pGpZSOxITmoq",
-      userId: "1",
-    });
-    Blacklist.create({
-      searchTerm: "grease",
-      albumId: "5WVPtycFFSm3uGhufMKwGn",
-      userId: "1",
-    });
-    Saved.create({
-      id: "1",
-      searchTerm: "grease",
-      userId: "1",
-    });
-  });
 }
+
+// database reset
+sequelize.sync({ force: true }).then(() => {
+  User.create({
+    firstName: "Demo",
+    lastName: "User",
+    emailAddress: "demo@me.com",
+    password: "$2a$10$MW.UW1QLUMfVHp87elyEoeOuVncwcE/JDFMuVsQrirtP8xNXF.iLu",
+    level: "free",
+  });
+  Blacklist.create({
+    searchTerm: "grease",
+    albumId: "786Anwp3pBYU4G3WFeQZTq",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "grease",
+    albumId: "1x55RBNqokftmzDwDnWOSf",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "grease",
+    albumId: "385XOLrrCH0kb5LLUBa6Zk",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "0tv8Nv5a3ogeRCuGQEH5xA",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "6i2A1N9iT26e0bRFTFECSP",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "4YTG1yOBPcufPRigRO9YCM",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "36t3hvr9NDOKn6y3NVBAlu",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "1hus3056xdxitC01IiuNBq",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "0IfAPdDU1feMP8za87rTef",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "7x5ZheRVIlLIoH5gNRe8Zj",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "7MHO4WRKzD9rlyuDnItuiE",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "1nkGgtSYKeE0kJyg4k8HES",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "2ZdQOIcOtPAsazAGyOvnOw",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "5bPuhn54IPZ5ZeDO4oWLtH",
+    userId: "1",
+  });
+  Blacklist.create({
+    searchTerm: "dumb and dumber",
+    albumId: "2M2L4jkkv4jYxbKKObPnf2",
+    userId: "1",
+  });
+  Saved.create({
+    searchTerm: "grease",
+    userId: "1",
+  });
+  Saved.create({
+    searchTerm: "dumb and dumber",
+    userId: "1",
+  });
+});
 
 sequelize.authenticate().catch((err) => {
   console.error("Unable to connect to the database:", err);

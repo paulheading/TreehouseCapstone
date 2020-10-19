@@ -7,14 +7,12 @@ export default function SForm({
   currentUser,
   savedFilms,
   doSearch,
-  updateSearch,
   setResultSaved,
-  setUpdateSearch,
 }) {
   const [search, setSearch] = useState(null);
   const searchBtn = useRef(null);
 
-  function doSubmit() {
+  function doSubmit(e) {
     doSearch(search);
 
     if (currentUser) {

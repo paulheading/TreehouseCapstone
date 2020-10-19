@@ -32,6 +32,8 @@ export default function SavedFilms({
                     doSearch(searchTerm);
                     setIsAccountOpen(false);
                     setResultSaved(true);
+                    const searchInput = document.querySelector(".search-input");
+                    searchInput.value = searchTerm;
                   }}
                 >
                   <SearchIcon variant="secondary" size="sm" />
