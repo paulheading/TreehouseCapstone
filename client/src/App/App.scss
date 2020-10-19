@@ -52,7 +52,11 @@ body {
     font-size: 1.8rem;
   }
   &-lg {
-    font-size: 2.2rem;
+    font-size: 2rem;
+
+    @media #{$min768} {
+      font-size: 2.2rem;
+    }
   }
 }
 
@@ -111,9 +115,23 @@ body {
 }
 
 .table {
+  tr {
+    td {
+      border-top: $related-artists-border;
+    }
+    &:first-of-type {
+      td {
+        border-top: none;
+      }
+    }
+  }
   td {
     padding: 0.8rem 1.2rem;
     line-height: 1;
+
+    &:first-of-type {
+      padding-right: 0;
+    }
   }
 }
 
@@ -142,7 +160,6 @@ h2 {
   }
   &.not-found {
     text-align: center;
-    font-size: 1.8rem;
     max-width: 32rem;
     margin: 0 auto;
   }

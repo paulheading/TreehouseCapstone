@@ -22,7 +22,11 @@
   }
   &.card-body {
     background-color: white;
-    padding: 3rem;
+    padding: 2rem;
+
+    @media #{$min768} {
+      padding: 3rem;
+    }
   }
   &.year {
     margin: 0;

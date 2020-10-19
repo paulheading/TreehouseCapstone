@@ -17,18 +17,6 @@
     font-size: 1.3rem;
     padding: 0;
   }
-  &.table {
-    tr {
-      td {
-        border-top: $related-artists-border;
-      }
-      &:first-of-type {
-        td {
-          border-top: none;
-        }
-      }
-    }
-  }
   &.prev {
     @extend %related-page-icon;
     height: 0;

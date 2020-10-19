@@ -60,7 +60,7 @@ export default function RelatedResults({ related }) {
                       {limitString(name, 20)}
                     </Button>
                   </td>
-                  <td style={{ width: "5rem" }}>
+                  <td style={{ width: "4.6rem" }}>
                     <Button
                       href={url}
                       className="related-artists"

@@ -40,14 +40,19 @@
       }
     }
     .tab-content {
-      @include modal($rad: 0 0 0.3rem 0.3rem, $pad: 7rem 2rem);
+      @include modal($rad: 0 0 0.3rem 0.3rem);
+      padding-bottom: 4rem;
+      padding-top: 4rem;
       border-top: 0;
 
+      @media #{$min768} {
+        padding-bottom: 6rem;
+        padding-top: 6rem;
+      }
+
       .table {
-        border-bottom: 1px solid $purple;
-        border-right: 1px solid $purple;
-        border-left: 1px solid $purple;
         text-transform: capitalize;
+        border: 1px solid $purple;
         font-style: italic;
         font-size: 1.8rem;
         font-weight: bold;

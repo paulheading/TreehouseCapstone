@@ -2,6 +2,7 @@
 TODO
 
 - README
+- Mobile styling
 
 
 **Features**

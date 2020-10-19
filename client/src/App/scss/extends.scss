@@ -91,7 +91,7 @@
 }
 
 @mixin overlayGap {
-  margin-top: 6rem;
+  margin-top: 4rem;
 
   @media #{$min768} {
     margin-top: 8rem;

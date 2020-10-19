@@ -5,7 +5,10 @@
   &__container {
     text-align: center;
     margin-top: -8rem;
-    font-size: 1.8rem;
+
+    @media #{$min768} {
+      font-size: 1.8rem;
+    }
   }
   &__wrap {
     @include overlayWrap;

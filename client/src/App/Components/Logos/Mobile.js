@@ -6,8 +6,6 @@ export default function Mobile({ className }) {
     <svg
       className={`logo__mobile ${className}`}
       xmlns="http://www.w3.org/2000/svg"
-      width="100"
-      height="48"
       viewBox="0 0 100 48"
     >
       <path
