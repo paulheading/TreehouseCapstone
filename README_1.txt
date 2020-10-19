@@ -1,9 +1,7 @@
 
+TODO
 
-Fix/Improve: 
-
-- Welcome greeting
-- Sign up on focus
+- README
 
 
 **Features**

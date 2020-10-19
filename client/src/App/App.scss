@@ -168,3 +168,15 @@ a {
     }
   }
 }
+
+.badge-primary {
+  background-color: $purple;
+}
+
+.alert {
+  &-danger {
+    background-color: $red--fade;
+    border-color: $red;
+    color: $red;
+  }
+}

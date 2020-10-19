@@ -1,13 +1,25 @@
+@import "../../scss/extends";
+
 .first-time {
   &.container {
-    position: absolute;
     text-align: center;
+    position: absolute;
+    max-width: none;
+    display: none;
+    padding: 0;
     z-index: 2;
+    height: 0;
     right: 0;
     left: 0;
+
+    @media #{$min768} {
+      display: block;
+    }
   }
+
   &.badge {
-    font-size: 100%;
+    font-size: 1.8rem;
     padding: 0.8em;
+    margin: 2rem;
   }
 }

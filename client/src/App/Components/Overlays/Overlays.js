@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Container, Badge } from "react-bootstrap";
+import { floatAway } from "../../modules/animations";
 import About from "./About/About";
 import Account from "./Account/Account";
 import Login from "./Login/Login";
@@ -29,6 +30,14 @@ export default function Overlays({
   setResultSaved,
   setUpdateSearch,
 }) {
+  let welcomeMessage = useRef(null);
+
+  useEffect(() => {
+    if (isFirstTime) {
+      floatAway(welcomeMessage.current);
+    }
+  }, [isFirstTime]);
+
   function aboutState() {
     if (isAboutOpen) {
       return <About setIsAboutOpen={setIsAboutOpen} />;
@@ -85,8 +94,13 @@ export default function Overlays({
     if (isFirstTime) {
       return (
         <Container className="first-time">
-          <Badge className="first-time" pill variant="primary">
-            Welcome!
+          <Badge
+            ref={welcomeMessage}
+            className="first-time"
+            variant="primary"
+            pill
+          >
+            <div className="first-time__message">Welcome!</div>
           </Badge>
         </Container>
       );

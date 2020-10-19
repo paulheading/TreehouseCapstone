@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Form, Button, ListGroup } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { LoginFormButton } from "../../Buttons/Buttons";
 import { RemoveIcon } from "../../Icons/Icons";
 import "./Login.scss";
@@ -52,9 +52,9 @@ export default function Login({
           </Form.Group>
 
           {userDenied ? (
-            <ListGroup variant="secondary" className="user-denied">
-              <ListGroup.Item>{userDenied}</ListGroup.Item>
-            </ListGroup>
+            <Alert variant="danger" className="user-denied">
+              {userDenied}
+            </Alert>
           ) : null}
 
           <LoginFormButton

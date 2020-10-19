@@ -72,3 +72,12 @@ export function removeClass(name, places) {
     target.classList.remove(name);
   }
 }
+
+export function floatAway(target) {
+  gsap.to(target, {
+    ease: "back.in(2)",
+    duration: 0.5,
+    delay: 3,
+    y: -300,
+  });
+}
