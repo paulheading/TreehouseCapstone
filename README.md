@@ -1,9 +1,5 @@
 # Welcome to Movie Tunes!
 
-## Introduction
-
-<br>
-
 [Movietunes](https://www.movietun.es) is a full stack website that includes
 
 - React front-end
@@ -15,15 +11,9 @@
 - 1 internal api (between front/back ends)
 - 2 external api (omdb & spotify)
 
-<br>
-
 <hr>
 
-<br>
-
 ## Features
-
-<br>
 
 1. The user can create an account and
 
@@ -39,15 +29,9 @@
 
 5. On desktop, the login button will display a personal greeting
 
-<br>
-
 <hr>
 
-<br>
-
 ## Bugs
-
-<br>
 
 1. The list of related artists renders unpredictably. Often you will need to repeat a search to see it.
 
