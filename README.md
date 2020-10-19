@@ -4,13 +4,14 @@
 
 <br>
 
-Movietunes is a full stack website that includes
+[Movietunes](https://www.movietun.es) is a full stack website that includes
 
 - React front-end
 - React Bootstrap styling
 - Express back-end
 - MySQL database
 - Sequelize ORM
+- Customised form error handling
 - 1 internal api (between front/back ends)
 - 2 external api (omdb & spotify)
 
