@@ -2,16 +2,16 @@
 
 [Movietunes](https://www.movietun.es) is a full stack website that includes
 
-- React front-end
-- React Bootstrap styling
-- Express back-end
+- React front-end, with Jest unit testing enabled
+- Express back-end, with Mocha/Chai unit testing enabled
+- Customised React Bootstrap styling
 - MySQL database
 - Sequelize ORM
 - Customised form error handling
 - 1 internal api (between front/back ends)
 - 2 external api (omdb & spotify)
 
-<hr>
+<br>
 
 ## Features
 
@@ -29,7 +29,7 @@
 
 5. On desktop, the login button will display a personal greeting
 
-<hr>
+<br>
 
 ## Bugs
 

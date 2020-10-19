@@ -16,6 +16,10 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 
+export function sayHello() {
+  return "hello";
+}
+
 // https://hellocode.dev/updating-state
 // https://www.positronx.io/react-onclick-event-handling-methods-with-examples/
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
