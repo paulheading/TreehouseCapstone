@@ -1,20 +1,9 @@
 @import "../../../scss/extends";
 
-.account-overlay {
-  &__container {
-    @include overlayContainer;
-  }
-  &__exit-icon {
+.account {
+  .overlay__wrap {
     @include overlayGap;
-    @extend %overlay-exit-icon;
-  }
-  &__form {
-    position: relative;
-    z-index: 2;
-  }
-  &__wrap {
-    @include overlayGap;
-    @include overlayWrap(32rem);
+    max-width: 32rem;
 
     .nav-tabs {
       border-bottom-color: $purple;
@@ -69,9 +58,6 @@
       }
     }
   }
-  &__exit {
-    @extend %overlay-exit;
-  }
 }
 
 table.table {
@@ -105,7 +91,7 @@ table.table {
   &__term {
     padding-top: 0.2rem;
   }
-  .btn + .btn {
-    margin-left: 1rem;
+  .search-saved__link {
+    margin-right: 1rem;
   }
 }

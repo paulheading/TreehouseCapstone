@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { isSaved, createRoute, getRoute } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons/Icons";
 
-export default function RemoveResult({
+export default function RemoveResultButton({
   id,
   currentUser,
   savedFilms,
@@ -11,9 +12,11 @@ export default function RemoveResult({
   setAlbums,
   setSavedFilms,
   setBlackLists,
-  setIsLoginOpen,
   setResultSaved,
 }) {
+  const history = useHistory();
+  const openLogin = useCallback(() => history.push("/login"), [history]);
+
   async function removeAlbum() {
     if (currentUser) {
       if (!isSaved(savedFilms, searchTerm)) {
@@ -32,7 +35,7 @@ export default function RemoveResult({
       setBlackLists(await getRoute("blacklist", currentUser.id));
       setAlbums(id);
     } else {
-      setIsLoginOpen(true);
+      openLogin();
     }
   }
   return (

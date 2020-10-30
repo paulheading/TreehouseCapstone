@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, ListGroup } from "react-bootstrap";
-import AlbumResults from "../AlbumResults/AlbumResults";
-import FilmResults from "../FilmResults/FilmResults";
+import AlbumResults from "../../AlbumResults/AlbumResults";
+import FilmResults from "../../FilmResults/FilmResults";
 import PropTypes from "prop-types";
 import "./Results.scss";
 
-export default function Results({
+export default function SearchResults({
   currentUser,
   searchTerm,
   film,
@@ -13,7 +13,6 @@ export default function Results({
   savedFilms,
   setAlbums,
   setBlackLists,
-  setIsLoginOpen,
   setSavedFilms,
   blackLists,
   resultSaved,
@@ -33,7 +32,6 @@ export default function Results({
                 savedFilms={savedFilms}
                 resultSaved={resultSaved}
                 setBlackLists={setBlackLists}
-                setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}
                 setResultSaved={setResultSaved}
               />
@@ -45,7 +43,6 @@ export default function Results({
                 savedFilms={savedFilms}
                 setAlbums={setAlbums}
                 setBlackLists={setBlackLists}
-                setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}
                 setResultSaved={setResultSaved}
               />
@@ -63,7 +60,6 @@ export default function Results({
                 resultSaved={resultSaved}
                 setResultSaved={setResultSaved}
                 setBlackLists={setBlackLists}
-                setIsLoginOpen={setIsLoginOpen}
                 setSavedFilms={setSavedFilms}
               />
               <ListGroup variant="primary" className="not-found">
@@ -81,7 +77,6 @@ export default function Results({
               searchTerm={searchTerm}
               savedFilms={savedFilms}
               setBlackLists={setBlackLists}
-              setIsLoginOpen={setIsLoginOpen}
               setSavedFilms={setSavedFilms}
             />
             <ListGroup variant="primary" className="not-found">
@@ -101,7 +96,7 @@ export default function Results({
   return <Container className="search-results">{printResults}</Container>;
 }
 
-Results.propTypes = {
+SearchResults.propTypes = {
   currentUser: PropTypes.object,
   searchTerm: PropTypes.string,
   film: PropTypes.object,

@@ -6,59 +6,20 @@
     padding: 2rem;
     color: $purple;
   }
-  @media #{$max767} {
-    .navbar {
-      &-mobile__exit-icon {
-        @include overlayGap;
-      }
-      &-mobile-controls {
-        .btn + .btn {
-          margin-left: 2rem;
-        }
-      }
-      &-collapse.show {
-        @include overlayContainer;
-        text-align: center;
-      }
-      &-mobile-wrap {
-        @include overlayGap;
-        border: 0.1rem solid $purple;
-        vertical-align: middle;
-        border-radius: 0.4rem;
-        display: inline-block;
-        max-width: 14rem;
-        overflow: hidden;
+}
 
-        .btn {
-          border: 0.1rem solid transparent;
-          background-color: white;
-          border-radius: 0;
-          width: 100%;
-
-          &:hover,
-          &:focus {
-            background-color: $purple;
-            text-decoration: none;
-            color: white;
-          }
-
-          + .btn {
-            border-top-color: $purple;
-          }
-        }
-      }
-    }
+.mobile-buttons {
+  .btn {
+    margin-left: 2rem;
   }
-  @media #{$min768} {
-    .navbar {
-      &-mobile__exit-icon {
-        display: none;
-      }
-      &-collapse {
-        .btn + .btn {
-          margin-left: 1rem;
-        }
-      }
-    }
+}
+
+.desktop-buttons {
+  justify-content: flex-end;
+  display: flex;
+  flex-grow: 1;
+
+  a + a {
+    margin-left: 1rem;
   }
 }

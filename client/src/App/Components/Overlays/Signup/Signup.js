@@ -1,16 +1,11 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
-import { createRoute } from "../../../modules/helpers";
-import { RemoveIcon } from "../../Icons/Icons";
+import { ExitButton, ExitArea, SignupFormButton } from "../../Buttons/Index";
 import PropTypes from "prop-types";
 import "./Signup.scss";
 
-export default function Signup({
-  setIsLoginOpen,
-  setIsSignupOpen,
-  setCurrentUser,
-  setIsFirstTime,
-}) {
+export default function SignupOverlay({ setCurrentUser, setIsFirstTime }) {
   const firstName = useRef(null);
   const lastName = useRef(null);
   const emailAddress = useRef(null);
@@ -18,17 +13,10 @@ export default function Signup({
   const [errorMsgs, setErrorMsgs] = useState([]);
 
   return (
-    <div className="login-overlay__container">
-      <div
-        className="login-overlay__exit-icon"
-        onClick={() => {
-          setIsSignupOpen(false);
-        }}
-      >
-        <RemoveIcon variant="secondary" />
-      </div>
-      <div className="login-overlay__wrap">
-        <Form className="login-overlay__form">
+    <div className="overlay__container signup">
+      <ExitButton />
+      <div className="overlay__wrap">
+        <Form className="overlay__form">
           <Form.Group>
             <Form.Label>First name</Form.Label>
             <Form.Control
@@ -70,55 +58,30 @@ export default function Signup({
               </Form.Text>
             </Form.Group>
           ) : null}
-          <Button
-            block
-            size="md"
-            variant="primary"
-            type="submit"
-            onClick={async (e) => {
-              e.preventDefault();
-              let newUser = await createRoute("users", {
-                firstName: firstName.current.value,
-                lastName: lastName.current.value,
-                emailAddress: emailAddress.current.value,
-                password: password.current.value,
-                level: "free",
-              });
-              if (!newUser.errors) {
-                setCurrentUser(newUser);
-                setIsFirstTime(true);
-                setIsSignupOpen(false);
-              } else {
-                setErrorMsgs(newUser.errors);
-              }
+          <SignupFormButton
+            firstName={firstName}
+            lastName={lastName}
+            emailAddress={emailAddress}
+            password={password}
+            setCurrentUser={setCurrentUser}
+            setIsFirstTime={setIsFirstTime}
+            setErrorMsgs={(delta) => {
+              setErrorMsgs(delta);
             }}
-          >
-            Sign up
-          </Button>
+          />
         </Form>
         <p className="has-account">
           Already have an account?
-          <Button
-            variant="link"
-            onClick={() => {
-              setIsSignupOpen(false);
-              setIsLoginOpen(true);
-            }}
-          >
-            Log in
-          </Button>
+          <Link to="/login">
+            <Button variant="link">Log in</Button>
+          </Link>
         </p>
       </div>
-      <div
-        className="login-overlay__exit"
-        onClick={() => {
-          setIsSignupOpen(false);
-        }}
-      ></div>
+      <ExitArea />
     </div>
   );
 }
 
-Signup.propTypes = {
+SignupOverlay.propTypes = {
   errorMsgs: PropTypes.array,
 };

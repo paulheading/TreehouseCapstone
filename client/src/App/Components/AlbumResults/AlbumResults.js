@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardDeck, Button } from "react-bootstrap";
-import { RemoveResultButton } from "../Buttons/Buttons";
+import { RemoveResultButton } from "../Buttons/Index";
 import RelatedResults from "./RelatedResults";
 import { limitString } from "../../modules/helpers";
 import PropTypes from "prop-types";
@@ -13,7 +13,6 @@ export default function AlbumResults({
   savedFilms,
   setAlbums,
   setBlackLists,
-  setIsLoginOpen,
   setSavedFilms,
   setResultSaved,
 }) {
@@ -33,7 +32,6 @@ export default function AlbumResults({
                   setAlbums={setAlbums}
                   setSavedFilms={setSavedFilms}
                   setBlackLists={setBlackLists}
-                  setIsLoginOpen={setIsLoginOpen}
                   setResultSaved={setResultSaved}
                 />
                 <Card.Header className="album-results">

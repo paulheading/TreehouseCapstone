@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { MemoryRouter, Route } from "react-router-dom";
 import { spotifyApi, getHashParams } from "./modules/spotify";
 import { applyClass } from "./modules/helpers";
 
 // Import react components
 import Navigation from "./Components/Navigation/Navigation";
-import Overlays from "./Components/Overlays/Overlays";
 import Start from "./Components/Start/Start";
+import {
+  AboutOverlay,
+  AccountOverlay,
+  LoginOverlay,
+  MenuOverlay,
+  SignupOverlay,
+} from "./Components/Overlays/Index";
 import {
   SearchForm,
   SearchMessage,
   SearchResults,
-} from "./Components/Search/Search";
+} from "./Components/Search/Index";
 
 // Import css for bootstrap & styling for App
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -34,11 +41,6 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState(null);
   const [film, setFilm] = useState(null);
   const [albums, setAlbums] = useState(null);
-  // overlay variables
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
   // user variables
   const [currentUser, setCurrentUser] = useState(null);
   const [savedFilms, setSavedFilms] = useState([]);
@@ -138,138 +140,182 @@ export default function App() {
     <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
       {loggedIn[0] && !expired ? (
         <div className="dashboard-screen">
-          <Overlays
-            currentUser={currentUser}
-            isAboutOpen={isAboutOpen}
-            isAccountOpen={isAccountOpen}
-            isFirstTime={isFirstTime}
-            isLoginOpen={isLoginOpen}
-            isSignupOpen={isSignupOpen}
-            savedFilms={savedFilms}
-            blackLists={blackLists}
-            searchTerm={searchTerm}
-            setCurrentUser={(delta) => {
-              setCurrentUser(delta);
-            }}
-            setIsAboutOpen={(delta) => {
-              setIsAboutOpen(delta);
-            }}
-            setIsAccountOpen={(delta) => {
-              setIsAccountOpen(delta);
-            }}
-            setIsLoginOpen={(delta) => {
-              setIsLoginOpen(delta);
-            }}
-            setIsSignupOpen={(delta) => {
-              setIsSignupOpen(delta);
-            }}
-            setSavedFilms={(delta) => {
-              setSavedFilms(delta);
-            }}
-            setBlackLists={(delta) => {
-              setBlackLists(delta);
-            }}
-            doSearch={(delta) => {
-              searchFilm(delta);
-              searchAlbums(delta);
-            }}
-            setIsFirstTime={(delta) => {
-              setIsFirstTime(delta);
-            }}
-            setResultSaved={(delta) => {
-              setResultSaved(delta);
-            }}
-            setUpdateSearch={(delta) => {
-              setUpdateSearch(delta);
-            }}
-          />
-          <Navigation
-            currentUser={currentUser}
-            setCurrentUser={(delta) => {
-              setCurrentUser(delta);
-            }}
-            setIsLoginOpen={(delta) => {
-              setIsLoginOpen(delta);
-            }}
-            setIsAboutOpen={(delta) => {
-              setIsAboutOpen(delta);
-            }}
-            setIsAccountOpen={(delta) => {
-              setIsAccountOpen(delta);
-            }}
-            setIsSignupOpen={(delta) => {
-              setIsSignupOpen(delta);
-            }}
-            setSavedFilms={(delta) => {
-              setSavedFilms(delta);
-            }}
-            setBlackLists={(delta) => {
-              setBlackLists(delta);
-            }}
-            setIsFirstTime={(delta) => {
-              setIsFirstTime(delta);
-            }}
-          />
-          <SearchForm
-            currentUser={currentUser}
-            savedFilms={savedFilms}
-            updateSearch={updateSearch}
-            doSearch={(delta) => {
-              searchFilm(delta);
-              searchAlbums(delta);
-            }}
-            setResultSaved={(delta) => {
-              setResultSaved(delta);
-            }}
-            setUpdateSearch={(delta) => {
-              setUpdateSearch(delta);
-            }}
-          />
-          {searchTerm ? (
-            <SearchResults
-              currentUser={currentUser}
-              searchTerm={searchTerm}
-              albums={albums}
-              film={film}
-              savedFilms={savedFilms}
-              resultSaved={resultSaved}
-              setResultSaved={(delta) => {
-                setResultSaved(delta);
-              }}
-              setSavedFilms={(delta) => {
-                setSavedFilms(delta);
-              }}
-              setIsLoginOpen={(delta) => {
-                setIsLoginOpen(delta);
-              }}
-              setAlbums={(delta) => {
-                setAlbums(
-                  albums.filter((value) => {
-                    return value.id !== delta;
-                  })
+          <MemoryRouter>
+            <Route path="/about" exact component={AboutOverlay} />
+            <Route
+              path="/login"
+              exact
+              component={() => {
+                return (
+                  <LoginOverlay
+                    searchTerm={searchTerm}
+                    setCurrentUser={(delta) => {
+                      setCurrentUser(delta);
+                    }}
+                    setResultSaved={(delta) => {
+                      setResultSaved(delta);
+                    }}
+                    setSavedFilms={(delta) => {
+                      setSavedFilms(delta);
+                    }}
+                    setBlackLists={(delta) => {
+                      setBlackLists(delta);
+                    }}
+                    doSearch={(delta) => {
+                      searchFilm(delta);
+                      searchAlbums(delta);
+                    }}
+                  />
                 );
               }}
-              setBlackLists={(delta) => {
-                setBlackLists(delta);
+            />
+            <Route
+              path="/signup"
+              exact
+              component={() => {
+                return (
+                  <SignupOverlay
+                    setCurrentUser={(delta) => {
+                      setCurrentUser(delta);
+                    }}
+                    setIsFirstTime={(delta) => {
+                      setIsFirstTime(delta);
+                    }}
+                  />
+                );
               }}
             />
-          ) : (
-            <SearchMessage />
-          )}
+            <Route
+              path="/menu"
+              exact
+              component={() => {
+                return (
+                  <MenuOverlay
+                    currentUser={currentUser}
+                    setCurrentUser={(delta) => {
+                      setCurrentUser(delta);
+                    }}
+                    setSavedFilms={(delta) => {
+                      setSavedFilms(delta);
+                    }}
+                    setBlackLists={(delta) => {
+                      setBlackLists(delta);
+                    }}
+                    setIsFirstTime={(delta) => {
+                      setIsFirstTime(delta);
+                    }}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/account"
+              exact
+              component={() => {
+                return (
+                  <AccountOverlay
+                    currentUser={currentUser}
+                    savedFilms={savedFilms}
+                    blackLists={blackLists}
+                    doSearch={(delta) => {
+                      searchFilm(delta);
+                      searchAlbums(delta);
+                    }}
+                    setCurrentUser={(delta) => {
+                      setCurrentUser(delta);
+                    }}
+                    setBlackLists={(delta) => {
+                      setBlackLists(delta);
+                    }}
+                    setSavedFilms={(delta) => {
+                      setSavedFilms(delta);
+                    }}
+                    setIsFirstTime={(delta) => {
+                      setIsFirstTime(delta);
+                    }}
+                    setResultSaved={(delta) => {
+                      setResultSaved(delta);
+                    }}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/"
+              exact
+              component={() => {
+                return (
+                  <div>
+                    <Navigation
+                      currentUser={currentUser}
+                      setCurrentUser={(delta) => {
+                        setCurrentUser(delta);
+                      }}
+                      setSavedFilms={(delta) => {
+                        setSavedFilms(delta);
+                      }}
+                      setBlackLists={(delta) => {
+                        setBlackLists(delta);
+                      }}
+                      setIsFirstTime={(delta) => {
+                        setIsFirstTime(delta);
+                      }}
+                    />
+                    <SearchForm
+                      currentUser={currentUser}
+                      savedFilms={savedFilms}
+                      updateSearch={updateSearch}
+                      doSearch={(delta) => {
+                        searchFilm(delta);
+                        searchAlbums(delta);
+                      }}
+                      setResultSaved={(delta) => {
+                        setResultSaved(delta);
+                      }}
+                      setUpdateSearch={(delta) => {
+                        setUpdateSearch(delta);
+                      }}
+                    />
+                    {searchTerm ? (
+                      <SearchResults
+                        currentUser={currentUser}
+                        searchTerm={searchTerm}
+                        albums={albums}
+                        film={film}
+                        savedFilms={savedFilms}
+                        resultSaved={resultSaved}
+                        setResultSaved={(delta) => {
+                          setResultSaved(delta);
+                        }}
+                        setSavedFilms={(delta) => {
+                          setSavedFilms(delta);
+                        }}
+                        setAlbums={(delta) => {
+                          setAlbums(
+                            albums.filter((value) => {
+                              return value.id !== delta;
+                            })
+                          );
+                        }}
+                        setBlackLists={(delta) => {
+                          setBlackLists(delta);
+                        }}
+                      />
+                    ) : (
+                      <SearchMessage />
+                    )}
+                  </div>
+                );
+              }}
+            />
+          </MemoryRouter>
         </div>
       ) : (
         <div className="home-screen">
-          <Overlays
-            isAboutOpen={isAboutOpen}
-            setIsAboutOpen={(delta) => {
-              setIsAboutOpen(delta);
-            }}
-          />
-          <Start
-            setIsAboutOpen={(delta) => {
-              setIsAboutOpen(delta);
-            }}
-          />
+          <MemoryRouter>
+            <Route path="/about" exact component={AboutOverlay} />
+            <Route path="/" exact component={Start} />
+          </MemoryRouter>
         </div>
       )}
     </div>

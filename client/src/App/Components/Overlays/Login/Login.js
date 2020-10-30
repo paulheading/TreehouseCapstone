@@ -1,20 +1,18 @@
-import React, { useState, useRef } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { LoginFormButton } from "../../Buttons/Buttons";
-import { RemoveIcon } from "../../Icons/Icons";
-import "./Login.scss";
-
 // https://www.reddit.com/r/learnjavascript/comments/iei80j/why_a_function_still_returns_me_promise_pending/#t1_g2gp49m
 
-export default function Login({
+import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap";
+import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons/Index";
+import "./Login.scss";
+
+export default function LoginOverlay({
   searchTerm,
   doSearch,
   setResultSaved,
-  setIsLoginOpen,
   setCurrentUser,
   setBlackLists,
   setSavedFilms,
-  setIsSignupOpen,
   setUpdateSearch,
 }) {
   const [userDenied, setUserDenied] = useState(null);
@@ -22,17 +20,10 @@ export default function Login({
   const password = useRef(null);
 
   return (
-    <div className="login-overlay__container">
-      <div
-        className="login-overlay__exit-icon"
-        onClick={() => {
-          setIsLoginOpen(false);
-        }}
-      >
-        <RemoveIcon variant="secondary" />
-      </div>
-      <div className="login-overlay__wrap">
-        <Form className="login-overlay__form">
+    <div className="overlay__container form">
+      <ExitButton />
+      <div className="overlay__wrap">
+        <Form className="overlay__form">
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -65,7 +56,6 @@ export default function Login({
             setCurrentUser={setCurrentUser}
             setSavedFilms={setSavedFilms}
             setBlackLists={setBlackLists}
-            setIsLoginOpen={setIsLoginOpen}
             setResultSaved={setResultSaved}
             setUpdateSearch={setUpdateSearch}
             setUserDenied={(delta) => {
@@ -75,23 +65,12 @@ export default function Login({
         </Form>
         <p className="has-account">
           Don't have an account?
-          <Button
-            variant="link"
-            onClick={() => {
-              setIsLoginOpen(false);
-              setIsSignupOpen(true);
-            }}
-          >
-            Sign up
-          </Button>
+          <Link to="/signup">
+            <Button variant="link">Sign up</Button>
+          </Link>
         </p>
       </div>
-      <div
-        className="login-overlay__exit"
-        onClick={() => {
-          setIsLoginOpen(false);
-        }}
-      ></div>
+      <ExitArea />
     </div>
   );
 }

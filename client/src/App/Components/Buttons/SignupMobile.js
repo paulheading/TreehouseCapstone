@@ -1,34 +1,41 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { changeNavbar } from "../../modules/animations";
 
-export default function SignupMobile({
+export default function SignupMobileButton({
   currentUser,
   setCurrentUser,
   setSavedFilms,
   setBlackLists,
   setIsFirstTime,
-  setIsSignupOpen,
 }) {
-  function doSignup() {
-    changeNavbar("close");
+  function ifCurrentUser(currentUser) {
     if (currentUser) {
-      setCurrentUser(null);
-      setSavedFilms(null);
-      setBlackLists(null);
-      setIsFirstTime(false);
+      return (
+        <Link to="/" className="signup-link">
+          <Button
+            variant="outline-primary"
+            size="lg"
+            onClick={() => {
+              setCurrentUser(null);
+              setSavedFilms(null);
+              setBlackLists(null);
+              setIsFirstTime(false);
+            }}
+          >
+            Log out
+          </Button>
+        </Link>
+      );
     } else {
-      setIsSignupOpen(true);
+      return (
+        <Link to="/signup" className="signup-link">
+          <Button variant="outline-primary" size="lg">
+            Sign up
+          </Button>
+        </Link>
+      );
     }
   }
-  return (
-    <Button
-      className="md-down"
-      variant="outline-primary"
-      size="lg"
-      onClick={doSignup}
-    >
-      {currentUser ? "Log out" : "Sign up"}
-    </Button>
-  );
+  return ifCurrentUser(currentUser);
 }

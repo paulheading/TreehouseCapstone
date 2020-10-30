@@ -1,7 +1,7 @@
 import React from "react";
 import "./Logos.scss";
 
-export default function Mobile({ className }) {
+export default function MobileLogo({ className }) {
   return (
     <svg
       className={`logo__mobile ${className}`}

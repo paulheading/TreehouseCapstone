@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { isSaved } from "../../modules/helpers";
+import { isSaved } from "../../../modules/helpers";
 import "./Form.scss";
 
-export default function SForm({
+export default function SearchForm({
   currentUser,
   savedFilms,
   doSearch,

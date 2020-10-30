@@ -1,23 +1,10 @@
 @import "../../../scss/extends.scss";
 
-.login-overlay {
-  &__container {
-    @include overlayContainer;
-  }
-  &__wrap {
-    @include overlayWrap;
-  }
-  &__form {
+.form.overlay__container {
+  .overlay__form {
     @include overlayGap;
     position: relative;
     z-index: 2;
-  }
-  &__exit-icon {
-    @include overlayGap;
-    @extend %overlay-exit-icon;
-  }
-  &__exit {
-    @extend %overlay-exit;
   }
 }
 

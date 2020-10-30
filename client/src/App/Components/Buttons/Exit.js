@@ -1,16 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { ifClassExists } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons/Icons";
-import { changeNavbar } from "../../modules/animations";
 
-export default function Exit({ className }) {
+export default function ExitButton({ className }) {
   return (
-    <div
-      className={className}
-      onClick={() => {
-        changeNavbar("close");
-      }}
-    >
-      <RemoveIcon variant="secondary" />
+    <div className={`overlay__exit-icon ${ifClassExists(className)}`}>
+      <Link to="/">
+        <RemoveIcon variant="secondary" />
+      </Link>
     </div>
   );
 }

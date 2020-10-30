@@ -2,7 +2,7 @@ import React from "react";
 import "./Message.scss";
 import { Container, ListGroup } from "react-bootstrap";
 
-export default function Message() {
+export default function SearchMessage() {
   return (
     <Container className="search-cta__container">
       <ListGroup variant="primary" className="not-found">

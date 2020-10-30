@@ -1,19 +1,19 @@
 import React from "react";
-import "./Account.scss";
-import { Button, Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab } from "react-bootstrap";
 import { filterDate } from "../../../modules/helpers";
-import { RemoveIcon, AvatarIcon } from "../../Icons/Icons";
+import { ExitButton, ExitArea, LogoutAccountButton } from "../../Buttons/Index";
+import { AvatarIcon } from "../../Icons/Icons";
 import PropTypes from "prop-types";
 import SavedFilms from "./SavedFilms";
+import "./Account.scss";
 
-export default function Account({
+export default function AccountOverlay({
   currentUser,
+  savedFilms,
   blackLists,
   doSearch,
-  setIsAccountOpen,
   setCurrentUser,
   setBlackLists,
-  savedFilms,
   setSavedFilms,
   setIsFirstTime,
   setResultSaved,
@@ -31,16 +31,9 @@ export default function Account({
       }
     }
     return (
-      <div className="account-overlay__container">
-        <div
-          className="login-overlay__exit-icon"
-          onClick={() => {
-            setIsAccountOpen(false);
-          }}
-        >
-          <RemoveIcon variant="secondary" />
-        </div>
-        <div className="account-overlay__wrap">
+      <div className="overlay__container account">
+        <ExitButton />
+        <div className="overlay__wrap">
           <Tabs defaultActiveKey="profile" transition={false}>
             <Tab eventKey="profile" title="Profile" className="profile">
               <div className="profile-tab__avatar">
@@ -52,19 +45,12 @@ export default function Account({
               </div>
               {sinceDate(currentUser.createdAt)}
               <div className="profile-tab__log-out">
-                <Button
-                  variant="outline-primary"
-                  size="md"
-                  onClick={() => {
-                    setCurrentUser(null);
-                    setSavedFilms(null);
-                    setBlackLists(null);
-                    setIsFirstTime(false);
-                    setIsAccountOpen(false);
-                  }}
-                >
-                  Log Out
-                </Button>
+                <LogoutAccountButton
+                  setCurrentUser={setCurrentUser}
+                  setSavedFilms={setSavedFilms}
+                  setBlackLists={setBlackLists}
+                  setIsFirstTime={setIsFirstTime}
+                />
               </div>
             </Tab>
             <Tab eventKey="saved" title="Saved">
@@ -72,7 +58,6 @@ export default function Account({
                 savedFilms={savedFilms}
                 blackLists={blackLists}
                 doSearch={doSearch}
-                setIsAccountOpen={setIsAccountOpen}
                 setBlackLists={setBlackLists}
                 setSavedFilms={setSavedFilms}
                 setResultSaved={setResultSaved}
@@ -80,18 +65,13 @@ export default function Account({
             </Tab>
           </Tabs>
         </div>
-        <div
-          className="account-overlay__exit"
-          onClick={() => {
-            setIsAccountOpen(false);
-          }}
-        ></div>
+        <ExitArea />
       </div>
     );
   }
 }
 
-Account.propTypes = {
+AccountOverlay.propTypes = {
   currentUser: PropTypes.object,
   blackLists: PropTypes.array,
   savedFilms: PropTypes.array,

@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { delRoute } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons/Icons";
 
-export default function RemoveSaved({
+export default function RemoveSavedButton({
   id,
   savedFilms,
   blackLists,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { applyClass } from "../../modules/helpers";
-import { SaveButton } from "../Buttons/Buttons";
+import { SaveButton } from "../Buttons/Index";
 import PropTypes from "prop-types";
 import "./FilmResults.scss";
 
@@ -12,7 +12,6 @@ export default function FilmResults({
   savedFilms,
   blackLists,
   resultSaved,
-  setIsLoginOpen,
   setSavedFilms,
   setBlackLists,
   setResultSaved,
@@ -27,7 +26,6 @@ export default function FilmResults({
         resultSaved={resultSaved}
         setSavedFilms={setSavedFilms}
         setBlackLists={setBlackLists}
-        setIsLoginOpen={setIsLoginOpen}
         setResultSaved={setResultSaved}
       />
       <Card.Header className="film-result">

@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SaveIcon } from "../Icons/Icons";
 import { createRoute, getRoute, delRoute } from "../../modules/helpers";
 
-export default function Save({
+export default function SaveButton({
   currentUser,
   savedFilms,
   searchTerm,
   blackLists,
   resultSaved,
   setSavedFilms,
-  setIsLoginOpen,
   setBlackLists,
   setResultSaved,
 }) {
-  async function saveFilm() {
-    let id;
+  const history = useHistory();
+  const openLogin = useCallback(() => history.push("/login"), [history]);
+
+  async function saveFilm(id = "") {
     if (currentUser) {
       if (resultSaved) {
         savedFilms.forEach((value) => {
@@ -51,10 +53,9 @@ export default function Save({
         setResultSaved(true);
       }
     } else {
-      setIsLoginOpen(true);
+      openLogin();
     }
   }
-
   return (
     <Button variant="link" className="save-film" onClick={saveFilm}>
       <SaveIcon resultSaved={resultSaved} />

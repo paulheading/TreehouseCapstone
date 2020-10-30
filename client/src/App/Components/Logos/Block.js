@@ -1,7 +1,7 @@
 import React from "react";
 import "./Logos.scss";
 
-export default function Block({ className }) {
+export default function BlockLogo({ className }) {
   return (
     <svg
       data-testid="blockButton"

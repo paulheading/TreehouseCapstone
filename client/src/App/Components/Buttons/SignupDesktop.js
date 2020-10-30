@@ -1,18 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { changeNavbar } from "../../modules/animations";
 
-export default function SignupDesktop({ currentUser, setIsSignupOpen }) {
+export default function SignupDesktopButton({ currentUser }) {
   return !currentUser ? (
-    <Button
-      variant="outline-primary"
-      size="lg"
-      onClick={() => {
-        setIsSignupOpen(true);
-        changeNavbar("close");
-      }}
-    >
-      Sign up
-    </Button>
+    <Link to="/signup" className="signup-link">
+      <Button variant="outline-primary" size="lg">
+        Sign up
+      </Button>
+    </Link>
   ) : null;
 }

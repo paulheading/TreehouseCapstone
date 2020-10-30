@@ -1,20 +1,13 @@
 import React from "react";
-import "./About.scss";
+import { ExitButton, ExitArea } from "../../Buttons/Index";
 import { ListGroup } from "react-bootstrap";
-import { RemoveIcon } from "../../Icons/Icons";
+import "./About.scss";
 
-export default function About({ setIsAboutOpen }) {
+export default function AboutOverlay() {
   return (
-    <div className="about-overlay__container">
-      <div
-        className="about-overlay__exit-icon"
-        onClick={() => {
-          setIsAboutOpen(false);
-        }}
-      >
-        <RemoveIcon variant="secondary" />
-      </div>
-      <div className="about-overlay__wrap">
+    <div className="overlay__container">
+      <ExitButton />
+      <div className="overlay__wrap">
         <ListGroup variant="secondary" className="about-overlay">
           <ListGroup.Item>
             <p>
@@ -29,12 +22,7 @@ export default function About({ setIsAboutOpen }) {
           </ListGroup.Item>
         </ListGroup>
       </div>
-      <div
-        className="about-overlay__exit"
-        onClick={() => {
-          setIsAboutOpen(false);
-        }}
-      ></div>
+      <ExitArea />
     </div>
   );
 }

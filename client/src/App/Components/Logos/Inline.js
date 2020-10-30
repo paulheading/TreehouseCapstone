@@ -1,7 +1,7 @@
 import React from "react";
 import "./Logos.scss";
 
-export default function Inline({ className }) {
+export default function InlineLogo({ className }) {
   return (
     <svg
       className={`logo__inline ${className}`}

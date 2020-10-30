@@ -1,15 +1,13 @@
 import React from "react";
-import { Table, Button, ListGroup } from "react-bootstrap";
-import { limitString } from "../../../modules/helpers";
-import { SearchIcon } from "../../Icons/Icons";
-import { RemoveSavedButton } from "../../Buttons/Buttons";
+import { Table, ListGroup } from "react-bootstrap";
+import { RemoveSavedButton, SearchSavedButton } from "../../Buttons/Index";
 import PropTypes from "prop-types";
+import { limitString } from "../../../modules/helpers";
 
 export default function SavedFilms({
   savedFilms,
   blackLists,
   doSearch,
-  setIsAccountOpen,
   setBlackLists,
   setSavedFilms,
   setResultSaved,
@@ -26,18 +24,11 @@ export default function SavedFilms({
                 </div>
               </td>
               <td width="78">
-                <Button
-                  variant="inline"
-                  onClick={() => {
-                    doSearch(searchTerm);
-                    setIsAccountOpen(false);
-                    setResultSaved(true);
-                    const searchInput = document.querySelector(".search-input");
-                    searchInput.value = searchTerm;
-                  }}
-                >
-                  <SearchIcon variant="secondary" size="sm" />
-                </Button>
+                <SearchSavedButton
+                  searchTerm={searchTerm}
+                  doSearch={doSearch}
+                  setResultSaved={setResultSaved}
+                />
                 <RemoveSavedButton
                   id={id}
                   savedFilms={savedFilms}

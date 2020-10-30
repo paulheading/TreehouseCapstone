@@ -197,3 +197,18 @@ a {
     color: $red;
   }
 }
+
+.overlay {
+  &__exit-icon {
+    @include overlayGap;
+    @extend %overlay-exit-icon;
+  }
+  &__exit {
+    @extend %overlay-exit;
+  }
+}
+
+p.terms {
+  font-size: 1.6rem;
+  margin-bottom: 0;
+}

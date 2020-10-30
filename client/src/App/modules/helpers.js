@@ -83,6 +83,10 @@ export function applyClass(condition, name) {
   return condition ? name : "";
 }
 
+export function ifClassExists(className) {
+  return className ? className : "";
+}
+
 export function applyVariant(variant, handle) {
   return variant ? `${handle}-${variant}` : "";
 }

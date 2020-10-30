@@ -1,16 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { BurgerIcon } from "../Icons/Icons";
-import { changeNavbar } from "../../modules/animations";
 
-export default function Burger() {
+export default function BurgerButton() {
   return (
-    <div
-      className="btn btn-inline"
-      onClick={() => {
-        changeNavbar("open");
-      }}
-    >
-      <BurgerIcon />
+    <div className="btn btn-inline">
+      <Link to="/menu">
+        <BurgerIcon />
+      </Link>
     </div>
   );
 }

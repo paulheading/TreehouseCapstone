@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
 
-export default function LoginForm({
+export default function LoginFormButton({
   emailAddress,
   password,
   searchTerm,
@@ -10,11 +11,12 @@ export default function LoginForm({
   setCurrentUser,
   setSavedFilms,
   setBlackLists,
-  setIsLoginOpen,
   setResultSaved,
-  setUpdateSearch,
   setUserDenied,
 }) {
+  const history = useHistory();
+  const closeLogin = useCallback(() => history.push("/"), [history]);
+
   async function doLogin(e) {
     e.preventDefault();
     let getUser = await getAuthRoute(
@@ -33,7 +35,7 @@ export default function LoginForm({
       } else {
         setResultSaved(false);
       }
-      setIsLoginOpen(false);
+      closeLogin();
       doSearch(searchTerm);
     }
   }
