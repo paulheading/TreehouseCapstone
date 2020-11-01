@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
-import { BlockLogo } from "../Logos/Index";
+import { BlockLogo } from "../Logos";
+import { HelpButton } from "../Buttons";
 import { spinMe } from "../../modules/animations";
-import { HelpButton } from "../Buttons/Index";
 import "./Start.scss";
 
 export default function Start() {

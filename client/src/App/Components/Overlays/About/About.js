@@ -1,5 +1,5 @@
 import React from "react";
-import { ExitButton, ExitArea } from "../../Buttons/Index";
+import { ExitButton, ExitArea } from "../../Buttons";
 import { ListGroup } from "react-bootstrap";
 import "./About.scss";
 

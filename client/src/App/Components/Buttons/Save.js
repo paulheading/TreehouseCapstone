@@ -1,13 +1,12 @@
 import React, { useCallback } from "react";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SaveIcon } from "../Icons/Icons";
 import { createRoute, getRoute, delRoute } from "../../modules/helpers";
 
-export default function SaveButton({
-  currentUser,
+function SaveButton({
   savedFilms,
-  searchTerm,
   blackLists,
   resultSaved,
   setSavedFilms,
@@ -16,25 +15,27 @@ export default function SaveButton({
 }) {
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
+  const searchQuery = useSelector((state) => state.searchQuery);
+  const currentUser = useSelector((state) => state.currentUser);
 
   async function saveFilm(id = "") {
     if (currentUser) {
       if (resultSaved) {
         savedFilms.forEach((value) => {
-          if (value.searchTerm === searchTerm) {
+          if (value.searchTerm === searchQuery) {
             delRoute("saved", value.id);
             id = value.id;
           }
         });
         if (blackLists) {
           blackLists.forEach((value) => {
-            if (value.searchTerm === searchTerm) {
+            if (value.searchTerm === searchQuery) {
               delRoute("blacklist", value.albumId);
             }
           });
           setBlackLists(
             blackLists.filter((value) => {
-              return value.searchTerm !== searchTerm;
+              return value.searchTerm !== searchQuery;
             })
           );
         }
@@ -47,7 +48,7 @@ export default function SaveButton({
       } else {
         createRoute("saved", {
           userId: currentUser.id,
-          searchTerm,
+          searchQuery,
         });
         setSavedFilms(await getRoute("saved", currentUser.id));
         setResultSaved(true);
@@ -62,3 +63,9 @@ export default function SaveButton({
     </Button>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(SaveButton);

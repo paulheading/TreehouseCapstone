@@ -1,15 +1,17 @@
 import React, { useCallback } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { currentUser, firstTime } from "../../../actions";
 import { createRoute } from "../../modules/helpers";
 
-export default function SignupFormButton({
+function SignupFormButton({
   firstName,
   lastName,
   emailAddress,
   password,
-  setCurrentUser,
-  setIsFirstTime,
+  currentUser,
+  firstTime,
   setErrorMsgs,
 }) {
   const history = useHistory();
@@ -25,8 +27,8 @@ export default function SignupFormButton({
       level: "free",
     });
     if (!newUser.errors) {
-      setCurrentUser(newUser);
-      setIsFirstTime(true);
+      currentUser(newUser);
+      firstTime(true);
       closeSignup();
     } else {
       setErrorMsgs(newUser.errors);
@@ -38,3 +40,11 @@ export default function SignupFormButton({
     </Button>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { currentUser, firstTime })(
+  SignupFormButton
+);

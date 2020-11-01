@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardDeck, Button } from "react-bootstrap";
-import { RemoveResultButton } from "../Buttons/Index";
+import { RemoveResultButton } from "../Buttons";
 import RelatedResults from "./RelatedResults";
 import { limitString } from "../../modules/helpers";
 import PropTypes from "prop-types";
@@ -8,7 +8,6 @@ import "./AlbumResults.scss";
 
 export default function AlbumResults({
   searchTerm,
-  currentUser,
   albums,
   savedFilms,
   setAlbums,
@@ -26,7 +25,6 @@ export default function AlbumResults({
               <Card className="album-results" key={index}>
                 <RemoveResultButton
                   id={id}
-                  currentUser={currentUser}
                   savedFilms={savedFilms}
                   searchTerm={searchTerm}
                   setAlbums={setAlbums}
@@ -69,7 +67,6 @@ export default function AlbumResults({
 
 AlbumResults.propTypes = {
   searchTerm: PropTypes.string,
-  currentUser: PropTypes.object,
   albums: PropTypes.array,
   savedFilms: PropTypes.array,
 };

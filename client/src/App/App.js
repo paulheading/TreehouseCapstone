@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import { spotifyApi, getHashParams } from "./modules/spotify";
+import { searchFilm, searchAlbums } from "./modules/search";
 import { applyClass } from "./modules/helpers";
+import { filmResult, albumResults, sessionExpired } from "../actions";
 
 // Import react components
+import { SearchForm, SearchMessage, SearchResults } from "./Components/Search";
 import Navigation from "./Components/Navigation/Navigation";
 import Start from "./Components/Start/Start";
 import {
@@ -12,12 +16,7 @@ import {
   LoginOverlay,
   MenuOverlay,
   SignupOverlay,
-} from "./Components/Overlays/Index";
-import {
-  SearchForm,
-  SearchMessage,
-  SearchResults,
-} from "./Components/Search/Index";
+} from "./Components/Overlays";
 
 // Import css for bootstrap & styling for App
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,24 +30,23 @@ export function sayHello() {
 // https://www.positronx.io/react-onclick-event-handling-methods-with-examples/
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
 
-export default function App() {
+function App({ filmResult, albumResults }) {
   // environment variables
   require("dotenv").config();
   // spotify variables
   const params = getHashParams();
   const token = params.access_token;
   // display variables
-  const [searchTerm, setSearchTerm] = useState(null);
-  const [film, setFilm] = useState(null);
-  const [albums, setAlbums] = useState(null);
+  const [film, setFilm] = useState(null); // available in store
+  const [albums, setAlbums] = useState(null); // available in store
   // user variables
-  const [currentUser, setCurrentUser] = useState(null);
   const [savedFilms, setSavedFilms] = useState([]);
   const [blackLists, setBlackLists] = useState([]);
-  const [expired, setExpired] = useState(false);
-  const [isFirstTime, setIsFirstTime] = useState(false);
   const [resultSaved, setResultSaved] = useState(false);
   const [updateSearch, setUpdateSearch] = useState(null);
+
+  const searchQuery = useSelector((state) => state.searchQuery);
+  const sessionExpired = useSelector((state) => state.sessionExpired);
 
   if (token) {
     spotifyApi.setAccessToken(token);
@@ -56,80 +54,15 @@ export default function App() {
 
   const loggedIn = useState(token ? true : false);
 
-  function searchAlbums(delta, limit = 15) {
-    setSearchTerm(delta);
-    setAlbums(null);
-
-    spotifyApi
-      .searchAlbums(delta, { limit })
-      .then((data) => {
-        return data.albums.items.map(
-          ({ name, id, external_urls, images, release_date }) => {
-            const url = external_urls.spotify;
-            return {
-              name,
-              id,
-              url,
-              images,
-              release_date,
-            };
-          }
-        );
-      })
-      .then((data) => {
-        let filter = [];
-        if (blackLists) {
-          data.forEach((data) => {
-            blackLists.forEach(({ searchTerm, albumId }) => {
-              if (searchTerm === delta) {
-                if (albumId === data.id) {
-                  filter.push(albumId);
-                }
-              }
-            });
-          });
-        }
-        return data.filter((data) => {
-          return filter.indexOf(data.id) === -1;
-        });
-      })
-      .then((data) => {
-        data.forEach((value) => {
-          value.related = [];
-          spotifyApi.getAlbumTracks(value.id).then(({ items }) => {
-            items.forEach(({ artists }) => {
-              artists.forEach(({ external_urls, name }) => {
-                const url = external_urls.spotify;
-                let exists = false;
-                value.related.forEach((value) => {
-                  if (value.name === name) {
-                    exists = true;
-                  }
-                });
-                if (!exists) {
-                  value.related.push({ url, name });
-                }
-              });
-            });
-          });
-        });
-        return data;
-      })
-      .then(
-        (data) => {
-          setAlbums(data);
-        },
-        () => {
-          setExpired(true);
-        }
-      );
+  async function albumTest(delta) {
+    const results = await searchAlbums(delta, blackLists);
+    sessionExpired(results.expired);
+    albumResults(results.data);
   }
 
-  async function searchFilm(delta) {
-    let get = await fetch(
-      `//www.omdbapi.com/?t=${delta}&apikey=${process.env.REACT_APP_OMDB_API}`
-    );
-    setFilm(await get.json());
+  async function filmTest(delta) {
+    const result = await searchFilm(delta, process.env.REACT_APP_OMDB_API);
+    filmResult(result);
   }
 
   useEffect(() => {
@@ -138,7 +71,7 @@ export default function App() {
 
   return (
     <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
-      {loggedIn[0] && !expired ? (
+      {loggedIn[0] && !sessionExpired ? (
         <div className="dashboard-screen">
           <MemoryRouter>
             <Route path="/about" exact component={AboutOverlay} />
@@ -148,10 +81,6 @@ export default function App() {
               component={() => {
                 return (
                   <LoginOverlay
-                    searchTerm={searchTerm}
-                    setCurrentUser={(delta) => {
-                      setCurrentUser(delta);
-                    }}
                     setResultSaved={(delta) => {
                       setResultSaved(delta);
                     }}
@@ -162,8 +91,8 @@ export default function App() {
                       setBlackLists(delta);
                     }}
                     doSearch={(delta) => {
-                      searchFilm(delta);
-                      searchAlbums(delta);
+                      filmTest(delta);
+                      albumTest(delta);
                     }}
                   />
                 );
@@ -173,16 +102,7 @@ export default function App() {
               path="/signup"
               exact
               component={() => {
-                return (
-                  <SignupOverlay
-                    setCurrentUser={(delta) => {
-                      setCurrentUser(delta);
-                    }}
-                    setIsFirstTime={(delta) => {
-                      setIsFirstTime(delta);
-                    }}
-                  />
-                );
+                return <SignupOverlay />;
               }}
             />
             <Route
@@ -191,18 +111,11 @@ export default function App() {
               component={() => {
                 return (
                   <MenuOverlay
-                    currentUser={currentUser}
-                    setCurrentUser={(delta) => {
-                      setCurrentUser(delta);
-                    }}
                     setSavedFilms={(delta) => {
                       setSavedFilms(delta);
                     }}
                     setBlackLists={(delta) => {
                       setBlackLists(delta);
-                    }}
-                    setIsFirstTime={(delta) => {
-                      setIsFirstTime(delta);
                     }}
                   />
                 );
@@ -214,24 +127,17 @@ export default function App() {
               component={() => {
                 return (
                   <AccountOverlay
-                    currentUser={currentUser}
                     savedFilms={savedFilms}
                     blackLists={blackLists}
                     doSearch={(delta) => {
-                      searchFilm(delta);
-                      searchAlbums(delta);
-                    }}
-                    setCurrentUser={(delta) => {
-                      setCurrentUser(delta);
+                      searchFilm(searchQuery);
+                      searchAlbums(searchQuery);
                     }}
                     setBlackLists={(delta) => {
                       setBlackLists(delta);
                     }}
                     setSavedFilms={(delta) => {
                       setSavedFilms(delta);
-                    }}
-                    setIsFirstTime={(delta) => {
-                      setIsFirstTime(delta);
                     }}
                     setResultSaved={(delta) => {
                       setResultSaved(delta);
@@ -247,27 +153,19 @@ export default function App() {
                 return (
                   <div>
                     <Navigation
-                      currentUser={currentUser}
-                      setCurrentUser={(delta) => {
-                        setCurrentUser(delta);
-                      }}
                       setSavedFilms={(delta) => {
                         setSavedFilms(delta);
                       }}
                       setBlackLists={(delta) => {
                         setBlackLists(delta);
                       }}
-                      setIsFirstTime={(delta) => {
-                        setIsFirstTime(delta);
-                      }}
                     />
                     <SearchForm
-                      currentUser={currentUser}
                       savedFilms={savedFilms}
                       updateSearch={updateSearch}
                       doSearch={(delta) => {
-                        searchFilm(delta);
-                        searchAlbums(delta);
+                        filmTest(delta);
+                        albumTest(delta);
                       }}
                       setResultSaved={(delta) => {
                         setResultSaved(delta);
@@ -276,10 +174,8 @@ export default function App() {
                         setUpdateSearch(delta);
                       }}
                     />
-                    {searchTerm ? (
+                    {searchQuery ? (
                       <SearchResults
-                        currentUser={currentUser}
-                        searchTerm={searchTerm}
                         albums={albums}
                         film={film}
                         savedFilms={savedFilms}
@@ -321,3 +217,13 @@ export default function App() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return state;
+};
+
+export default connect(mapStateToProps, {
+  filmResult,
+  albumResults,
+})(App);

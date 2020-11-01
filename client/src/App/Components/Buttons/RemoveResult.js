@@ -1,12 +1,12 @@
 import React, { useCallback } from "react";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { isSaved, createRoute, getRoute } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons/Icons";
 
-export default function RemoveResultButton({
+function RemoveResultButton({
   id,
-  currentUser,
   savedFilms,
   searchTerm,
   setAlbums,
@@ -16,6 +16,7 @@ export default function RemoveResultButton({
 }) {
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
+  const currentUser = useSelector((state) => state.currentUser);
 
   async function removeAlbum() {
     if (currentUser) {
@@ -49,3 +50,9 @@ export default function RemoveResultButton({
     </Button>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(RemoveResultButton);

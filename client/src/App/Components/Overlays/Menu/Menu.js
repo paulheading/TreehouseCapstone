@@ -5,28 +5,19 @@ import {
   ExitArea,
   LoginMobileButton,
   SignupMobileButton,
-} from "../../Buttons/Index";
+} from "../../Buttons";
 import "./Menu.scss";
 
-export default function MenuOverlay({
-  currentUser,
-  setCurrentUser,
-  setSavedFilms,
-  setBlackLists,
-  setIsFirstTime,
-}) {
+export default function MenuOverlay({ setSavedFilms, setBlackLists }) {
   return (
     <div className="overlay__container menu">
       <ExitButton />
       <div className="overlay__wrap">
         <AboutButton />
-        <LoginMobileButton currentUser={currentUser} />
+        <LoginMobileButton />
         <SignupMobileButton
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
           setSavedFilms={setSavedFilms}
           setBlackLists={setBlackLists}
-          setIsFirstTime={setIsFirstTime}
         />
       </div>
       <ExitArea />

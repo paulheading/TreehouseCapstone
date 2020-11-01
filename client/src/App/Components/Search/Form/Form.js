@@ -1,19 +1,18 @@
 import React, { useState, useRef } from "react";
+import { connect, useSelector } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
+import { searchQuery } from "../../../../actions";
 import { isSaved } from "../../../modules/helpers";
 import "./Form.scss";
 
-export default function SearchForm({
-  currentUser,
-  savedFilms,
-  doSearch,
-  setResultSaved,
-}) {
+function SearchForm({ savedFilms, doSearch, setResultSaved, searchQuery }) {
   const [search, setSearch] = useState(null);
   const searchBtn = useRef(null);
+  const currentUser = useSelector((state) => state.currentUser);
 
   function doSubmit(e) {
     doSearch(search);
+    searchQuery(search);
 
     if (currentUser) {
       if (isSaved(savedFilms, search)) {
@@ -54,3 +53,9 @@ export default function SearchForm({
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { searchQuery })(SearchForm);

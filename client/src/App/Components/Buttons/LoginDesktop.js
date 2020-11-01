@@ -1,9 +1,11 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-export default function LoginDesktopButton({ currentUser }) {
-  function ifCurrentUser(currentUser) {
+function LoginDesktopButton() {
+  const currentUser = useSelector((state) => state.currentUser);
+  function ifCurrentUser() {
     if (currentUser) {
       return (
         <Link to="/account" className="account-link">
@@ -22,5 +24,11 @@ export default function LoginDesktopButton({ currentUser }) {
       );
     }
   }
-  return ifCurrentUser(currentUser);
+  return ifCurrentUser();
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(LoginDesktopButton);

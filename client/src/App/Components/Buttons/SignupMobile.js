@@ -1,13 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { firstTime, currentUser } from "../../../actions";
 
-export default function SignupMobileButton({
+function SignupMobileButton({
   currentUser,
-  setCurrentUser,
   setSavedFilms,
   setBlackLists,
-  setIsFirstTime,
+  firstTime,
 }) {
   function ifCurrentUser(currentUser) {
     if (currentUser) {
@@ -17,10 +18,10 @@ export default function SignupMobileButton({
             variant="outline-primary"
             size="lg"
             onClick={() => {
-              setCurrentUser(null);
+              currentUser(null);
               setSavedFilms(null);
               setBlackLists(null);
-              setIsFirstTime(false);
+              firstTime(false);
             }}
           >
             Log out
@@ -39,3 +40,11 @@ export default function SignupMobileButton({
   }
   return ifCurrentUser(currentUser);
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { firstTime, currentUser })(
+  SignupMobileButton
+);

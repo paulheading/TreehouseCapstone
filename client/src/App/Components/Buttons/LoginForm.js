@@ -1,14 +1,16 @@
 import React, { useCallback } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { currentUser } from "../../../actions";
 import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
 
-export default function LoginFormButton({
+function LoginFormButton({
   emailAddress,
   password,
   searchTerm,
   doSearch,
-  setCurrentUser,
+  currentUser,
   setSavedFilms,
   setBlackLists,
   setResultSaved,
@@ -27,7 +29,7 @@ export default function LoginFormButton({
     if (getUser.message) {
       setUserDenied(getUser.message);
     } else {
-      setCurrentUser(getUser);
+      currentUser(getUser);
       setSavedFilms(await getRoute("saved", getUser.id));
       setBlackLists(await getRoute("blacklist", getUser.id));
       if (isSaved(await getRoute("saved", getUser.id), searchTerm)) {
@@ -53,3 +55,9 @@ export default function LoginFormButton({
     </Button>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { currentUser })(LoginFormButton);

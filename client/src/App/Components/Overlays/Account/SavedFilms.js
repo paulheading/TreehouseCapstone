@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, ListGroup } from "react-bootstrap";
-import { RemoveSavedButton, SearchSavedButton } from "../../Buttons/Index";
+import { RemoveSavedButton, SearchSavedButton } from "../../Buttons";
 import PropTypes from "prop-types";
 import { limitString } from "../../../modules/helpers";
 

@@ -1,23 +1,16 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
-import { InlineLogo, MobileLogo } from "../Logos/Index";
+import { InlineLogo, MobileLogo } from "../Logos";
 import {
   AboutButton,
   BurgerButton,
   SignupDesktopButton,
   SignupMobileButton,
   LoginDesktopButton,
-} from "../Buttons/Index";
-import PropTypes from "prop-types";
+} from "../Buttons";
 import "./Navigation.scss";
 
-export default function Navigation({
-  currentUser,
-  setCurrentUser,
-  setSavedFilms,
-  setBlackLists,
-  setIsFirstTime,
-}) {
+export default function Navigation({ setSavedFilms, setBlackLists }) {
   return (
     <Navbar className="movie-tunes" expand="md">
       <Navbar.Brand href="/">
@@ -26,23 +19,16 @@ export default function Navigation({
       </Navbar.Brand>
       <div className="mobile-buttons md-down">
         <SignupMobileButton
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
           setSavedFilms={setSavedFilms}
           setBlackLists={setBlackLists}
-          setIsFirstTime={setIsFirstTime}
         />
         <BurgerButton />
       </div>
       <div className="desktop-buttons md-up">
         <AboutButton />
-        <LoginDesktopButton currentUser={currentUser} />
-        <SignupDesktopButton currentUser={currentUser} />
+        <LoginDesktopButton />
+        <SignupDesktopButton />
       </div>
     </Navbar>
   );
 }
-
-Navigation.propTypes = {
-  currentUser: PropTypes.object,
-};

@@ -1,16 +1,15 @@
 // https://www.reddit.com/r/learnjavascript/comments/iei80j/why_a_function_still_returns_me_promise_pending/#t1_g2gp49m
 
 import React, { useState, useRef } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
-import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons/Index";
+import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons";
 import "./Login.scss";
 
-export default function LoginOverlay({
-  searchTerm,
+function LoginOverlay({
   doSearch,
   setResultSaved,
-  setCurrentUser,
   setBlackLists,
   setSavedFilms,
   setUpdateSearch,
@@ -51,9 +50,7 @@ export default function LoginOverlay({
           <LoginFormButton
             emailAddress={emailAddress}
             password={password}
-            searchTerm={searchTerm}
             doSearch={doSearch}
-            setCurrentUser={setCurrentUser}
             setSavedFilms={setSavedFilms}
             setBlackLists={setBlackLists}
             setResultSaved={setResultSaved}
@@ -74,3 +71,9 @@ export default function LoginOverlay({
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(LoginOverlay);

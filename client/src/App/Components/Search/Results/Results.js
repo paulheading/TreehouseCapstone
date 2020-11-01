@@ -1,15 +1,12 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Container, ListGroup } from "react-bootstrap";
 import AlbumResults from "../../AlbumResults/AlbumResults";
 import FilmResults from "../../FilmResults/FilmResults";
 import PropTypes from "prop-types";
 import "./Results.scss";
 
-export default function SearchResults({
-  currentUser,
-  searchTerm,
-  film,
-  albums,
+function SearchResults({
   savedFilms,
   setAlbums,
   setBlackLists,
@@ -18,43 +15,36 @@ export default function SearchResults({
   resultSaved,
   setResultSaved,
 }) {
-  let printResults;
-  if (film) {
-    if (!film.Error) {
-      if (albums) {
-        if (albums.length > 0) {
-          printResults = (
+  const filmResult = useSelector((state) => state.filmResult);
+  const albumResults = useSelector((state) => state.albumResults);
+
+  function printResults() {
+    if (filmResult) {
+      if (!filmResult.Error) {
+        if (albumResults.length > 0) {
+          return (
             <div>
               <FilmResults
-                film={film}
-                currentUser={currentUser}
-                searchTerm={searchTerm}
-                savedFilms={savedFilms}
-                resultSaved={resultSaved}
-                setBlackLists={setBlackLists}
-                setSavedFilms={setSavedFilms}
-                setResultSaved={setResultSaved}
+              // savedFilms={savedFilms}
+              // resultSaved={resultSaved}
+              // setBlackLists={setBlackLists}
+              // setSavedFilms={setSavedFilms}
+              // setResultSaved={setResultSaved}
               />
-              <AlbumResults
-                currentUser={currentUser}
-                searchTerm={searchTerm}
-                albums={albums}
+              {/* <AlbumResults
                 blackLists={blackLists}
                 savedFilms={savedFilms}
                 setAlbums={setAlbums}
                 setBlackLists={setBlackLists}
                 setSavedFilms={setSavedFilms}
                 setResultSaved={setResultSaved}
-              />
+              /> */}
             </div>
           );
         } else {
-          printResults = (
+          return (
             <div>
               <FilmResults
-                film={film}
-                currentUser={currentUser}
-                searchTerm={searchTerm}
                 savedFilms={savedFilms}
                 blackLists={blackLists}
                 resultSaved={resultSaved}
@@ -69,37 +59,28 @@ export default function SearchResults({
           );
         }
       } else {
-        printResults = (
-          <div>
-            <FilmResults
-              film={film}
-              currentUser={currentUser}
-              searchTerm={searchTerm}
-              savedFilms={savedFilms}
-              setBlackLists={setBlackLists}
-              setSavedFilms={setSavedFilms}
-            />
-            <ListGroup variant="primary" className="not-found">
-              <ListGroup.Item>No Albums Found ?!</ListGroup.Item>
-            </ListGroup>
-          </div>
+        return (
+          <ListGroup variant="primary" className="not-found">
+            <ListGroup.Item>{filmResult.Error}</ListGroup.Item>
+          </ListGroup>
         );
       }
     } else {
-      printResults = (
-        <ListGroup variant="primary" className="not-found">
-          <ListGroup.Item>{film.Error}</ListGroup.Item>
-        </ListGroup>
-      );
+      return "no film result";
     }
   }
-  return <Container className="search-results">{printResults}</Container>;
+  return <Container className="search-results">{printResults()}</Container>;
 }
 
 SearchResults.propTypes = {
-  currentUser: PropTypes.object,
   searchTerm: PropTypes.string,
   film: PropTypes.object,
   albums: PropTypes.array,
   savedFilms: PropTypes.array,
 };
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(SearchResults);

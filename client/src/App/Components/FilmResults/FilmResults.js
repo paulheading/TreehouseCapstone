@@ -1,14 +1,12 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
+import { SaveButton } from "../Buttons";
 import { applyClass } from "../../modules/helpers";
-import { SaveButton } from "../Buttons/Index";
 import PropTypes from "prop-types";
 import "./FilmResults.scss";
 
-export default function FilmResults({
-  film,
-  currentUser,
-  searchTerm,
+function FilmResults({
   savedFilms,
   blackLists,
   resultSaved,
@@ -16,24 +14,24 @@ export default function FilmResults({
   setBlackLists,
   setResultSaved,
 }) {
+  const filmResult = useSelector((state) => state.filmResult);
+
   return (
     <Card className={`film-result ${applyClass(resultSaved, "saved")}`}>
       <SaveButton
-        currentUser={currentUser}
-        savedFilms={savedFilms}
-        searchTerm={searchTerm}
-        blackLists={blackLists}
-        resultSaved={resultSaved}
-        setSavedFilms={setSavedFilms}
-        setBlackLists={setBlackLists}
-        setResultSaved={setResultSaved}
+      // savedFilms={savedFilms}
+      // blackLists={blackLists}
+      // resultSaved={resultSaved}
+      // setSavedFilms={setSavedFilms}
+      // setBlackLists={setBlackLists}
+      // setResultSaved={setResultSaved}
       />
       <Card.Header className="film-result">
-        <h1 className="film-result title">{film.Title}</h1>
-        <p className="film-result year">{film.Year}</p>
+        <h1 className="film-result title">{filmResult.Title}</h1>
+        <p className="film-result year">{filmResult.Year}</p>
       </Card.Header>
       <Card.Body className="film-result">
-        <div className="film-result plot">{film.Plot}</div>
+        <div className="film-result plot">{filmResult.Plot}</div>
       </Card.Body>
     </Card>
   );
@@ -41,7 +39,11 @@ export default function FilmResults({
 
 FilmResults.propTypes = {
   film: PropTypes.object,
-  currentUser: PropTypes.object,
-  searchTerm: PropTypes.string,
   savedFilms: PropTypes.array,
 };
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(FilmResults);
