@@ -30,23 +30,17 @@ export function sayHello() {
 // https://www.positronx.io/react-onclick-event-handling-methods-with-examples/
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
 
-function App({ filmResult, albumResults }) {
+function App({ filmResult, albumResults, sessionExpired }) {
   // environment variables
   require("dotenv").config();
   // spotify variables
   const params = getHashParams();
   const token = params.access_token;
-  // display variables
-  const [film, setFilm] = useState(null); // available in store
-  const [albums, setAlbums] = useState(null); // available in store
-  // user variables
-  const [savedFilms, setSavedFilms] = useState([]);
-  const [blackLists, setBlackLists] = useState([]);
-  const [resultSaved, setResultSaved] = useState(false);
-  const [updateSearch, setUpdateSearch] = useState(null);
-
-  const searchQuery = useSelector((state) => state.searchQuery);
-  const sessionExpired = useSelector((state) => state.sessionExpired);
+  const store = {
+    searchQuery: useSelector((state) => state.searchQuery),
+    sessionExpired: useSelector((state) => state.sessionExpired),
+    blackList: useSelector((state) => state.blackList),
+  };
 
   if (token) {
     spotifyApi.setAccessToken(token);
@@ -54,13 +48,14 @@ function App({ filmResult, albumResults }) {
 
   const loggedIn = useState(token ? true : false);
 
-  async function albumTest(delta) {
-    const results = await searchAlbums(delta, blackLists);
+  // blacklist defaults to store contents
+  async function albumData(delta, blacklist = store.blackList) {
+    const results = await searchAlbums(delta, blacklist);
     sessionExpired(results.expired);
     albumResults(results.data);
   }
 
-  async function filmTest(delta) {
+  async function filmData(delta) {
     const result = await searchFilm(delta, process.env.REACT_APP_OMDB_API);
     filmResult(result);
   }
@@ -71,7 +66,7 @@ function App({ filmResult, albumResults }) {
 
   return (
     <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
-      {loggedIn[0] && !sessionExpired ? (
+      {loggedIn[0] && !store.sessionExpired ? (
         <div className="dashboard-screen">
           <MemoryRouter>
             <Route path="/about" exact component={AboutOverlay} />
@@ -80,67 +75,27 @@ function App({ filmResult, albumResults }) {
               exact
               component={() => {
                 return (
+                  // doSearch refreshes blacklist instantly
                   <LoginOverlay
-                    setResultSaved={(delta) => {
-                      setResultSaved(delta);
-                    }}
-                    setSavedFilms={(delta) => {
-                      setSavedFilms(delta);
-                    }}
-                    setBlackLists={(delta) => {
-                      setBlackLists(delta);
-                    }}
-                    doSearch={(delta) => {
-                      filmTest(delta);
-                      albumTest(delta);
+                    doSearch={(delta, blacklist) => {
+                      albumData(delta, blacklist);
+                      filmData(delta);
                     }}
                   />
                 );
               }}
             />
-            <Route
-              path="/signup"
-              exact
-              component={() => {
-                return <SignupOverlay />;
-              }}
-            />
-            <Route
-              path="/menu"
-              exact
-              component={() => {
-                return (
-                  <MenuOverlay
-                    setSavedFilms={(delta) => {
-                      setSavedFilms(delta);
-                    }}
-                    setBlackLists={(delta) => {
-                      setBlackLists(delta);
-                    }}
-                  />
-                );
-              }}
-            />
+            <Route path="/signup" exact component={SignupOverlay} />
+            <Route path="/menu" exact component={MenuOverlay} />
             <Route
               path="/account"
               exact
               component={() => {
                 return (
                   <AccountOverlay
-                    savedFilms={savedFilms}
-                    blackLists={blackLists}
                     doSearch={(delta) => {
-                      searchFilm(searchQuery);
-                      searchAlbums(searchQuery);
-                    }}
-                    setBlackLists={(delta) => {
-                      setBlackLists(delta);
-                    }}
-                    setSavedFilms={(delta) => {
-                      setSavedFilms(delta);
-                    }}
-                    setResultSaved={(delta) => {
-                      setResultSaved(delta);
+                      filmData(delta);
+                      albumData(delta);
                     }}
                   />
                 );
@@ -152,54 +107,14 @@ function App({ filmResult, albumResults }) {
               component={() => {
                 return (
                   <div>
-                    <Navigation
-                      setSavedFilms={(delta) => {
-                        setSavedFilms(delta);
-                      }}
-                      setBlackLists={(delta) => {
-                        setBlackLists(delta);
-                      }}
-                    />
+                    <Navigation />
                     <SearchForm
-                      savedFilms={savedFilms}
-                      updateSearch={updateSearch}
                       doSearch={(delta) => {
-                        filmTest(delta);
-                        albumTest(delta);
-                      }}
-                      setResultSaved={(delta) => {
-                        setResultSaved(delta);
-                      }}
-                      setUpdateSearch={(delta) => {
-                        setUpdateSearch(delta);
+                        filmData(delta);
+                        albumData(delta);
                       }}
                     />
-                    {searchQuery ? (
-                      <SearchResults
-                        albums={albums}
-                        film={film}
-                        savedFilms={savedFilms}
-                        resultSaved={resultSaved}
-                        setResultSaved={(delta) => {
-                          setResultSaved(delta);
-                        }}
-                        setSavedFilms={(delta) => {
-                          setSavedFilms(delta);
-                        }}
-                        setAlbums={(delta) => {
-                          setAlbums(
-                            albums.filter((value) => {
-                              return value.id !== delta;
-                            })
-                          );
-                        }}
-                        setBlackLists={(delta) => {
-                          setBlackLists(delta);
-                        }}
-                      />
-                    ) : (
-                      <SearchMessage />
-                    )}
+                    {store.searchQuery ? <SearchResults /> : <SearchMessage />}
                   </div>
                 );
               }}
@@ -219,11 +134,11 @@ function App({ filmResult, albumResults }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return state;
 };
 
 export default connect(mapStateToProps, {
   filmResult,
   albumResults,
+  sessionExpired,
 })(App);

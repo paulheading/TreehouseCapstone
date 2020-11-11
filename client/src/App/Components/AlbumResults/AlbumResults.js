@@ -1,37 +1,30 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Card, CardDeck, Button } from "react-bootstrap";
 import { RemoveResultButton } from "../Buttons";
 import RelatedResults from "./RelatedResults";
 import { limitString } from "../../modules/helpers";
-import PropTypes from "prop-types";
+import { albumResults } from "../../../actions";
+
 import "./AlbumResults.scss";
 
-export default function AlbumResults({
-  searchTerm,
-  albums,
-  savedFilms,
-  setAlbums,
-  setBlackLists,
-  setSavedFilms,
-  setResultSaved,
-}) {
+function AlbumResults({ albumResults }) {
+  const store = {
+    albumResults: useSelector((state) => state.albumResults),
+    searchQuery: useSelector((state) => state.searchQuery),
+    currentUser: useSelector((state) => state.currentUser),
+    blackList: useSelector((state) => state.blackList),
+  };
+
   return (
     <div className="album-results container">
       <CardDeck className="album-results">
-        {albums
+        {store.albumResults
           .slice(0, 6)
           .map(({ id, name, url, images, release_date, related }, index) => {
             return (
               <Card className="album-results" key={index}>
-                <RemoveResultButton
-                  id={id}
-                  savedFilms={savedFilms}
-                  searchTerm={searchTerm}
-                  setAlbums={setAlbums}
-                  setSavedFilms={setSavedFilms}
-                  setBlackLists={setBlackLists}
-                  setResultSaved={setResultSaved}
-                />
+                <RemoveResultButton id={id} />
                 <Card.Header className="album-results">
                   <img
                     className="album-results"
@@ -65,8 +58,8 @@ export default function AlbumResults({
   );
 }
 
-AlbumResults.propTypes = {
-  searchTerm: PropTypes.string,
-  albums: PropTypes.array,
-  savedFilms: PropTypes.array,
+const mapStateToProps = (state) => {
+  return state;
 };
+
+export default connect(mapStateToProps, { albumResults })(AlbumResults);

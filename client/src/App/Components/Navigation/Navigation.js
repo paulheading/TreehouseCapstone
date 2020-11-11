@@ -10,7 +10,7 @@ import {
 } from "../Buttons";
 import "./Navigation.scss";
 
-export default function Navigation({ setSavedFilms, setBlackLists }) {
+export default function Navigation() {
   return (
     <Navbar className="movie-tunes" expand="md">
       <Navbar.Brand href="/">
@@ -18,10 +18,7 @@ export default function Navigation({ setSavedFilms, setBlackLists }) {
         <MobileLogo className="md-down" />
       </Navbar.Brand>
       <div className="mobile-buttons md-down">
-        <SignupMobileButton
-          setSavedFilms={setSavedFilms}
-          setBlackLists={setBlackLists}
-        />
+        <SignupMobileButton />
         <BurgerButton />
       </div>
       <div className="desktop-buttons md-up">

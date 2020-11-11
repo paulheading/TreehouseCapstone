@@ -4,27 +4,21 @@ import { Tabs, Tab } from "react-bootstrap";
 import { filterDate } from "../../../modules/helpers";
 import { ExitButton, ExitArea, LogoutAccountButton } from "../../Buttons";
 import { AvatarIcon } from "../../Icons/Icons";
-import PropTypes from "prop-types";
 import SavedFilms from "./SavedFilms";
 import "./Account.scss";
 
-function AccountOverlay({
-  savedFilms,
-  blackLists,
-  doSearch,
-  setBlackLists,
-  setSavedFilms,
-  setResultSaved,
-}) {
-  const currentUser = useSelector((state) => state.currentUser);
-  if (currentUser) {
+function AccountOverlay({ doSearch }) {
+  const store = {
+    currentUser: useSelector((state) => state.currentUser),
+  };
+  if (store.currentUser) {
     function sinceDate(date) {
       if (date) {
         return (
           <div className="profile-tab__since">
             Member since
             <br />
-            {filterDate(currentUser.createdAt)}
+            {filterDate(store.currentUser.createdAt)}
           </div>
         );
       }
@@ -39,26 +33,16 @@ function AccountOverlay({
                 <AvatarIcon />
               </div>
               <div className="profile-tab__name">
-                {currentUser.firstName}&nbsp;
-                {currentUser.lastName}
+                {store.currentUser.firstName}&nbsp;
+                {store.currentUser.lastName}
               </div>
-              {sinceDate(currentUser.createdAt)}
+              {sinceDate(store.currentUser.createdAt)}
               <div className="profile-tab__log-out">
-                <LogoutAccountButton
-                  setSavedFilms={setSavedFilms}
-                  setBlackLists={setBlackLists}
-                />
+                <LogoutAccountButton />
               </div>
             </Tab>
             <Tab eventKey="saved" title="Saved">
-              <SavedFilms
-                savedFilms={savedFilms}
-                blackLists={blackLists}
-                doSearch={doSearch}
-                setBlackLists={setBlackLists}
-                setSavedFilms={setSavedFilms}
-                setResultSaved={setResultSaved}
-              />
+              <SavedFilms doSearch={doSearch} />
             </Tab>
           </Tabs>
         </div>
@@ -67,12 +51,6 @@ function AccountOverlay({
     );
   }
 }
-
-AccountOverlay.propTypes = {
-  currentUser: PropTypes.object,
-  blackLists: PropTypes.array,
-  savedFilms: PropTypes.array,
-};
 
 const mapStateToProps = (state) => {
   return state;

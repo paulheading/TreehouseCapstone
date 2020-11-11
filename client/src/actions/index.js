@@ -39,3 +39,24 @@ export const firstTime = (user) => {
     payload: user,
   };
 };
+
+export const savedFilms = (films) => {
+  return {
+    type: "SAVED_FILMS",
+    payload: films,
+  };
+};
+
+export const blackList = (list) => {
+  return {
+    type: "BLACK_LIST",
+    payload: list,
+  };
+};
+
+export const resultSaved = (result) => {
+  return {
+    type: "RESULT_SAVED",
+    payload: result,
+  };
+};

@@ -6,52 +6,26 @@ import FilmResults from "../../FilmResults/FilmResults";
 import PropTypes from "prop-types";
 import "./Results.scss";
 
-function SearchResults({
-  savedFilms,
-  setAlbums,
-  setBlackLists,
-  setSavedFilms,
-  blackLists,
-  resultSaved,
-  setResultSaved,
-}) {
-  const filmResult = useSelector((state) => state.filmResult);
-  const albumResults = useSelector((state) => state.albumResults);
+function SearchResults() {
+  const store = {
+    filmResult: useSelector((state) => state.filmResult),
+    albumResults: useSelector((state) => state.albumResults),
+  };
 
   function printResults() {
-    if (filmResult) {
-      if (!filmResult.Error) {
-        if (albumResults.length > 0) {
+    if (store.filmResult) {
+      if (!store.filmResult.Error) {
+        if (store.albumResults.length > 0) {
           return (
             <div>
-              <FilmResults
-              // savedFilms={savedFilms}
-              // resultSaved={resultSaved}
-              // setBlackLists={setBlackLists}
-              // setSavedFilms={setSavedFilms}
-              // setResultSaved={setResultSaved}
-              />
-              {/* <AlbumResults
-                blackLists={blackLists}
-                savedFilms={savedFilms}
-                setAlbums={setAlbums}
-                setBlackLists={setBlackLists}
-                setSavedFilms={setSavedFilms}
-                setResultSaved={setResultSaved}
-              /> */}
+              <FilmResults />
+              <AlbumResults />
             </div>
           );
         } else {
           return (
             <div>
-              <FilmResults
-                savedFilms={savedFilms}
-                blackLists={blackLists}
-                resultSaved={resultSaved}
-                setResultSaved={setResultSaved}
-                setBlackLists={setBlackLists}
-                setSavedFilms={setSavedFilms}
-              />
+              <FilmResults />
               <ListGroup variant="primary" className="not-found">
                 <ListGroup.Item>No Albums Found ?!</ListGroup.Item>
               </ListGroup>
@@ -61,7 +35,7 @@ function SearchResults({
       } else {
         return (
           <ListGroup variant="primary" className="not-found">
-            <ListGroup.Item>{filmResult.Error}</ListGroup.Item>
+            <ListGroup.Item>{store.filmResult.Error}</ListGroup.Item>
           </ListGroup>
         );
       }
@@ -73,10 +47,8 @@ function SearchResults({
 }
 
 SearchResults.propTypes = {
-  searchTerm: PropTypes.string,
   film: PropTypes.object,
   albums: PropTypes.array,
-  savedFilms: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {

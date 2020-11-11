@@ -4,54 +4,54 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SaveIcon } from "../Icons/Icons";
 import { createRoute, getRoute, delRoute } from "../../modules/helpers";
+import { savedFilms, blackList, resultSaved } from "../../../actions";
 
-function SaveButton({
-  savedFilms,
-  blackLists,
-  resultSaved,
-  setSavedFilms,
-  setBlackLists,
-  setResultSaved,
-}) {
+function SaveButton({ savedFilms, resultSaved, blackList }) {
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
   const searchQuery = useSelector((state) => state.searchQuery);
   const currentUser = useSelector((state) => state.currentUser);
+  const filmsSaved = useSelector((state) => state.savedFilms);
+
+  const store = {
+    blackList: useSelector((state) => state.blackList),
+    resultSaved: useSelector((state) => state.resultSaved),
+  };
 
   async function saveFilm(id = "") {
     if (currentUser) {
-      if (resultSaved) {
-        savedFilms.forEach((value) => {
+      if (store.resultSaved) {
+        filmsSaved.forEach((value) => {
           if (value.searchTerm === searchQuery) {
             delRoute("saved", value.id);
             id = value.id;
           }
         });
-        if (blackLists) {
-          blackLists.forEach((value) => {
+        if (store.blackList) {
+          store.blackList.forEach((value) => {
             if (value.searchTerm === searchQuery) {
               delRoute("blacklist", value.albumId);
             }
           });
-          setBlackLists(
-            blackLists.filter((value) => {
+          blackList(
+            store.blackList.filter((value) => {
               return value.searchTerm !== searchQuery;
             })
           );
         }
-        setSavedFilms(
-          savedFilms.filter((value) => {
+        savedFilms(
+          filmsSaved.filter((value) => {
             return value.id !== id;
           })
         );
-        setResultSaved(false);
+        resultSaved(false);
       } else {
         createRoute("saved", {
           userId: currentUser.id,
           searchQuery,
         });
-        setSavedFilms(await getRoute("saved", currentUser.id));
-        setResultSaved(true);
+        savedFilms(await getRoute("saved", currentUser.id));
+        resultSaved(true);
       }
     } else {
       openLogin();
@@ -59,7 +59,7 @@ function SaveButton({
   }
   return (
     <Button variant="link" className="save-film" onClick={saveFilm}>
-      <SaveIcon resultSaved={resultSaved} />
+      <SaveIcon resultSaved={store.resultSaved} />
     </Button>
   );
 }
@@ -68,4 +68,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps)(SaveButton);
+export default connect(mapStateToProps, { savedFilms, blackList, resultSaved })(
+  SaveButton
+);

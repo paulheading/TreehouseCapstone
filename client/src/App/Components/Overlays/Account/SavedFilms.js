@@ -1,21 +1,17 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Table, ListGroup } from "react-bootstrap";
 import { RemoveSavedButton, SearchSavedButton } from "../../Buttons";
-import PropTypes from "prop-types";
 import { limitString } from "../../../modules/helpers";
 
-export default function SavedFilms({
-  savedFilms,
-  blackLists,
-  doSearch,
-  setBlackLists,
-  setSavedFilms,
-  setResultSaved,
-}) {
-  return savedFilms.length > 0 ? (
+function SavedFilms({ doSearch }) {
+  const store = {
+    savedFilms: useSelector((state) => state.savedFilms),
+  };
+  return store.savedFilms.length > 0 ? (
     <Table striped className="saved-table">
       <tbody>
-        {savedFilms.map(({ id, searchTerm }, index) => {
+        {store.savedFilms.map(({ id, searchTerm }, index) => {
           return (
             <tr key={index}>
               <td>
@@ -25,19 +21,10 @@ export default function SavedFilms({
               </td>
               <td width="78">
                 <SearchSavedButton
-                  searchTerm={searchTerm}
+                  savedTitle={searchTerm}
                   doSearch={doSearch}
-                  setResultSaved={setResultSaved}
                 />
-                <RemoveSavedButton
-                  id={id}
-                  savedFilms={savedFilms}
-                  blackLists={blackLists}
-                  searchTerm={searchTerm}
-                  setResultSaved={setResultSaved}
-                  setBlackLists={setBlackLists}
-                  setSavedFilms={setSavedFilms}
-                />
+                <RemoveSavedButton id={id} searchTerm={searchTerm} />
               </td>
             </tr>
           );
@@ -54,7 +41,8 @@ export default function SavedFilms({
   );
 }
 
-SavedFilms.propTypes = {
-  savedFilms: PropTypes.array,
-  blackLists: PropTypes.array,
+const mapStateToProps = (state) => {
+  return state;
 };
+
+export default connect(mapStateToProps)(SavedFilms);

@@ -2,13 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { firstTime, currentUser } from "../../../actions";
+import {
+  firstTime,
+  currentUser,
+  savedFilms,
+  blackList,
+} from "../../../actions";
 
 function LogoutAccountButton({
   firstTime,
   currentUser,
-  setSavedFilms,
-  setBlackLists,
+  savedFilms,
+  blackList,
 }) {
   return (
     <Link to="/">
@@ -16,10 +21,10 @@ function LogoutAccountButton({
         variant="outline-primary"
         size="md"
         onClick={() => {
-          currentUser(null);
-          setSavedFilms(null);
-          setBlackLists(null);
           firstTime(false);
+          currentUser(null);
+          savedFilms([]);
+          blackList([]);
         }}
       >
         Log Out
@@ -32,6 +37,9 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { firstTime, currentUser })(
-  LogoutAccountButton
-);
+export default connect(mapStateToProps, {
+  firstTime,
+  currentUser,
+  savedFilms,
+  blackList,
+})(LogoutAccountButton);

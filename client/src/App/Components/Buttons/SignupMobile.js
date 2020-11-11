@@ -2,14 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { firstTime, currentUser } from "../../../actions";
-
-function SignupMobileButton({
-  currentUser,
-  setSavedFilms,
-  setBlackLists,
+import {
   firstTime,
-}) {
+  currentUser,
+  savedFilms,
+  blackList,
+} from "../../../actions";
+
+function SignupMobileButton({ currentUser, savedFilms, blackList, firstTime }) {
   function ifCurrentUser(currentUser) {
     if (currentUser) {
       return (
@@ -18,10 +18,10 @@ function SignupMobileButton({
             variant="outline-primary"
             size="lg"
             onClick={() => {
-              currentUser(null);
-              setSavedFilms(null);
-              setBlackLists(null);
               firstTime(false);
+              currentUser(null);
+              savedFilms([]);
+              blackList([]);
             }}
           >
             Log out
@@ -45,6 +45,9 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { firstTime, currentUser })(
-  SignupMobileButton
-);
+export default connect(mapStateToProps, {
+  firstTime,
+  currentUser,
+  savedFilms,
+  blackList,
+})(SignupMobileButton);

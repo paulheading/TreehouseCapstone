@@ -1,27 +1,32 @@
 import React, { useState, useRef } from "react";
 import { connect, useSelector } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
-import { searchQuery } from "../../../../actions";
+import { searchQuery, resultSaved } from "../../../../actions";
 import { isSaved } from "../../../modules/helpers";
 import "./Form.scss";
 
-function SearchForm({ savedFilms, doSearch, setResultSaved, searchQuery }) {
+function SearchForm({ doSearch, resultSaved, searchQuery }) {
   const [search, setSearch] = useState(null);
   const searchBtn = useRef(null);
-  const currentUser = useSelector((state) => state.currentUser);
 
-  function doSubmit(e) {
-    doSearch(search);
+  const store = {
+    searchQuery: useSelector((state) => state.searchQuery),
+    currentUser: useSelector((state) => state.currentUser),
+    filmsSaved: useSelector((state) => state.savedFilms),
+  };
+
+  function doSubmit() {
     searchQuery(search);
+    doSearch(search);
 
-    if (currentUser) {
-      if (isSaved(savedFilms, search)) {
-        setResultSaved(true);
+    if (store.currentUser) {
+      if (isSaved(store.filmsSaved, search)) {
+        resultSaved(true);
       } else {
-        setResultSaved(false);
+        resultSaved(false);
       }
     } else {
-      setResultSaved(false);
+      resultSaved(false);
     }
   }
 
@@ -58,4 +63,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { searchQuery })(SearchForm);
+export default connect(mapStateToProps, { searchQuery, resultSaved })(
+  SearchForm
+);

@@ -5,68 +5,86 @@ export async function searchFilm(delta, key) {
   return await get.json();
 }
 
-export function searchAlbums(delta, blackLists) {
+function optimiseAlbumData(data) {
+  return data.map(({ name, id, external_urls, images, release_date }) => {
+    return {
+      name,
+      id,
+      url: external_urls.spotify,
+      images,
+      release_date,
+    };
+  });
+}
+
+function filterBlacklistedResults(data, delta, blacklist) {
+  let filter = [];
+  if (blacklist) {
+    data.forEach((data) => {
+      blacklist.forEach(({ searchTerm, albumId }) => {
+        if (searchTerm === delta) {
+          if (albumId === data.id) {
+            filter.push(albumId);
+          }
+        }
+      });
+    });
+  }
+  return data.filter((data) => {
+    return filter.indexOf(data.id) === -1;
+  });
+}
+
+async function getRelatedData(id) {
+  return await spotifyApi.getAlbumTracks(id).then(({ items }) => {
+    let results = [];
+    items.map(({ artists }) => {
+      return artists.map(({ external_urls, name }) => {
+        let exists = false;
+        results.forEach((value) => {
+          if (value.name === name) {
+            exists = true;
+          }
+        });
+        if (!exists) {
+          return results.push({ url: external_urls.spotify, name });
+        }
+        return null;
+      });
+    });
+    return results;
+  });
+}
+
+async function getAlbumArtists(data) {
+  const tingo = data.map(async (value) => {
+    value.related = await getRelatedData(value.id);
+    return value;
+  });
+
+  return Promise.all(tingo).then((results) => {
+    return results;
+  });
+}
+
+export function searchAlbums(delta, blacklist) {
   return spotifyApi
     .searchAlbums(delta, { limit: 15 })
     .then((data) => {
-      return data.albums.items.map(
-        ({ name, id, external_urls, images, release_date }) => {
-          const url = external_urls.spotify;
-          return {
-            name,
-            id,
-            url,
-            images,
-            release_date,
-          };
-        }
-      );
+      return optimiseAlbumData(data.albums.items);
     })
     .then((data) => {
-      let filter = [];
-      if (blackLists) {
-        data.forEach((data) => {
-          blackLists.forEach(({ searchTerm, albumId }) => {
-            if (searchTerm === delta) {
-              if (albumId === data.id) {
-                filter.push(albumId);
-              }
-            }
-          });
-        });
-      }
-      return data.filter((data) => {
-        return filter.indexOf(data.id) === -1;
-      });
+      return filterBlacklistedResults(data, delta, blacklist);
     })
     .then((data) => {
-      data.forEach((value) => {
-        value.related = [];
-        spotifyApi.getAlbumTracks(value.id).then(({ items }) => {
-          items.forEach(({ artists }) => {
-            artists.forEach(({ external_urls, name }) => {
-              const url = external_urls.spotify;
-              let exists = false;
-              value.related.forEach((value) => {
-                if (value.name === name) {
-                  exists = true;
-                }
-              });
-              if (!exists) {
-                value.related.push({ url, name });
-              }
-            });
-          });
-        });
-      });
-      return data;
+      return getAlbumArtists(data);
     })
     .then(
       (data) => {
-        return { data, expired: false };
+        return !data ? { data: [], expired: false } : { data, expired: false };
       },
       () => {
-        return { expired: true };
+        return { data: [], expired: true };
       }
     );
 }

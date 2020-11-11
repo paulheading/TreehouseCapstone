@@ -1,20 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SearchIcon } from "../Icons/Icons";
+import { resultSaved, searchQuery } from "../../../actions";
 
-export default function SearchSavedButton({
-  searchTerm,
-  doSearch,
-  setResultSaved,
-}) {
+function SearchSavedButton({ savedTitle, doSearch, resultSaved, searchQuery }) {
   return (
     <Link to="/" className="search-saved__link">
       <Button
         variant="inline"
         onClick={() => {
-          doSearch(searchTerm);
-          setResultSaved(true);
+          searchQuery(savedTitle);
+          doSearch(savedTitle);
+          resultSaved(true);
         }}
       >
         <SearchIcon variant="secondary" size="sm" />
@@ -22,3 +21,11 @@ export default function SearchSavedButton({
     </Link>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { resultSaved, searchQuery })(
+  SearchSavedButton
+);

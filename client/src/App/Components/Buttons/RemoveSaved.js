@@ -1,34 +1,39 @@
 import React from "react";
+import { connect, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import { delRoute } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons/Icons";
+import { savedFilms, blackList, resultSaved } from "../../../actions";
 
-export default function RemoveSavedButton({
+function RemoveSavedButton({
   id,
   savedFilms,
-  blackLists,
   searchTerm,
-  setResultSaved,
-  setBlackLists,
-  setSavedFilms,
+  resultSaved,
+  blackList,
 }) {
+  const store = {
+    savedFilms: useSelector((state) => state.savedFilms),
+    blackList: useSelector((state) => state.blackList),
+  };
+
   function doRemove() {
     delRoute("saved", id);
-    setResultSaved(false);
-    if (blackLists) {
-      blackLists.forEach((value) => {
+    resultSaved(false);
+    if (store.blackList) {
+      store.blackList.forEach((value) => {
         if (value.searchTerm === searchTerm) {
           delRoute("blacklist", value.albumId);
         }
       });
-      setBlackLists(
-        blackLists.filter((value) => {
+      blackList(
+        store.blackList.filter((value) => {
           return value.searchTerm !== searchTerm;
         })
       );
     }
-    setSavedFilms(
-      savedFilms.filter((value) => {
+    savedFilms(
+      store.savedFilms.filter((value) => {
         return value.id !== id;
       })
     );
@@ -39,3 +44,11 @@ export default function RemoveSavedButton({
     </Button>
   );
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { savedFilms, blackList, resultSaved })(
+  RemoveSavedButton
+);

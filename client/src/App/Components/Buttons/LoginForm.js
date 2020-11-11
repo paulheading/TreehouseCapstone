@@ -1,23 +1,30 @@
 import React, { useCallback } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { currentUser } from "../../../actions";
+import {
+  currentUser,
+  savedFilms,
+  blackList,
+  resultSaved,
+} from "../../../actions";
 import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
 
 function LoginFormButton({
   emailAddress,
   password,
-  searchTerm,
   doSearch,
   currentUser,
-  setSavedFilms,
-  setBlackLists,
-  setResultSaved,
+  savedFilms,
+  blackList,
+  resultSaved,
   setUserDenied,
 }) {
   const history = useHistory();
   const closeLogin = useCallback(() => history.push("/"), [history]);
+  const store = {
+    searchQuery: useSelector((state) => state.searchQuery),
+  };
 
   async function doLogin(e) {
     e.preventDefault();
@@ -29,16 +36,18 @@ function LoginFormButton({
     if (getUser.message) {
       setUserDenied(getUser.message);
     } else {
+      const getBlackList = await getRoute("blacklist", getUser.id);
+      const getSavedFilms = await getRoute("saved", getUser.id);
       currentUser(getUser);
-      setSavedFilms(await getRoute("saved", getUser.id));
-      setBlackLists(await getRoute("blacklist", getUser.id));
-      if (isSaved(await getRoute("saved", getUser.id), searchTerm)) {
-        setResultSaved(true);
+      savedFilms(getSavedFilms);
+      blackList(getBlackList);
+      if (isSaved(getSavedFilms, store.searchQuery)) {
+        resultSaved(true);
       } else {
-        setResultSaved(false);
+        resultSaved(false);
       }
       closeLogin();
-      doSearch(searchTerm);
+      doSearch(store.searchQuery, getBlackList);
     }
   }
   return (
@@ -60,4 +69,9 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { currentUser })(LoginFormButton);
+export default connect(mapStateToProps, {
+  currentUser,
+  savedFilms,
+  blackList,
+  resultSaved,
+})(LoginFormButton);
