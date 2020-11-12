@@ -52,9 +52,11 @@ export async function getAuthRoute(route, name, pass) {
 // FILTER functions
 
 export function limitString(string, limit = 40) {
-  if (string.length > limit) {
-    string = string.slice(0, limit);
-    string += "...";
+  if (string) {
+    if (string.length > limit) {
+      string = string.slice(0, limit);
+      string += "...";
+    }
   }
   return string;
 }

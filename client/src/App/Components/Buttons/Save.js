@@ -9,48 +9,49 @@ import { savedFilms, blackList, resultSaved } from "../../../actions";
 function SaveButton({ savedFilms, resultSaved, blackList }) {
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
-  const searchQuery = useSelector((state) => state.searchQuery);
-  const currentUser = useSelector((state) => state.currentUser);
-  const filmsSaved = useSelector((state) => state.savedFilms);
 
   const store = {
     blackList: useSelector((state) => state.blackList),
     resultSaved: useSelector((state) => state.resultSaved),
+    searchQuery: useSelector((state) => state.searchQuery),
+    currentUser: useSelector((state) => state.currentUser),
+    savedFilms: useSelector((state) => state.savedFilms),
   };
 
   async function saveFilm(id = "") {
-    if (currentUser) {
+    if (store.currentUser) {
       if (store.resultSaved) {
-        filmsSaved.forEach((value) => {
-          if (value.searchTerm === searchQuery) {
+        store.savedFilms.forEach((value) => {
+          if (value.searchTerm === store.searchQuery) {
             delRoute("saved", value.id);
             id = value.id;
           }
         });
         if (store.blackList) {
           store.blackList.forEach((value) => {
-            if (value.searchTerm === searchQuery) {
+            if (value.searchTerm === store.searchQuery) {
               delRoute("blacklist", value.albumId);
             }
           });
           blackList(
             store.blackList.filter((value) => {
-              return value.searchTerm !== searchQuery;
+              return value.searchTerm !== store.searchQuery;
             })
           );
         }
         savedFilms(
-          filmsSaved.filter((value) => {
+          store.savedFilms.filter((value) => {
             return value.id !== id;
           })
         );
         resultSaved(false);
       } else {
+        console.log(store.currentUser.id, store.searchQuery);
         createRoute("saved", {
-          userId: currentUser.id,
-          searchQuery,
+          userId: store.currentUser.id,
+          searchTerm: store.searchQuery,
         });
-        savedFilms(await getRoute("saved", currentUser.id));
+        savedFilms(await getRoute("saved", store.currentUser.id));
         resultSaved(true);
       }
     } else {

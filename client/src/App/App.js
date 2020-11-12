@@ -75,9 +75,9 @@ function App({ filmResult, albumResults, sessionExpired }) {
               exact
               component={() => {
                 return (
-                  // doSearch refreshes blacklist instantly
+                  // customSearch refreshes blacklist instantly
                   <LoginOverlay
-                    doSearch={(delta, blacklist) => {
+                    customSearch={(delta, blacklist) => {
                       albumData(delta, blacklist);
                       filmData(delta);
                     }}
@@ -92,7 +92,12 @@ function App({ filmResult, albumResults, sessionExpired }) {
               exact
               component={() => {
                 return (
+                  // customSearch refreshes blacklist instantly
                   <AccountOverlay
+                    customSearch={(delta, blacklist) => {
+                      filmData(delta);
+                      albumData(delta, blacklist);
+                    }}
                     doSearch={(delta) => {
                       filmData(delta);
                       albumData(delta);

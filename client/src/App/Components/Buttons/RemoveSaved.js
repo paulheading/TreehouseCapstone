@@ -11,6 +11,7 @@ function RemoveSavedButton({
   searchTerm,
   resultSaved,
   blackList,
+  customSearch,
 }) {
   const store = {
     savedFilms: useSelector((state) => state.savedFilms),
@@ -37,6 +38,7 @@ function RemoveSavedButton({
         return value.id !== id;
       })
     );
+    customSearch(searchTerm, null);
   }
   return (
     <Button variant="inline" onClick={doRemove}>
