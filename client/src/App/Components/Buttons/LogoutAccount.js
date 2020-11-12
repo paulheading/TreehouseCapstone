@@ -16,7 +16,7 @@ function LogoutAccountButton({
   currentUser,
   savedFilms,
   blackList,
-  customSearch,
+  doSearch,
 }) {
   const store = {
     searchQuery: useSelector((state) => state.searchQuery),
@@ -32,7 +32,7 @@ function LogoutAccountButton({
           currentUser(null);
           savedFilms([]);
           blackList([]);
-          customSearch(store.searchQuery, null);
+          doSearch(store.searchQuery, null);
         }}
       >
         Log Out

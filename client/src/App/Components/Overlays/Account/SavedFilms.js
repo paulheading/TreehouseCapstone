@@ -4,7 +4,7 @@ import { Table, ListGroup } from "react-bootstrap";
 import { RemoveSavedButton, SearchSavedButton } from "../../Buttons";
 import { limitString } from "../../../modules/helpers";
 
-function SavedFilms({ doSearch, customSearch }) {
+function SavedFilms({ doSearch }) {
   const store = {
     savedFilms: useSelector((state) => state.savedFilms),
   };
@@ -27,7 +27,7 @@ function SavedFilms({ doSearch, customSearch }) {
                 <RemoveSavedButton
                   id={id}
                   searchTerm={searchTerm}
-                  customSearch={customSearch}
+                  doSearch={doSearch}
                 />
               </td>
             </tr>

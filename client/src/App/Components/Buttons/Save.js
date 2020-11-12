@@ -46,7 +46,6 @@ function SaveButton({ savedFilms, resultSaved, blackList }) {
         );
         resultSaved(false);
       } else {
-        console.log(store.currentUser.id, store.searchQuery);
         createRoute("saved", {
           userId: store.currentUser.id,
           searchTerm: store.searchQuery,

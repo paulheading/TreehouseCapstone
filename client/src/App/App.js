@@ -50,14 +50,18 @@ function App({ filmResult, albumResults, sessionExpired }) {
 
   // blacklist defaults to store contents
   async function albumData(delta, blacklist = store.blackList) {
-    const results = await searchAlbums(delta, blacklist);
-    sessionExpired(results.expired);
-    albumResults(results.data);
+    if (delta) {
+      const results = await searchAlbums(delta, blacklist);
+      sessionExpired(results.expired);
+      albumResults(results.data);
+    }
   }
 
   async function filmData(delta) {
-    const result = await searchFilm(delta, process.env.REACT_APP_OMDB_API);
-    filmResult(result);
+    if (delta) {
+      const result = await searchFilm(delta, process.env.REACT_APP_OMDB_API);
+      filmResult(result);
+    }
   }
 
   useEffect(() => {
@@ -75,9 +79,9 @@ function App({ filmResult, albumResults, sessionExpired }) {
               exact
               component={() => {
                 return (
-                  // customSearch refreshes blacklist instantly
+                  // doSearch refreshes blacklist instantly
                   <LoginOverlay
-                    customSearch={(delta, blacklist) => {
+                    doSearch={(delta, blacklist) => {
                       albumData(delta, blacklist);
                       filmData(delta);
                     }}
@@ -92,15 +96,11 @@ function App({ filmResult, albumResults, sessionExpired }) {
               exact
               component={() => {
                 return (
-                  // customSearch refreshes blacklist instantly
+                  // doSearch refreshes blacklist instantly
                   <AccountOverlay
-                    customSearch={(delta, blacklist) => {
-                      filmData(delta);
+                    doSearch={(delta, blacklist) => {
                       albumData(delta, blacklist);
-                    }}
-                    doSearch={(delta) => {
                       filmData(delta);
-                      albumData(delta);
                     }}
                   />
                 );
@@ -115,8 +115,8 @@ function App({ filmResult, albumResults, sessionExpired }) {
                     <Navigation />
                     <SearchForm
                       doSearch={(delta) => {
-                        filmData(delta);
                         albumData(delta);
+                        filmData(delta);
                       }}
                     />
                     {store.searchQuery ? <SearchResults /> : <SearchMessage />}
@@ -139,6 +139,7 @@ function App({ filmResult, albumResults, sessionExpired }) {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return state;
 };
 

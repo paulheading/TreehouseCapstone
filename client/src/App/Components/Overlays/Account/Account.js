@@ -7,7 +7,7 @@ import { AvatarIcon } from "../../Icons/Icons";
 import SavedFilms from "./SavedFilms";
 import "./Account.scss";
 
-function AccountOverlay({ doSearch, customSearch }) {
+function AccountOverlay({ doSearch }) {
   const store = {
     currentUser: useSelector((state) => state.currentUser),
   };
@@ -38,11 +38,11 @@ function AccountOverlay({ doSearch, customSearch }) {
               </div>
               {sinceDate(store.currentUser.createdAt)}
               <div className="profile-tab__log-out">
-                <LogoutAccountButton customSearch={customSearch} />
+                <LogoutAccountButton doSearch={doSearch} />
               </div>
             </Tab>
             <Tab eventKey="saved" title="Saved">
-              <SavedFilms doSearch={doSearch} customSearch={customSearch} />
+              <SavedFilms doSearch={doSearch} />
             </Tab>
           </Tabs>
         </div>

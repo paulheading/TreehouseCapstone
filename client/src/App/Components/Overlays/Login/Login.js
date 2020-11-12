@@ -7,7 +7,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons";
 import "./Login.scss";
 
-function LoginOverlay({ customSearch }) {
+function LoginOverlay({ doSearch }) {
   const [userDenied, setUserDenied] = useState(null);
   const emailAddress = useRef(null);
   const password = useRef(null);
@@ -44,7 +44,7 @@ function LoginOverlay({ customSearch }) {
           <LoginFormButton
             emailAddress={emailAddress}
             password={password}
-            customSearch={customSearch}
+            doSearch={doSearch}
             setUserDenied={(delta) => {
               setUserDenied(delta);
             }}

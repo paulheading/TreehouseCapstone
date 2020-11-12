@@ -13,7 +13,7 @@ import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
 function LoginFormButton({
   emailAddress,
   password,
-  customSearch,
+  doSearch,
   currentUser,
   savedFilms,
   blackList,
@@ -47,7 +47,7 @@ function LoginFormButton({
         resultSaved(false);
       }
       closeLogin();
-      customSearch(store.searchQuery, getBlackList);
+      doSearch(store.searchQuery, getBlackList);
     }
   }
   return (
