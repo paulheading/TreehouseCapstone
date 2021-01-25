@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
-import { spotifyApi, getHashParams } from "./modules/spotify";
 import { searchFilm, searchAlbums } from "./modules/search";
-import { applyClass } from "./modules/helpers";
 import { filmResult, albumResults, sessionExpired } from "../actions";
+import { getSpotifyData } from "./modules/newSearch";
 
 // Import react components
 import { SearchForm, SearchMessage, SearchResults } from "./Components/Search";
 import Navigation from "./Components/Navigation/Navigation";
-import Start from "./Components/Start/Start";
 import {
   AboutOverlay,
   AccountOverlay,
@@ -31,22 +29,11 @@ export function sayHello() {
 // https://jscomplete.com/learn/react-beyond-basics/react-cfp
 
 function App({ filmResult, albumResults, sessionExpired }) {
-  // environment variables
-  require("dotenv").config();
-  // spotify variables
-  const params = getHashParams();
-  const token = params.access_token;
   const store = {
     searchQuery: useSelector((state) => state.searchQuery),
     sessionExpired: useSelector((state) => state.sessionExpired),
     blackList: useSelector((state) => state.blackList),
   };
-
-  if (token) {
-    spotifyApi.setAccessToken(token);
-  }
-
-  const loggedIn = useState(token ? true : false);
 
   // blacklist defaults to store contents
   async function albumData(delta, blacklist = store.blackList) {
@@ -69,71 +56,63 @@ function App({ filmResult, albumResults, sessionExpired }) {
   }, []);
 
   return (
-    <div className={`App ${applyClass(loggedIn[0], "loggedIn")}`}>
-      {loggedIn[0] && !store.sessionExpired ? (
-        <div className="dashboard-screen">
-          <MemoryRouter>
-            <Route path="/about" exact component={AboutOverlay} />
-            <Route
-              path="/login"
-              exact
-              component={() => {
-                return (
-                  // doSearch refreshes blacklist instantly
-                  <LoginOverlay
-                    doSearch={(delta, blacklist) => {
-                      albumData(delta, blacklist);
-                      filmData(delta);
+    <div className={`App loggedIn`}>
+      <div className="dashboard-screen">
+        <MemoryRouter>
+          <Route path="/about" exact component={AboutOverlay} />
+          <Route
+            path="/login"
+            exact
+            component={() => {
+              return (
+                // doSearch refreshes blacklist instantly
+                <LoginOverlay
+                  doSearch={(delta, blacklist) => {
+                    albumData(delta, blacklist);
+                    filmData(delta);
+                  }}
+                />
+              );
+            }}
+          />
+          <Route path="/signup" exact component={SignupOverlay} />
+          <Route path="/menu" exact component={MenuOverlay} />
+          <Route
+            path="/account"
+            exact
+            component={() => {
+              return (
+                // doSearch refreshes blacklist instantly
+                <AccountOverlay
+                  doSearch={(delta, blacklist) => {
+                    albumData(delta, blacklist);
+                    filmData(delta);
+                  }}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/"
+            exact
+            component={() => {
+              return (
+                <div>
+                  <Navigation />
+                  <SearchForm
+                    doSearch={(delta) => {
+                      (async () => {
+                        console.log(await getSpotifyData(delta));
+                      })();
                     }}
                   />
-                );
-              }}
-            />
-            <Route path="/signup" exact component={SignupOverlay} />
-            <Route path="/menu" exact component={MenuOverlay} />
-            <Route
-              path="/account"
-              exact
-              component={() => {
-                return (
-                  // doSearch refreshes blacklist instantly
-                  <AccountOverlay
-                    doSearch={(delta, blacklist) => {
-                      albumData(delta, blacklist);
-                      filmData(delta);
-                    }}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/"
-              exact
-              component={() => {
-                return (
-                  <div>
-                    <Navigation />
-                    <SearchForm
-                      doSearch={(delta) => {
-                        albumData(delta);
-                        filmData(delta);
-                      }}
-                    />
-                    {store.searchQuery ? <SearchResults /> : <SearchMessage />}
-                  </div>
-                );
-              }}
-            />
-          </MemoryRouter>
-        </div>
-      ) : (
-        <div className="home-screen">
-          <MemoryRouter>
-            <Route path="/about" exact component={AboutOverlay} />
-            <Route path="/" exact component={Start} />
-          </MemoryRouter>
-        </div>
-      )}
+                  {store.searchQuery ? <SearchResults /> : <SearchMessage />}
+                </div>
+              );
+            }}
+          />
+        </MemoryRouter>
+      </div>
     </div>
   );
 }
