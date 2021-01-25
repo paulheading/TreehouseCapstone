@@ -1,0 +1,36 @@
+.film-result {
+  &.card {
+    background-color: $gray--fade;
+    margin: auto auto 3rem;
+    text-align: center;
+    max-width: 60rem;
+    display: block;
+
+    &.saved {
+      background-color: #fcf6f5;
+    }
+
+    .save-film.btn {
+      margin-top: -2rem;
+    }
+  }
+  &.card-header {
+    background-color: transparent;
+    padding: 0 2rem 2rem;
+  }
+  &.card-body {
+    background-color: white;
+    padding: 2rem;
+
+    @media #{$min768} {
+      padding: 3rem;
+    }
+  }
+  &.year {
+    margin: 0;
+  }
+  &.plot {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+}

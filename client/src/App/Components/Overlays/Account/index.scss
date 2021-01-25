@@ -1,0 +1,95 @@
+.account {
+  .overlay__wrap {
+    @include overlayGap;
+    max-width: 32rem;
+
+    .nav-tabs {
+      border-bottom-color: $purple;
+
+      .nav-link {
+        padding: 1rem 2.5rem;
+        text-align: center;
+        font-size: 2rem;
+        width: 50%;
+
+        &:hover {
+          border-color: transparent;
+        }
+        &.active {
+          @include modal(
+            $bord: false,
+            $rad: 0.3rem 0.3rem 0 0,
+            $pad: 1rem 2.5rem
+          );
+          border-color: $purple $purple transparent;
+          font-weight: bold;
+        }
+      }
+    }
+    .tab-content {
+      @include modal($rad: 0 0 0.3rem 0.3rem);
+      padding-bottom: 4rem;
+      padding-top: 4rem;
+      border-top: 0;
+
+      @media #{$min768} {
+        padding-bottom: 6rem;
+        padding-top: 6rem;
+      }
+
+      .table {
+        text-transform: capitalize;
+        border: 1px solid $purple;
+        font-style: italic;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: left;
+        color: $purple;
+
+        &-striped tbody tr:nth-of-type(odd) {
+          background-color: $purple--tint;
+        }
+
+        td {
+          border-color: $purple;
+        }
+      }
+    }
+  }
+}
+
+table.table {
+  margin: 0;
+}
+
+.tab-pane {
+  &.profile {
+    text-align: center;
+  }
+}
+
+.profile-tab {
+  &__avatar {
+    fill: $purple;
+  }
+  &__name {
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+  &__since {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+  }
+  &__log-out {
+    margin-top: 2rem;
+  }
+}
+
+.saved-table {
+  &__term {
+    padding-top: 0.2rem;
+  }
+  .search-saved__link {
+    margin-right: 1rem;
+  }
+}

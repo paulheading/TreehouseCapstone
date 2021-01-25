@@ -13,7 +13,6 @@ import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
 function LoginFormButton({
   emailAddress,
   password,
-  doSearch,
   currentUser,
   savedFilms,
   blackList,
@@ -22,7 +21,7 @@ function LoginFormButton({
 }) {
   const history = useHistory();
   const closeLogin = useCallback(() => history.push("/"), [history]);
-  const store = {
+  const state = {
     searchQuery: useSelector((state) => state.searchQuery),
   };
 
@@ -39,15 +38,14 @@ function LoginFormButton({
       const getBlackList = await getRoute("blacklist", getUser.id);
       const getSavedFilms = await getRoute("saved", getUser.id);
       currentUser(getUser);
-      savedFilms(getSavedFilms);
+      // savedFilms(getSavedFilms);
       blackList(getBlackList);
-      if (isSaved(getSavedFilms, store.searchQuery)) {
+      if (isSaved(getSavedFilms, state.searchQuery)) {
         resultSaved(true);
       } else {
         resultSaved(false);
       }
       closeLogin();
-      doSearch(store.searchQuery, getBlackList);
     }
   }
   return (

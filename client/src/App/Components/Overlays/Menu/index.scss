@@ -1,0 +1,61 @@
+.overlay {
+  &__container {
+    @include overlayContainer;
+    font-size: 1.8rem;
+  }
+  &__wrap {
+    @include overlayWrap(40rem);
+  }
+  &.list-group {
+    @include overlayGap;
+  }
+}
+
+.menu.overlay__container {
+  .overlay {
+    &__wrap {
+      @include overlayGap;
+      border: 0.1rem solid $purple;
+      border-radius: 0.4rem;
+      text-align: center;
+      max-width: 14rem;
+      overflow: hidden;
+      padding: 0;
+
+      a + a {
+        border-top: 1px solid $purple;
+        display: block;
+      }
+
+      .btn {
+        border: 0.1rem solid transparent;
+        background-color: white;
+        border-radius: 0;
+        width: 100%;
+
+        &:hover,
+        &:focus {
+          background-color: $purple;
+          text-decoration: none;
+          color: white;
+        }
+
+        + .btn {
+          border-top-color: $purple;
+        }
+      }
+    }
+  }
+}
+
+.navbar {
+  &-mobile-controls {
+    .btn + .btn {
+      margin-left: 2rem;
+    }
+  }
+  &-collapse.show {
+    @include overlayContainer;
+    text-align: center;
+  }
+}

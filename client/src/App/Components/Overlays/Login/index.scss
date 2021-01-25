@@ -1,0 +1,11 @@
+.form.overlay__container {
+  .overlay__form {
+    @include overlayGap;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.alert.user-denied {
+  text-align: center;
+}

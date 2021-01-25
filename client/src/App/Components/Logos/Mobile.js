@@ -1,5 +1,4 @@
 import React from "react";
-import "./Logos.scss";
 
 export default function MobileLogo({ className }) {
   return (

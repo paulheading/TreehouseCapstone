@@ -1,7 +1,22 @@
 // https://carterbancroft.com/sass-and-webpack/
 
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "./scss/variables";
 @import "./scss/extends";
+
+@import "./Components/Navigation";
+@import "./Components/Logos";
+@import "./Components/Icons";
+
+@import "./Components/Search/Form";
+@import "./Components/Search/Message";
+@import "./Components/Search/Results";
+
+@import "./Components/Overlays/About";
+@import "./Components/Overlays/Account";
+@import "./Components/Overlays/Login";
+@import "./Components/Overlays/Menu";
+@import "./Components/Overlays/Signup";
 
 html {
   font-size: 62.5%;
@@ -208,7 +223,12 @@ a {
   }
 }
 
-p.terms {
-  font-size: 1.6rem;
-  margin-bottom: 0;
+p {
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+  &.terms {
+    font-size: 1.6rem;
+    margin-bottom: 0;
+  }
 }

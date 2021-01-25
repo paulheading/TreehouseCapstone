@@ -1,3 +1,10 @@
+export const justArrived = (query) => {
+  return {
+    type: "JUST_ARRIVED",
+    payload: query,
+  };
+};
+
 export const searchQuery = (query) => {
   return {
     type: "SEARCH_QUERY",

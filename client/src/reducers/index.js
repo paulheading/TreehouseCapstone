@@ -1,5 +1,12 @@
 import { combineReducers } from "redux";
 
+const justArrived = (justArrived = true, action) => {
+  if (action.type === "JUST_ARRIVED") {
+    return action.payload;
+  }
+  return justArrived;
+};
+
 const searchQuery = (searchQuery = null, action) => {
   if (action.type === "SEARCH_QUERY") {
     return action.payload;
@@ -73,4 +80,5 @@ export default combineReducers({
   savedFilms,
   blackList,
   resultSaved,
+  justArrived,
 });

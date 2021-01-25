@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { RemoveIcon } from "../Icons/Icons";
+import { RemoveIcon } from "../Icons";
 import { isSaved, createRoute, getRoute } from "../../modules/helpers";
 import {
   savedFilms,
@@ -21,7 +21,7 @@ function RemoveResultButton({
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
 
-  const store = {
+  const state = {
     searchQuery: useSelector((state) => state.searchQuery),
     currentUser: useSelector((state) => state.currentUser),
     filmsSaved: useSelector((state) => state.savedFilms),
@@ -29,35 +29,35 @@ function RemoveResultButton({
   };
 
   function filterAlbums(id) {
-    return store.albumResults.filter((value) => {
+    return state.albumResults.filter((value) => {
       return value.id !== id ? value : false;
     });
   }
 
   async function removeAlbum() {
     // if the user is currently logged in
-    if (store.currentUser) {
+    if (state.currentUser) {
       // if there is not a "saved films" db entry for this search
       // TODO: check against store, not db
-      if (!isSaved(store.filmsSaved, store.searchQuery)) {
+      if (!isSaved(state.filmsSaved, state.searchQuery)) {
         // create a "saved films" db entry
         createRoute("saved", {
-          userId: store.currentUser.id,
-          searchTerm: store.searchQuery,
+          userId: state.currentUser.id,
+          searchTerm: state.searchQuery,
         });
         // update store with latest "saved films" db entries from user
-        savedFilms(await getRoute("saved", store.currentUser.id));
+        savedFilms(await getRoute("saved", state.currentUser.id));
         // update state to reflect saved search
         resultSaved(true);
       }
       // create a "blacklist" db entry
       createRoute("blacklist", {
-        userId: store.currentUser.id,
-        searchTerm: store.searchQuery,
+        userId: state.currentUser.id,
+        searchTerm: state.searchQuery,
         albumId: id,
       });
       // update store with latest "blacklist" db entries from user
-      blackList(await getRoute("blacklist", store.currentUser.id));
+      blackList(await getRoute("blacklist", state.currentUser.id));
       // update front-end results minus the selected entry
       albumResults(filterAlbums(id));
     } else {

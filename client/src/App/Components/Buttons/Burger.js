@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BurgerIcon } from "../Icons/Icons";
+import { BurgerIcon } from "../Icons";
 
 export default function BurgerButton() {
   return (

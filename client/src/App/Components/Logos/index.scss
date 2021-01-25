@@ -1,0 +1,17 @@
+.logo {
+  &__block {
+    margin-bottom: 4rem;
+    display: block;
+    width: 20rem;
+    fill: $pink;
+  }
+
+  &__inline {
+    min-width: 22.5rem;
+    fill: $purple;
+  }
+
+  &__mobile {
+    width: 9rem;
+  }
+}

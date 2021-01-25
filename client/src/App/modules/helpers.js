@@ -13,9 +13,7 @@ export async function createRoute(route, custom) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(custom),
   };
-  const response = await fetch(`${site_url}/${route}`, options);
-  const data = await response.json();
-  return data;
+  return await fetch(`${site_url}/${route}`, options).then((res) => res.json());
 }
 
 // DELETE functions

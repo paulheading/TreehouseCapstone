@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HelpIcon } from "../Icons/Icons";
+import { HelpIcon } from "../Icons";
 
 export default function HelpButton() {
   return (
