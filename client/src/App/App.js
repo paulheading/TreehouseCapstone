@@ -3,7 +3,7 @@ import { connect, useSelector } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import { searchFilm, searchAlbums } from "./modules/search";
 import { filmResult, albumResults, sessionExpired } from "../actions";
-import { getSpotifyData } from "./modules/newSearch";
+import { getSpotifyData, getOMDBData } from "./modules/newSearch";
 
 // Import react components
 import { SearchForm, SearchMessage, SearchResults } from "./Components/Search";
@@ -68,8 +68,8 @@ function App({ filmResult, albumResults, sessionExpired }) {
                 // doSearch refreshes blacklist instantly
                 <LoginOverlay
                   doSearch={(delta, blacklist) => {
-                    albumData(delta, blacklist);
-                    filmData(delta);
+                    // albumData(delta, blacklist);
+                    // filmData(delta);
                   }}
                 />
               );
@@ -85,8 +85,8 @@ function App({ filmResult, albumResults, sessionExpired }) {
                 // doSearch refreshes blacklist instantly
                 <AccountOverlay
                   doSearch={(delta, blacklist) => {
-                    albumData(delta, blacklist);
-                    filmData(delta);
+                    // albumData(delta, blacklist);
+                    // filmData(delta);
                   }}
                 />
               );
@@ -102,7 +102,8 @@ function App({ filmResult, albumResults, sessionExpired }) {
                   <SearchForm
                     doSearch={(delta) => {
                       (async () => {
-                        console.log(await getSpotifyData(delta));
+                        albumResults(await getSpotifyData(delta));
+                        filmResult(await getOMDBData(delta));
                       })();
                     }}
                   />
@@ -118,7 +119,6 @@ function App({ filmResult, albumResults, sessionExpired }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return state;
 };
 
