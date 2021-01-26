@@ -41,9 +41,18 @@ async function getSpotify(query) {
       });
     })
     .then((data) => {
-      return data.map(({ name, id, external_urls, images, release_date }) => {
-        return { name, id, url: external_urls.spotify, images, release_date };
-      });
+      return data.map(
+        ({ name, id, artists, external_urls, images, release_date }) => {
+          return {
+            name,
+            id,
+            artists,
+            url: external_urls.spotify,
+            images,
+            release_date,
+          };
+        }
+      );
     });
 }
 

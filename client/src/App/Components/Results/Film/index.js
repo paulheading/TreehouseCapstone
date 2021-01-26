@@ -1,8 +1,8 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import { SaveButton } from "../Buttons";
-import { applyClass } from "../../modules/helpers";
+import { SaveButton } from "../../Buttons";
+import { applyClass } from "../../../modules/helpers";
 
 function FilmResults() {
   const state = {

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import { Card, CardDeck, Button } from "react-bootstrap";
-import { RemoveResultButton } from "../Buttons";
+import { RemoveResultButton } from "../../Buttons";
 import RelatedResults from "./Related";
-import { limitString } from "../../modules/helpers";
-import { albumResults } from "../../../actions";
+import { limitString } from "../../../modules/helpers";
+import { albumResults } from "../../../../actions";
 
-function AlbumResults({ albumResults }) {
+function AlbumResults() {
   const state = {
     albumResults: useSelector((state) => state.albumResults),
     searchQuery: useSelector((state) => state.searchQuery),
@@ -19,7 +19,7 @@ function AlbumResults({ albumResults }) {
       <CardDeck className="album-results">
         {state.albumResults
           .slice(0, 6)
-          .map(({ id, name, url, images, release_date, related }, index) => {
+          .map(({ id, name, url, images, release_date, artists }, index) => {
             return (
               <Card className="album-results" key={index}>
                 <RemoveResultButton id={id} />
@@ -46,7 +46,7 @@ function AlbumResults({ albumResults }) {
                   >
                     Find on Spotify
                   </Button>
-                  {related ? <RelatedResults related={related} /> : null}
+                  {artists ? <RelatedResults related={artists} /> : null}
                 </Card.Body>
               </Card>
             );

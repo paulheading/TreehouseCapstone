@@ -18,6 +18,10 @@
 @import "./Components/Overlays/Menu";
 @import "./Components/Overlays/Signup";
 
+@import "./Components/Results/Album";
+@import "./Components/Results/Album/Related";
+@import "./Components/Results/Film";
+
 html {
   font-size: 62.5%;
   height: 100%;

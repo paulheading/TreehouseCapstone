@@ -1,8 +1,7 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import { Container, ListGroup } from "react-bootstrap";
-import AlbumResults from "../../AlbumResults";
-import FilmResults from "../../FilmResults";
+import { AlbumResults, FilmResults } from "../../Results";
 import { SearchMessage } from "../index";
 
 function SearchResults() {

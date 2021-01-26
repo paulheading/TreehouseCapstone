@@ -41,7 +41,7 @@ function AccountOverlay() {
               </div>
             </Tab>
             <Tab eventKey="saved" title="Saved">
-              {/* <SavedFilms /> */}
+              <SavedFilms />
             </Tab>
           </Tabs>
         </div>

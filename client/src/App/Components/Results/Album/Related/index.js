@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { XLinkIcon, NextIcon, PrevIcon } from "../../Icons";
-import { limitString } from "../../../modules/helpers";
+import { XLinkIcon, NextIcon, PrevIcon } from "../../../Icons";
+import { limitString } from "../../../../modules/helpers";
 import PropTypes from "prop-types";
 
 export default function RelatedResults({ related }) {
