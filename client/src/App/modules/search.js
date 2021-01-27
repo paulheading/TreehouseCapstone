@@ -29,8 +29,31 @@ function filterBlacklist(query, blacklist, data) {
   return data;
 }
 
+async function attachRelated(data) {
+  data = data.map(async (item) => {
+    const info = await getAlbumInfo(item.id);
+    item.related = [];
+    info.tracks.items.forEach(({ artists }) => {
+      artists.map(({ name, external_urls }) => {
+        let exists = false;
+        item.related.forEach((item) => {
+          if (item.name === name) {
+            exists = true;
+          }
+        });
+        return !exists
+          ? item.related.push({ name, url: external_urls.spotify })
+          : null;
+      });
+    });
+    return item;
+  });
+  return Promise.all(data).then((data) => data);
+}
+
 async function getSpotify(query, blacklist) {
   const token = await getToken();
+
   return await axios
     .get(
       `https://api.spotify.com/v1/search?q=album:${query}&type=album&limit=30`,
@@ -59,19 +82,34 @@ async function getSpotify(query, blacklist) {
         return index < 15;
       });
     })
+    .then(async (data) => {
+      return await attachRelated(data);
+    })
     .then((data) => {
       return data.map(
-        ({ name, id, artists, external_urls, images, release_date }) => {
+        ({ name, id, related, external_urls, images, release_date }) => {
           return {
             name,
             id,
-            artists,
+            related,
             url: external_urls.spotify,
             images,
             release_date,
           };
         }
       );
+    });
+}
+
+async function getAlbumInfo(query) {
+  const token = await getToken();
+
+  return await axios
+    .get(`https://api.spotify.com/v1/albums/${query}`, {
+      headers: { Authorization: "Bearer " + token },
+    })
+    .then(({ data }) => {
+      return data;
     });
 }
 

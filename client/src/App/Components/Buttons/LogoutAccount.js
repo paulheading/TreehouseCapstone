@@ -1,35 +1,48 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { getSpotifyData, getOMDBData } from "../../modules/search";
 import {
   firstTime,
   currentUser,
   savedFilms,
   blacklist,
   resultSaved,
+  albumResults,
+  filmResult,
 } from "../../../actions";
 
 function LogoutAccountButton({
   firstTime,
-  resultSaved,
   currentUser,
   savedFilms,
   blacklist,
+  resultSaved,
+  albumResults,
+  filmResult,
 }) {
+  const state = {
+    searchQuery: useSelector((state) => state.searchQuery),
+  };
+
+  async function doLogout() {
+    const get = {
+      film: await getOMDBData(state.searchQuery),
+      albums: await getSpotifyData(state.searchQuery),
+    };
+    firstTime(false);
+    resultSaved(false);
+    currentUser(null);
+    savedFilms([]);
+    blacklist([]);
+    albumResults(get.albums);
+    filmResult(get.film);
+  }
+
   return (
     <Link to="/">
-      <Button
-        variant="outline-primary"
-        size="md"
-        onClick={() => {
-          firstTime(false);
-          resultSaved(false);
-          currentUser(null);
-          savedFilms([]);
-          blacklist([]);
-        }}
-      >
+      <Button variant="outline-primary" size="md" onClick={doLogout}>
         Log Out
       </Button>
     </Link>
@@ -42,8 +55,10 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   firstTime,
-  resultSaved,
   currentUser,
   savedFilms,
   blacklist,
+  resultSaved,
+  albumResults,
+  filmResult,
 })(LogoutAccountButton);

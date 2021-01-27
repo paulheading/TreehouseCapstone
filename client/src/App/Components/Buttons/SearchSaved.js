@@ -7,7 +7,8 @@ import {
   albumResults,
   filmResult,
   resultSaved,
-  justArrived,
+  firstTime,
+  searchQuery,
 } from "../../../actions";
 import { getOMDBData, getSpotifyData } from "../../modules/search";
 
@@ -16,19 +17,22 @@ function SearchSavedButton({
   albumResults,
   savedTitle,
   resultSaved,
-  justArrived,
+  firstTime,
+  searchQuery,
 }) {
   const state = {
-    justArrived: useSelector((state) => state.justArrived),
+    firstTime: useSelector((state) => state.firstTime),
+    blacklist: useSelector((state) => state.blacklist),
   };
 
   async function doSearch() {
-    albumResults(await getSpotifyData(savedTitle));
+    albumResults(await getSpotifyData(savedTitle, state.blacklist));
     filmResult(await getOMDBData(savedTitle));
+    searchQuery(savedTitle);
     resultSaved(true);
 
-    if (state.justArrived) {
-      justArrived(false);
+    if (state.firstTime) {
+      firstTime(false);
     }
   }
 
@@ -49,5 +53,6 @@ export default connect(mapStateToProps, {
   filmResult,
   albumResults,
   resultSaved,
-  justArrived,
+  firstTime,
+  searchQuery,
 })(SearchSavedButton);

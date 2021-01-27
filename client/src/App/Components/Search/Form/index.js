@@ -6,13 +6,13 @@ import {
   albumResults,
   searchQuery,
   resultSaved,
-  justArrived,
+  firstTime,
 } from "../../../../actions";
 import { isSaved } from "../../../modules/helpers";
 import { getOMDBData, getSpotifyData } from "../../../modules/search";
 
 function SearchForm({
-  justArrived,
+  firstTime,
   filmResult,
   albumResults,
   resultSaved,
@@ -25,7 +25,7 @@ function SearchForm({
     searchQuery: useSelector((state) => state.searchQuery),
     currentUser: useSelector((state) => state.currentUser),
     filmsSaved: useSelector((state) => state.savedFilms),
-    justArrived: useSelector((state) => state.justArrived),
+    firstTime: useSelector((state) => state.firstTime),
     blacklist: useSelector((state) => state.blacklist),
   };
 
@@ -36,8 +36,8 @@ function SearchForm({
     albumResults(await getSpotifyData(search, state.blacklist));
     filmResult(await getOMDBData(search));
 
-    if (state.justArrived) {
-      justArrived(false);
+    if (state.firstTime) {
+      firstTime(false);
     }
 
     if (state.currentUser) {
@@ -83,5 +83,5 @@ export default connect(mapStateToProps, {
   albumResults,
   searchQuery,
   resultSaved,
-  justArrived,
+  firstTime,
 })(SearchForm);

@@ -6,7 +6,7 @@ import { SearchMessage } from "../index";
 
 function SearchResults() {
   const state = {
-    justArrived: useSelector((state) => state.justArrived),
+    firstTime: useSelector((state) => state.firstTime),
     filmResult: useSelector((state) => state.filmResult),
     albumResults: useSelector((state) => state.albumResults),
   };
@@ -45,7 +45,7 @@ function SearchResults() {
 
   return (
     <Container className="search-results">
-      {state.justArrived ? <SearchMessage /> : printResults()}
+      {state.firstTime ? <SearchMessage /> : printResults()}
     </Container>
   );
 }

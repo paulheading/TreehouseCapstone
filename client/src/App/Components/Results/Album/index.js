@@ -13,7 +13,7 @@ function AlbumResults() {
       <CardDeck className="album-results">
         {results
           .slice(0, 6)
-          .map(({ id, name, url, images, release_date, artists }, index) => {
+          .map(({ id, name, url, images, release_date, related }, index) => {
             return (
               <Card className="album-results" key={index}>
                 <RemoveResultButton id={id} />
@@ -40,7 +40,7 @@ function AlbumResults() {
                   >
                     Find on Spotify
                   </Button>
-                  {artists ? <RelatedResults related={artists} /> : null}
+                  {related ? <RelatedResults related={related} /> : null}
                 </Card.Body>
               </Card>
             );

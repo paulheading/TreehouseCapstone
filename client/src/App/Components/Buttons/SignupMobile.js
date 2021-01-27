@@ -1,29 +1,51 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { getSpotifyData, getOMDBData } from "../../modules/search";
 import {
   firstTime,
   currentUser,
   savedFilms,
   blacklist,
+  resultSaved,
+  albumResults,
+  filmResult,
 } from "../../../actions";
 
-function SignupMobileButton({ currentUser, savedFilms, blacklist, firstTime }) {
-  function ifCurrentUser(currentUser) {
-    if (currentUser) {
+function SignupMobileButton({
+  firstTime,
+  currentUser,
+  savedFilms,
+  blacklist,
+  resultSaved,
+  albumResults,
+  filmResult,
+}) {
+  const state = {
+    currentUser: useSelector((state) => state.currentUser),
+    searchQuery: useSelector((state) => state.searchQuery),
+  };
+
+  async function doLogout() {
+    const get = {
+      film: await getOMDBData(state.searchQuery),
+      albums: await getSpotifyData(state.searchQuery),
+    };
+    firstTime(false);
+    resultSaved(false);
+    currentUser(null);
+    savedFilms([]);
+    blacklist([]);
+    albumResults(get.albums);
+    filmResult(get.film);
+  }
+
+  function ifCurrentUser() {
+    if (state.currentUser) {
       return (
         <Link to="/" className="signup-link">
-          <Button
-            variant="outline-primary"
-            size="lg"
-            onClick={() => {
-              firstTime(false);
-              currentUser(null);
-              savedFilms([]);
-              blacklist([]);
-            }}
-          >
+          <Button variant="outline-primary" size="lg" onClick={doLogout}>
             Log out
           </Button>
         </Link>
@@ -38,7 +60,7 @@ function SignupMobileButton({ currentUser, savedFilms, blacklist, firstTime }) {
       );
     }
   }
-  return ifCurrentUser(currentUser);
+  return ifCurrentUser();
 }
 
 const mapStateToProps = (state) => {
@@ -50,4 +72,7 @@ export default connect(mapStateToProps, {
   currentUser,
   savedFilms,
   blacklist,
+  resultSaved,
+  albumResults,
+  filmResult,
 })(SignupMobileButton);
