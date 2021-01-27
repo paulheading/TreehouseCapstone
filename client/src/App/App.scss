@@ -179,9 +179,10 @@ h2 {
   }
   &.not-found {
     text-align: center;
+    margin-right: auto;
+    margin-left: auto;
     font-size: 1.8rem;
     max-width: 32rem;
-    margin: 0 auto;
   }
 }
 
