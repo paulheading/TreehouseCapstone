@@ -54,7 +54,7 @@ export const savedFilms = (films) => {
   };
 };
 
-export const blackList = (list) => {
+export const blacklist = (list) => {
   return {
     type: "BLACK_LIST",
     payload: list,

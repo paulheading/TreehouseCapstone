@@ -3,31 +3,31 @@ import { connect, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import { delRoute } from "../../modules/helpers";
 import { RemoveIcon } from "../Icons";
-import { savedFilms, blackList, resultSaved } from "../../../actions";
+import { savedFilms, blacklist, resultSaved } from "../../../actions";
 
 function RemoveSavedButton({
   id,
   savedFilms,
   searchTerm,
   resultSaved,
-  blackList,
+  blacklist,
 }) {
   const state = {
     savedFilms: useSelector((state) => state.savedFilms),
-    blackList: useSelector((state) => state.blackList),
+    blacklist: useSelector((state) => state.blacklist),
   };
 
   function doRemove() {
     delRoute("saved", id);
     resultSaved(false);
-    if (state.blackList) {
-      state.blackList.forEach((value) => {
+    if (state.blacklist) {
+      state.blacklist.forEach((value) => {
         if (value.searchTerm === searchTerm) {
           delRoute("blacklist", value.albumId);
         }
       });
-      blackList(
-        state.blackList.filter((value) => {
+      blacklist(
+        state.blacklist.filter((value) => {
           return value.searchTerm !== searchTerm;
         })
       );
@@ -49,6 +49,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { savedFilms, blackList, resultSaved })(
+export default connect(mapStateToProps, { savedFilms, blacklist, resultSaved })(
   RemoveSavedButton
 );

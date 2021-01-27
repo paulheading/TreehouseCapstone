@@ -56,7 +56,7 @@ const savedFilms = (films = [], action) => {
   return films;
 };
 
-const blackList = (list = [], action) => {
+const blacklist = (list = [], action) => {
   if (action.type === "BLACK_LIST") {
     return action.payload;
   }
@@ -78,7 +78,7 @@ export default combineReducers({
   currentUser,
   firstTime,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
   justArrived,
 });

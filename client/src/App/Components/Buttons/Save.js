@@ -4,14 +4,14 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SaveIcon } from "../Icons";
 import { createRoute, getRoute, delRoute } from "../../modules/helpers";
-import { savedFilms, blackList, resultSaved } from "../../../actions";
+import { savedFilms, blacklist, resultSaved } from "../../../actions";
 
-function SaveButton({ savedFilms, resultSaved, blackList }) {
+function SaveButton({ savedFilms, resultSaved, blacklist }) {
   const history = useHistory();
   const openLogin = useCallback(() => history.push("/login"), [history]);
 
   const state = {
-    blackList: useSelector((state) => state.blackList),
+    blacklist: useSelector((state) => state.blacklist),
     resultSaved: useSelector((state) => state.resultSaved),
     searchQuery: useSelector((state) => state.searchQuery),
     currentUser: useSelector((state) => state.currentUser),
@@ -28,14 +28,14 @@ function SaveButton({ savedFilms, resultSaved, blackList }) {
             id = value.id;
           }
         });
-        if (state.blackList) {
-          state.blackList.forEach((value) => {
+        if (state.blacklist) {
+          state.blacklist.forEach((value) => {
             if (value.searchTerm === state.searchQuery) {
               delRoute("blacklist", value.albumId);
             }
           });
-          blackList(
-            state.blackList.filter((value) => {
+          blacklist(
+            state.blacklist.filter((value) => {
               return value.searchTerm !== state.searchQuery;
             })
           );
@@ -71,6 +71,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { savedFilms, blackList, resultSaved })(
+export default connect(mapStateToProps, { savedFilms, blacklist, resultSaved })(
   SaveButton
 );

@@ -1,12 +1,12 @@
 import React from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import {
   firstTime,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
 } from "../../../actions";
 
@@ -15,11 +15,8 @@ function LogoutAccountButton({
   resultSaved,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
 }) {
-  const state = {
-    searchQuery: useSelector((state) => state.searchQuery),
-  };
   return (
     <Link to="/">
       <Button
@@ -30,7 +27,7 @@ function LogoutAccountButton({
           resultSaved(false);
           currentUser(null);
           savedFilms([]);
-          blackList([]);
+          blacklist([]);
         }}
       >
         Log Out
@@ -48,5 +45,5 @@ export default connect(mapStateToProps, {
   resultSaved,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
 })(LogoutAccountButton);

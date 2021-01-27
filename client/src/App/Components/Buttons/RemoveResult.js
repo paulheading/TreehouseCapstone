@@ -7,7 +7,7 @@ import { isSaved, createRoute, getRoute } from "../../modules/helpers";
 import {
   savedFilms,
   albumResults,
-  blackList,
+  blacklist,
   resultSaved,
 } from "../../../actions";
 
@@ -15,7 +15,7 @@ function RemoveResultButton({
   id,
   albumResults,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
 }) {
   const history = useHistory();
@@ -57,7 +57,7 @@ function RemoveResultButton({
         albumId: id,
       });
       // update store with latest "blacklist" db entries from user
-      blackList(await getRoute("blacklist", state.currentUser.id));
+      blacklist(await getRoute("blacklist", state.currentUser.id));
       // update front-end results minus the selected entry
       albumResults(filterAlbums(id));
     } else {
@@ -84,6 +84,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   savedFilms,
   albumResults,
-  blackList,
+  blacklist,
   resultSaved,
 })(RemoveResultButton);

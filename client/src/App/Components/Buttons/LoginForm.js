@@ -5,59 +5,67 @@ import { Button } from "react-bootstrap";
 import {
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
+  albumResults,
+  filmResult,
 } from "../../../actions";
 import { getAuthRoute, getRoute, isSaved } from "../../modules/helpers";
+import { getSpotifyData, getOMDBData } from "../../modules/search";
 
 function LoginFormButton({
   emailAddress,
   password,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
   setUserDenied,
+  albumResults,
+  filmResult,
 }) {
   const history = useHistory();
   const closeLogin = useCallback(() => history.push("/"), [history]);
+
   const state = {
     searchQuery: useSelector((state) => state.searchQuery),
+    blacklist: useSelector((state) => state.blacklist),
   };
 
   async function doLogin(e) {
     e.preventDefault();
-    let getUser = await getAuthRoute(
-      "users",
-      emailAddress.current.value,
-      password.current.value
-    );
-    if (getUser.message) {
-      setUserDenied(getUser.message);
+
+    const get = {
+      user: await getAuthRoute(
+        "users",
+        emailAddress.current.value,
+        password.current.value
+      ),
+    };
+
+    if (get.user.message) {
+      setUserDenied(get.user.message);
     } else {
-      const getBlackList = await getRoute("blacklist", getUser.id);
-      const getSavedFilms = await getRoute("saved", getUser.id);
-      currentUser(getUser);
-      // savedFilms(getSavedFilms);
-      blackList(getBlackList);
-      if (isSaved(getSavedFilms, state.searchQuery)) {
-        resultSaved(true);
-      } else {
-        resultSaved(false);
-      }
+      get.blacklist = await getRoute("blacklist", get.user.id);
+      get.savedFilms = await getRoute("saved", get.user.id);
+      get.film = await getOMDBData(state.searchQuery);
+      get.albums = await getSpotifyData(state.searchQuery, get.blacklist);
+
+      currentUser(get.user);
+      savedFilms(get.savedFilms);
+      blacklist(get.blacklist);
+      albumResults(get.albums);
+      filmResult(get.film);
+
+      isSaved(get.savedFilms, state.searchQuery)
+        ? resultSaved(true)
+        : resultSaved(false);
+
       closeLogin();
     }
   }
   return (
-    <Button
-      block
-      size="md"
-      variant="primary"
-      type="submit"
-      onClick={(e) => {
-        doLogin(e);
-      }}
-    >
+    <Button block size="md" variant="primary" type="submit" onClick={doLogin}>
       Log in
     </Button>
   );
@@ -70,6 +78,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
   resultSaved,
+  albumResults,
+  filmResult,
 })(LoginFormButton);

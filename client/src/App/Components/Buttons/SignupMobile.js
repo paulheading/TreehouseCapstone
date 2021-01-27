@@ -6,10 +6,10 @@ import {
   firstTime,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
 } from "../../../actions";
 
-function SignupMobileButton({ currentUser, savedFilms, blackList, firstTime }) {
+function SignupMobileButton({ currentUser, savedFilms, blacklist, firstTime }) {
   function ifCurrentUser(currentUser) {
     if (currentUser) {
       return (
@@ -21,7 +21,7 @@ function SignupMobileButton({ currentUser, savedFilms, blackList, firstTime }) {
               firstTime(false);
               currentUser(null);
               savedFilms([]);
-              blackList([]);
+              blacklist([]);
             }}
           >
             Log out
@@ -49,5 +49,5 @@ export default connect(mapStateToProps, {
   firstTime,
   currentUser,
   savedFilms,
-  blackList,
+  blacklist,
 })(SignupMobileButton);

@@ -9,7 +9,7 @@ import {
   justArrived,
 } from "../../../../actions";
 import { isSaved } from "../../../modules/helpers";
-import { getOMDBData, getSpotifyData } from "../../../modules/newSearch";
+import { getOMDBData, getSpotifyData } from "../../../modules/search";
 
 function SearchForm({
   justArrived,
@@ -26,11 +26,14 @@ function SearchForm({
     currentUser: useSelector((state) => state.currentUser),
     filmsSaved: useSelector((state) => state.savedFilms),
     justArrived: useSelector((state) => state.justArrived),
+    blacklist: useSelector((state) => state.blacklist),
   };
 
-  async function doSubmit() {
+  async function doSubmit(e) {
+    e.preventDefault();
+
     searchQuery(search);
-    albumResults(await getSpotifyData(search));
+    albumResults(await getSpotifyData(search, state.blacklist));
     filmResult(await getOMDBData(search));
 
     if (state.justArrived) {
@@ -54,13 +57,7 @@ function SearchForm({
 
   return (
     <Container className="search-form">
-      <Form
-        className="search-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          doSubmit();
-        }}
-      >
+      <Form className="search-form" onSubmit={doSubmit}>
         <Form.Group>
           <Form.Control
             className="search-input"

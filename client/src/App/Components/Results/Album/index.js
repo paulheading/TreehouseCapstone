@@ -4,20 +4,14 @@ import { Card, CardDeck, Button } from "react-bootstrap";
 import { RemoveResultButton } from "../../Buttons";
 import RelatedResults from "./Related";
 import { limitString } from "../../../modules/helpers";
-import { albumResults } from "../../../../actions";
 
 function AlbumResults() {
-  const state = {
-    albumResults: useSelector((state) => state.albumResults),
-    searchQuery: useSelector((state) => state.searchQuery),
-    currentUser: useSelector((state) => state.currentUser),
-    blackList: useSelector((state) => state.blackList),
-  };
+  const results = useSelector((state) => state.albumResults);
 
   return (
     <div className="album-results container">
       <CardDeck className="album-results">
-        {state.albumResults
+        {results
           .slice(0, 6)
           .map(({ id, name, url, images, release_date, artists }, index) => {
             return (
@@ -60,4 +54,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { albumResults })(AlbumResults);
+export default connect(mapStateToProps)(AlbumResults);

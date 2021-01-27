@@ -9,7 +9,7 @@ import {
   resultSaved,
   justArrived,
 } from "../../../actions";
-import { getOMDBData, getSpotifyData } from "../../modules/newSearch";
+import { getOMDBData, getSpotifyData } from "../../modules/search";
 
 function SearchSavedButton({
   filmResult,
