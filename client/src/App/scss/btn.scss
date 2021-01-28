@@ -1,0 +1,29 @@
+.btn {
+  &-link {
+    @extend %btn-link;
+  }
+  &-inline {
+    text-align: inherit;
+    padding: 0;
+    border: 0;
+  }
+  &-light {
+    @extend %btn-light;
+  }
+  &-primary {
+    @extend %btn-primary;
+  }
+  &-outline-primary {
+    @extend %btn-outline;
+  }
+  &-md {
+    font-size: 1.8rem;
+  }
+  &-lg {
+    font-size: 2rem;
+
+    @media #{$min768} {
+      font-size: 2.2rem;
+    }
+  }
+}

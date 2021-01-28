@@ -1,8 +1,16 @@
 // https://carterbancroft.com/sass-and-webpack/
 
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 @import "./scss/variables";
+@import "./scss/mixins";
 @import "./scss/extends";
+@import "./scss/base";
+@import "./scss/btn";
+@import "./scss/card";
+@import "./scss/form";
+@import "./scss/list";
+@import "./scss/table";
 
 @import "./Components/Navigation";
 @import "./Components/Logos";
@@ -22,18 +30,6 @@
 @import "./Components/Results/Album/Related";
 @import "./Components/Results/Film";
 
-html {
-  font-size: 62.5%;
-  height: 100%;
-}
-
-body {
-  font-family: roboto, sans-serif;
-  color: $gray--dark;
-  font-size: 1.6rem;
-  height: 100%;
-}
-
 #root,
 .App,
 .home-screen {
@@ -47,151 +43,6 @@ body {
 .row {
   display: block;
   margin: 0;
-}
-
-.btn {
-  &-link {
-    @extend %btn-link;
-  }
-  &-inline {
-    text-align: inherit;
-    padding: 0;
-    border: 0;
-  }
-  &-light {
-    @extend %btn-light;
-  }
-  &-primary {
-    @extend %btn-primary;
-  }
-  &-outline-primary {
-    @extend %btn-outline;
-  }
-  &-md {
-    font-size: 1.8rem;
-  }
-  &-lg {
-    font-size: 2rem;
-
-    @media #{$min768} {
-      font-size: 2.2rem;
-    }
-  }
-}
-
-.form {
-  &-group {
-    margin-bottom: 2rem;
-  }
-  &-control {
-    border-color: $purple;
-    font-size: inherit;
-    padding: 2rem 1rem;
-    color: $purple;
-
-    &::placeholder {
-      color: $purple;
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 0.2rem rgba($purple, 0.2);
-      border-color: $purple;
-      color: $purple;
-    }
-  }
-}
-
-.card-deck {
-  transition: all 200ms;
-  max-width: 60rem;
-  column-gap: 2rem;
-  margin: 0 auto;
-  display: grid;
-  flex: none;
-
-  @media #{$min680} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media #{$min960} {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 88rem;
-  }
-
-  .card {
-    margin: 3rem auto;
-    flex: none;
-
-    &-header {
-      border-radius: 0.3rem 0.3rem 0 0;
-      overflow: hidden;
-    }
-
-    &-body {
-      padding: 2rem;
-    }
-  }
-}
-
-.table {
-  tr {
-    td {
-      border-top: $related-artists-border;
-    }
-    &:first-of-type {
-      td {
-        border-top: none;
-      }
-    }
-  }
-  td {
-    padding: 0.8rem 1.2rem;
-    line-height: 1;
-
-    &:first-of-type {
-      padding-right: 0;
-    }
-  }
-}
-
-h1 {
-  font-size: 2.6rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-h2 {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.list-group {
-  &-primary {
-    .list-group-item {
-      @include modal($gray--dark, $gray--fade);
-    }
-  }
-  &-secondary {
-    .list-group-item {
-      @include modal;
-    }
-  }
-  &.not-found {
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    font-size: 1.8rem;
-    max-width: 32rem;
-  }
-}
-
-a {
-  color: $purple;
-
-  &:hover {
-    color: $purple;
-  }
 }
 
 .md {
@@ -226,15 +77,5 @@ a {
   }
   &__exit {
     @extend %overlay-exit;
-  }
-}
-
-p {
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-  &.terms {
-    font-size: 1.6rem;
-    margin-bottom: 0;
   }
 }

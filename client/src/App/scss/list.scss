@@ -1,0 +1,19 @@
+.list-group {
+  &-primary {
+    .list-group-item {
+      @include modal($gray--dark, $gray--fade);
+    }
+  }
+  &-secondary {
+    .list-group-item {
+      @include modal;
+    }
+  }
+  &.not-found {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.8rem;
+    max-width: 32rem;
+  }
+}

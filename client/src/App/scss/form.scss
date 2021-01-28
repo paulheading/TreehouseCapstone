@@ -1,0 +1,21 @@
+.form {
+  &-group {
+    margin-bottom: 2rem;
+  }
+  &-control {
+    border-color: $purple;
+    font-size: inherit;
+    padding: 2rem 1rem;
+    color: $purple;
+
+    &::placeholder {
+      color: $purple;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($purple, 0.2);
+      border-color: $purple;
+      color: $purple;
+    }
+  }
+}

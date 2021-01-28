@@ -1,0 +1,31 @@
+.card-deck {
+  transition: all 200ms;
+  max-width: 60rem;
+  column-gap: 2rem;
+  margin: 0 auto;
+  display: grid;
+  flex: none;
+
+  @media #{$min680} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media #{$min960} {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 88rem;
+  }
+
+  .card {
+    margin: 3rem auto;
+    flex: none;
+
+    &-header {
+      border-radius: 0.3rem 0.3rem 0 0;
+      overflow: hidden;
+    }
+
+    &-body {
+      padding: 2rem;
+    }
+  }
+}

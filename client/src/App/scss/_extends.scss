@@ -1,22 +1,3 @@
-@import "variables";
-
-@mixin zeros {
-  bottom: 0;
-  right: 0;
-  left: 0;
-  top: 0;
-}
-
-@mixin center {
-  &:before {
-    vertical-align: middle;
-    display: inline-block;
-    margin-right: -0.25em;
-    height: 100%;
-    content: "";
-  }
-}
-
 %btn-base {
   padding: 0.35rem 1rem 0.5rem;
   border-radius: 0.35rem;
@@ -81,23 +62,6 @@
   }
 }
 
-@mixin overlayContainer {
-  @include zeros;
-  background-color: $purple--tint;
-  overflow: scroll;
-  position: fixed;
-  color: $purple;
-  z-index: 3;
-}
-
-@mixin overlayGap {
-  margin-top: 4rem;
-
-  @media #{$min768} {
-    margin-top: 8rem;
-  }
-}
-
 %overlay {
   &-exit-icon {
     position: relative;
@@ -120,31 +84,4 @@
   z-index: 2;
   right: 0;
   left: 0;
-}
-
-@mixin overlayWrap($max: 36rem) {
-  padding-right: 2rem;
-  padding-left: 2rem;
-  position: relative;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: $max;
-  z-index: 2;
-}
-
-@mixin modal(
-  $col: $purple,
-  $bg: $purple--fade,
-  $bord: true,
-  $rad: 0.3rem,
-  $pad: 2rem
-) {
-  background-color: $bg;
-  border-radius: $rad;
-  padding: $pad;
-  color: $col;
-
-  @if $bord {
-    border: 1px solid $col;
-  }
 }
