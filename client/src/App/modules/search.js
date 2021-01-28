@@ -1,15 +1,20 @@
 import axios from "axios";
 
+const SPOTIFY = {
+  USER_ID: process.env.REACT_APP_SPOTIFY_USER_ID,
+  CLIENT_ID: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+  CLIENT_SECRET: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
+  TOKEN_BASE: "https://accounts.spotify.com/api/token",
+  API_BASE: "https://api.spotify.com/v1",
+};
+
 function getToken() {
-  return fetch("https://accounts.spotify.com/api/token", {
+  return fetch(SPOTIFY.TOKEN_BASE, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization:
-        "Basic " +
-        btoa(
-          `30a7191314fb49d4b56579de3eb7c05c:dcc629385ce4482b89a9af883fc66cc2`
-        ),
+        "Basic " + btoa(`${SPOTIFY.CLIENT_ID}:${SPOTIFY.CLIENT_SECRET}`),
     },
     body: "grant_type=client_credentials",
   })
@@ -55,12 +60,9 @@ async function getSpotify(query, blacklist) {
   const token = await getToken();
 
   return await axios
-    .get(
-      `https://api.spotify.com/v1/search?q=album:${query}&type=album&limit=30`,
-      {
-        headers: { Authorization: "Bearer " + token },
-      }
-    )
+    .get(`${SPOTIFY.API_BASE}/search?q=album:${query}&type=album&limit=30`, {
+      headers: { Authorization: "Bearer " + token },
+    })
     .then(({ data }) => {
       return data.albums.items;
     })
@@ -105,7 +107,7 @@ async function getAlbumInfo(query) {
   const token = await getToken();
 
   return await axios
-    .get(`https://api.spotify.com/v1/albums/${query}`, {
+    .get(`${SPOTIFY.API_BASE}/albums/${query}`, {
       headers: { Authorization: "Bearer " + token },
     })
     .then(({ data }) => {
