@@ -16,7 +16,9 @@ function AlbumResults() {
           .map(({ id, name, url, images, release_date, related }, index) => {
             return (
               <Card className="album-results" key={index}>
-                <RemoveResultButton id={id} />
+                <div className="remove-album__wrap">
+                  <RemoveResultButton id={id} />
+                </div>
                 <Card.Header className="album-results">
                   <img
                     className="album-results"

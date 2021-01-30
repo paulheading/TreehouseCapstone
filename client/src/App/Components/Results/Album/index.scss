@@ -24,16 +24,13 @@
   }
 }
 
-.remove-album {
-  &.btn {
-    text-align: center;
-    position: absolute;
-    top: -2.2rem;
-    width: 100%;
-    z-index: 2;
-    right: 0;
-    left: 0;
-  }
+.remove-album__wrap {
+  text-align: center;
+  position: absolute;
+  top: -2.125rem;
+  z-index: 2;
+  right: 0;
+  left: 0;
 }
 
 .find-album {

@@ -1,29 +1,86 @@
 .btn {
+  transition: none;
+
+  &.focus-visible {
+    @include single-box;
+  }
+
   &-link {
     @extend %btn-link;
+
+    &.focus-visible {
+      @include single-box;
+    }
   }
+
   &-inline {
     text-align: inherit;
     padding: 0;
     border: 0;
   }
+
   &-light {
     @extend %btn-light;
   }
+
   &-primary {
     @extend %btn-primary;
+
+    &.focus-visible {
+      @include double-box($purple--fade);
+    }
   }
+
   &-outline-primary {
     @extend %btn-outline;
   }
+
   &-md {
     font-size: 1.8rem;
   }
+
   &-lg {
     font-size: 2rem;
 
     @media #{$min768} {
       font-size: 2.2rem;
+    }
+  }
+
+  &.save-film {
+    margin-top: -2rem;
+
+    &.focus-visible {
+      box-shadow: none;
+
+      svg path.fill {
+        fill: $pink;
+      }
+    }
+  }
+
+  &.remove-album {
+    border-radius: 50%;
+    padding: 0.35rem;
+
+    &.focus-visible {
+      box-shadow: 0 0 0 0.25rem $white, 0 0 0 0.5rem $gray-700;
+      background-color: $white;
+    }
+  }
+
+  &.related-artists {
+    padding: 0 0.25rem;
+    font-size: 1.3rem;
+
+    &.focus-visible {
+      text-decoration: none;
+      box-shadow: none;
+      color: $purple;
+
+      svg {
+        fill: $purple;
+      }
     }
   }
 }

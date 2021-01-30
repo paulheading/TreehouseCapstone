@@ -52,7 +52,7 @@ export default function RelatedResults({ related }) {
                   <td>
                     <Button
                       href={url}
-                      className="related-artists"
+                      className="related-artists title"
                       target="_blank"
                       variant="link"
                     >
@@ -62,7 +62,7 @@ export default function RelatedResults({ related }) {
                   <td style={{ width: "4.6rem" }}>
                     <Button
                       href={url}
-                      className="related-artists"
+                      className="related-artists icon"
                       target="_blank"
                       variant="link"
                     >

@@ -61,9 +61,18 @@ svg.icon-remove {
 // ************************************************************
 
 svg.icon-save {
+  path {
+    &.fill {
+      fill: $gray-100;
+    }
+    &.outline {
+      fill: $gray-700;
+    }
+  }
+
   &.saved {
     path.fill {
-      fill: #ff8a80;
+      fill: $pink;
     }
   }
 }
@@ -114,4 +123,8 @@ svg.icon-help {
 
 svg.icon-avatar {
   width: 7rem;
+}
+
+svg.icon-x-link {
+  fill: $gray-700;
 }

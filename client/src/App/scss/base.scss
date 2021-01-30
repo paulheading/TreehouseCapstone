@@ -27,7 +27,7 @@ a {
   outline: none;
 
   &.focus-visible {
-    border-radius: 0;
+    border-radius: $border-radius;
     box-shadow: none;
   }
 

@@ -83,7 +83,18 @@
 
 .navbar-brand {
   &.focus-visible {
-    @include double-box($col: $purple);
+    @include double-box;
     border-radius: $border-radius;
+  }
+}
+
+.focus-visible {
+  position: relative;
+  z-index: 999;
+}
+
+.form-control {
+  &.focus-visible {
+    @include double-box;
   }
 }

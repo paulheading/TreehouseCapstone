@@ -16,10 +16,10 @@ export default function Navigation() {
         <InlineLogo className="md-up" />
         <MobileLogo className="md-down" />
       </Navbar.Brand>
-      <div className="mobile-buttons md-down">
+      {/* <div className="mobile-buttons md-down">
         <SignupMobileButton />
         <BurgerButton />
-      </div>
+      </div> */}
       <div className="desktop-buttons md-up">
         <AboutButton />
         <LoginDesktopButton />

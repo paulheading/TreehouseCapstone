@@ -1,26 +1,32 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function LoginDesktopButton() {
   const currentUser = useSelector((state) => state.currentUser);
+  let history = useHistory();
+
+  function goAccount() {
+    history.push("/account");
+  }
+
+  function goLogin() {
+    history.push("/login");
+  }
+
   function ifCurrentUser() {
     if (currentUser) {
       return (
-        <Link to="/account" className="account-link">
-          <Button variant="link" size="lg">
-            {`Hey, ${currentUser.firstName}!`}
-          </Button>
-        </Link>
+        <Button variant="link" size="lg" onClick={goAccount}>
+          {`Hey, ${currentUser.firstName}!`}
+        </Button>
       );
     } else {
       return (
-        <Link to="/login" className="login-link">
-          <Button variant="link" size="lg">
-            Log in
-          </Button>
-        </Link>
+        <Button variant="link" size="lg" onClick={goLogin}>
+          Log in
+        </Button>
       );
     }
   }
