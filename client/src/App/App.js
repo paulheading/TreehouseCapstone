@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
-import { filmResult, albumResults, sessionExpired } from "../actions";
+import { filmResult, albumResults } from "../actions";
 
 import { SearchForm, SearchResults } from "./Components/Search";
 import Navigation from "./Components/Navigation";
@@ -12,7 +12,7 @@ import {
   MenuOverlay,
   SignupOverlay,
 } from "./Components/Overlays";
-
+import "focus-visible/dist/focus-visible.min.js";
 import "./App.scss";
 
 export function sayHello() {
@@ -61,5 +61,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   filmResult,
   albumResults,
-  sessionExpired,
 })(App);

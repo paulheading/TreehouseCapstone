@@ -1,5 +1,12 @@
 import { combineReducers } from "redux";
 
+const loadingResult = (loadingResult = false, action) => {
+  if (action.type === "LOADING_RESULT") {
+    return action.payload;
+  }
+  return loadingResult;
+};
+
 const searchQuery = (searchQuery = null, action) => {
   if (action.type === "SEARCH_QUERY") {
     return action.payload;
@@ -19,13 +26,6 @@ const albumResults = (albumResults = [], action) => {
     return action.payload;
   }
   return albumResults;
-};
-
-const sessionExpired = (expired = false, action) => {
-  if (action.type === "SESSION_EXPIRED") {
-    return action.payload;
-  }
-  return expired;
 };
 
 const currentUser = (user = null, action) => {
@@ -67,10 +67,10 @@ export default combineReducers({
   searchQuery,
   filmResult,
   albumResults,
-  sessionExpired,
   currentUser,
   firstTime,
   savedFilms,
   blacklist,
   resultSaved,
+  loadingResult,
 });

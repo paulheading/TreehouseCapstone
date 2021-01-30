@@ -7,6 +7,7 @@ import {
   searchQuery,
   resultSaved,
   firstTime,
+  loadingResult,
 } from "../../../../actions";
 import { isSaved } from "../../../modules/helpers";
 import { getOMDBData, getSpotifyData } from "../../../modules/search";
@@ -17,6 +18,7 @@ function SearchForm({
   albumResults,
   resultSaved,
   searchQuery,
+  loadingResult,
 }) {
   const [search, setSearch] = useState(null);
   const searchBtn = useRef(null);
@@ -33,22 +35,21 @@ function SearchForm({
     e.preventDefault();
 
     searchQuery(search);
+    loadingResult(true);
+    firstTime(false);
+
     albumResults(await getSpotifyData(search, state.blacklist));
     filmResult(await getOMDBData(search));
 
-    if (state.firstTime) {
-      firstTime(false);
-    }
-
     if (state.currentUser) {
-      if (isSaved(state.filmsSaved, search)) {
-        resultSaved(true);
-      } else {
-        resultSaved(false);
-      }
+      isSaved(state.filmsSaved, search)
+        ? resultSaved(true)
+        : resultSaved(false);
     } else {
       resultSaved(false);
     }
+
+    loadingResult(false);
   }
 
   function onSearchChange(e) {
@@ -84,4 +85,5 @@ export default connect(mapStateToProps, {
   searchQuery,
   resultSaved,
   firstTime,
+  loadingResult,
 })(SearchForm);

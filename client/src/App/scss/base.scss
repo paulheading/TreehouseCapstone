@@ -24,6 +24,12 @@ h2 {
 
 a {
   color: $purple;
+  outline: none;
+
+  &.focus-visible {
+    border-radius: 0;
+    box-shadow: none;
+  }
 
   &:hover {
     color: $purple;

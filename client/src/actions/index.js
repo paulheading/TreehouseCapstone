@@ -1,3 +1,10 @@
+export const loadingResult = (query) => {
+  return {
+    type: "LOADING_RESULT",
+    payload: query,
+  };
+};
+
 export const searchQuery = (query) => {
   return {
     type: "SEARCH_QUERY",
@@ -16,13 +23,6 @@ export const albumResults = (albums) => {
   return {
     type: "ALBUM_RESULTS",
     payload: albums,
-  };
-};
-
-export const sessionExpired = (value) => {
-  return {
-    type: "SESSION_EXPIRED",
-    payload: value,
   };
 };
 

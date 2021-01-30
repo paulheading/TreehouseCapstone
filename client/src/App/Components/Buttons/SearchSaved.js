@@ -9,6 +9,7 @@ import {
   resultSaved,
   firstTime,
   searchQuery,
+  loadingResult,
 } from "../../../actions";
 import { getOMDBData, getSpotifyData } from "../../modules/search";
 
@@ -19,6 +20,7 @@ function SearchSavedButton({
   resultSaved,
   firstTime,
   searchQuery,
+  loadingResult,
 }) {
   const state = {
     firstTime: useSelector((state) => state.firstTime),
@@ -26,14 +28,14 @@ function SearchSavedButton({
   };
 
   async function doSearch() {
+    searchQuery(savedTitle);
+    loadingResult(true);
+    resultSaved(true);
+    firstTime(false);
+
     albumResults(await getSpotifyData(savedTitle, state.blacklist));
     filmResult(await getOMDBData(savedTitle));
-    searchQuery(savedTitle);
-    resultSaved(true);
-
-    if (state.firstTime) {
-      firstTime(false);
-    }
+    loadingResult(false);
   }
 
   return (
@@ -55,4 +57,5 @@ export default connect(mapStateToProps, {
   resultSaved,
   firstTime,
   searchQuery,
+  loadingResult,
 })(SearchSavedButton);

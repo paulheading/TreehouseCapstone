@@ -58,3 +58,15 @@
     border: 1px solid $col;
   }
 }
+
+@mixin single-box($bg: $black) {
+  box-shadow: 0 0 0 0.25rem $bg;
+}
+
+@mixin double-box($bg: $white, $col: $black, $fill: false) {
+  box-shadow: 0 0 0 0.625rem $bg, 0 0 0 0.8125rem $col;
+
+  @if $fill {
+    background-color: $bg;
+  }
+}

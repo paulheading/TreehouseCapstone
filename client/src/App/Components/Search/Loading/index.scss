@@ -1,0 +1,11 @@
+.search-loading {
+  &.list-group-item {
+    color: $gray-400;
+
+    .spinner-border {
+      border-width: 0.5rem;
+      height: 4rem;
+      width: 4rem;
+    }
+  }
+}

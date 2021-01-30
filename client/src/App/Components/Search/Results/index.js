@@ -2,44 +2,49 @@ import React from "react";
 import { connect, useSelector } from "react-redux";
 import { Container, ListGroup } from "react-bootstrap";
 import { AlbumResults, FilmResults } from "../../Results";
-import { SearchMessage } from "../index";
+import { SearchMessage, SearchLoading } from "../index";
 
 function SearchResults() {
   const state = {
     firstTime: useSelector((state) => state.firstTime),
     filmResult: useSelector((state) => state.filmResult),
     albumResults: useSelector((state) => state.albumResults),
+    loadingResult: useSelector((state) => state.loadingResult),
   };
 
   function printResults() {
-    if (state.filmResult) {
-      if (!state.filmResult.Error) {
-        if (state.albumResults.length > 0) {
-          return (
-            <div>
-              <FilmResults />
-              <AlbumResults />
-            </div>
-          );
+    if (state.loadingResult) {
+      return <SearchLoading />;
+    } else {
+      if (state.filmResult) {
+        if (!state.filmResult.Error) {
+          if (state.albumResults.length > 0) {
+            return (
+              <div>
+                <FilmResults />
+                <AlbumResults />
+              </div>
+            );
+          } else {
+            return (
+              <div>
+                <FilmResults />
+                <ListGroup variant="primary" className="not-found">
+                  <ListGroup.Item>No Albums Found ?!</ListGroup.Item>
+                </ListGroup>
+              </div>
+            );
+          }
         } else {
           return (
-            <div>
-              <FilmResults />
-              <ListGroup variant="primary" className="not-found">
-                <ListGroup.Item>No Albums Found ?!</ListGroup.Item>
-              </ListGroup>
-            </div>
+            <ListGroup variant="primary" className="not-found">
+              <ListGroup.Item>{state.filmResult.Error}</ListGroup.Item>
+            </ListGroup>
           );
         }
       } else {
-        return (
-          <ListGroup variant="primary" className="not-found">
-            <ListGroup.Item>{state.filmResult.Error}</ListGroup.Item>
-          </ListGroup>
-        );
+        return "no film result";
       }
-    } else {
-      return "no film result";
     }
   }
 

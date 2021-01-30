@@ -1,6 +1,6 @@
 // https://carterbancroft.com/sass-and-webpack/
 
-@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/scss/bootstrap";
 
 @import "./scss/variables";
 @import "./scss/mixins";
@@ -19,6 +19,7 @@
 @import "./Components/Search/Form";
 @import "./Components/Search/Message";
 @import "./Components/Search/Results";
+@import "./Components/Search/Loading";
 
 @import "./Components/Overlays/About";
 @import "./Components/Overlays/Account";
@@ -77,5 +78,12 @@
   }
   &__exit {
     @extend %overlay-exit;
+  }
+}
+
+.navbar-brand {
+  &.focus-visible {
+    @include double-box($col: $purple);
+    border-radius: $border-radius;
   }
 }
