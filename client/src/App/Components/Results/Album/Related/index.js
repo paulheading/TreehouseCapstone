@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Table } from "react-bootstrap";
 import { XLinkIcon, NextIcon, PrevIcon } from "../../../Icons";
 import { limitString } from "../../../../modules/helpers";
 import PropTypes from "prop-types";
@@ -44,36 +43,21 @@ export default function RelatedResults({ related }) {
         </div>
       ) : null}
       <div className="related-artists wrap">
-        <Table striped className="related-artists">
-          <tbody>
-            {related.map(({ name, url }, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    <Button
-                      href={url}
-                      className="related-artists title"
-                      target="_blank"
-                      variant="link"
-                    >
-                      {limitString(name, 20)}
-                    </Button>
-                  </td>
-                  <td style={{ width: "4.6rem" }}>
-                    <Button
-                      href={url}
-                      className="related-artists icon"
-                      target="_blank"
-                      variant="link"
-                    >
-                      <XLinkIcon />
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+        <div className="related-artists__view">
+          {related.map(({ name, url }, index) => {
+            return (
+              <a
+                key={index}
+                href={url}
+                target="_blank"
+                className="related-artists__link"
+              >
+                <div>{limitString(name, 20)}</div>
+                <XLinkIcon />
+              </a>
+            );
+          })}
+        </div>
       </div>
       {displayNext()}
     </div>

@@ -60,12 +60,17 @@
   }
 
   &.remove-album {
-    border-radius: 50%;
-    padding: 0.35rem;
-
     &.focus-visible {
-      box-shadow: 0 0 0 0.25rem $white, 0 0 0 0.5rem $gray-700;
-      background-color: $white;
+      box-shadow: none;
+
+      svg path {
+        &.outline {
+          fill: $white;
+        }
+        &.fill {
+          fill: $gray-700;
+        }
+      }
     }
   }
 

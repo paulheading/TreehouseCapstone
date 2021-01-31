@@ -5,9 +5,9 @@ export default function XLinkIcon() {
     <svg
       version="1.1"
       className="icon-x-link"
-      width="19.8"
-      height="19.8"
-      viewBox="0 0 19.8 19.8"
+      viewBox="0 0 20 20"
+      height="20"
+      width="20"
     >
       <path
         className="outline"

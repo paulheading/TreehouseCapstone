@@ -42,6 +42,15 @@ svg.icon-remove {
   cursor: pointer;
   width: 3.4rem;
 
+  path {
+    &.fill {
+      fill: $white;
+    }
+    &.outline {
+      fill: $gray-700;
+    }
+  }
+
   &.size-sm {
     width: 2.2rem;
   }

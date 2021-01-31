@@ -26,11 +26,6 @@ a {
   color: $purple;
   outline: none;
 
-  &.focus-visible {
-    border-radius: $border-radius;
-    box-shadow: none;
-  }
-
   &:hover {
     color: $purple;
   }

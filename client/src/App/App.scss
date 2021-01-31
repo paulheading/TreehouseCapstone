@@ -90,11 +90,43 @@
 
 .focus-visible {
   position: relative;
-  z-index: 999;
+  z-index: 2;
 }
 
 .form-control {
   &.focus-visible {
     @include double-box;
+  }
+}
+
+.related-artists {
+  &__link {
+    grid-template-columns: auto 2rem;
+    padding: 0.9rem 1.2rem;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+    column-gap: 1rem;
+    color: $gray-700;
+    line-height: 1;
+    display: grid;
+
+    + .related-artists__link {
+      border-top: 1px solid $gray-700;
+    }
+
+    &:nth-child(odd) {
+      background-color: $gray-200;
+    }
+
+    &:hover {
+      background-color: $gray-400;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &.focus-visible {
+      background-color: $gray-400;
+    }
   }
 }
