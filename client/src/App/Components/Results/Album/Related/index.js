@@ -50,6 +50,7 @@ export default function RelatedResults({ related }) {
                 key={index}
                 href={url}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="related-artists__link"
               >
                 <div>{limitString(name, 20)}</div>

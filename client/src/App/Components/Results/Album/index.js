@@ -36,6 +36,7 @@ function AlbumResults() {
                   <Button
                     size="sm"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="find-album"
                     href={url}
                     block
