@@ -6,6 +6,10 @@
     .nav-tabs {
       border-bottom-color: $purple;
 
+      a.focus-visible {
+        @include double-box($purple--tint, $purple);
+      }
+
       .nav-link {
         padding: 1rem 2.5rem;
         text-align: center;

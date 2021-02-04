@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { getSpotifyData, getOMDBData } from "../../modules/search";
 import {
@@ -22,11 +22,13 @@ function LogoutAccountButton({
   albumResults,
   filmResult,
 }) {
+  let history = useHistory();
   const state = {
     searchQuery: useSelector((state) => state.searchQuery),
   };
 
   async function doLogout() {
+    history.push("/");
     const get = {
       film: await getOMDBData(state.searchQuery),
       albums: await getSpotifyData(state.searchQuery),
@@ -41,11 +43,14 @@ function LogoutAccountButton({
   }
 
   return (
-    <Link to="/">
-      <Button variant="outline-primary" size="md" onClick={doLogout}>
-        Log Out
-      </Button>
-    </Link>
+    <Button
+      className="logout-account"
+      variant="outline-primary"
+      size="md"
+      onClick={doLogout}
+    >
+      Log Out
+    </Button>
   );
 }
 

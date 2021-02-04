@@ -9,3 +9,11 @@
 .alert.user-denied {
   text-align: center;
 }
+
+.signup-link {
+  border-radius: $border-radius;
+
+  &.focus-visible {
+    @include single-box;
+  }
+}

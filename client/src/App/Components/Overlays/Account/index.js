@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { Tabs, Tab } from "react-bootstrap";
 import { filterDate } from "../../../modules/helpers";
@@ -7,9 +7,12 @@ import { AvatarIcon } from "../../Icons";
 import SavedFilms from "./Saved/Films";
 
 function AccountOverlay() {
+  const [key, setKey] = useState("profile");
+
   const state = {
     currentUser: useSelector((state) => state.currentUser),
   };
+
   if (state.currentUser) {
     function sinceDate(date) {
       if (date) {
@@ -22,11 +25,21 @@ function AccountOverlay() {
         );
       }
     }
+
+    document.addEventListener("keydown", function (key) {
+      if (key.code === "ArrowRight") {
+        setKey("saved");
+      }
+      if (key.code === "ArrowLeft") {
+        setKey("profile");
+      }
+    });
+
     return (
       <div className="overlay__container account">
         <ExitButton />
         <div className="overlay__wrap">
-          <Tabs defaultActiveKey="profile" transition={false}>
+          <Tabs activeKey={key} transition={false}>
             <Tab eventKey="profile" title="Profile" className="profile">
               <div className="profile-tab__avatar">
                 <AvatarIcon />
@@ -45,7 +58,7 @@ function AccountOverlay() {
             </Tab>
           </Tabs>
         </div>
-        <ExitArea />
+        {/* <ExitArea /> */}
       </div>
     );
   }

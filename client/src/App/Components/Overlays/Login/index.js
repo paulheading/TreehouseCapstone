@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback } from "react";
 import { connect, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons";
 import { getAuthRoute, getRoute, isSaved } from "../../../modules/helpers";
@@ -101,9 +101,7 @@ function LoginOverlay({
         </Form>
         <p className="has-account">
           Don't have an account?
-          <Link to="/signup">
-            <Button variant="link">Sign up</Button>
-          </Link>
+          <Button variant="link">Sign up</Button>
         </p>
       </div>
       <ExitArea />

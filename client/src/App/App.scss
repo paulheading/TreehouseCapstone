@@ -12,6 +12,8 @@
 @import "./scss/list";
 @import "./scss/table";
 
+@import "./Components/Buttons/Exit";
+
 @import "./Components/Navigation";
 @import "./Components/Logos";
 @import "./Components/Icons";
@@ -72,6 +74,18 @@
 }
 
 .overlay {
+  &__container {
+    .form-control,
+    .btn {
+      &.focus-visible {
+        @include double-box($purple--tint);
+
+        &.logout-account {
+          @include double-box;
+        }
+      }
+    }
+  }
   &__exit-icon {
     @include overlayGap;
     @extend %overlay-exit-icon;
@@ -95,7 +109,7 @@
 
 .form-control {
   &.focus-visible {
-    @include double-box;
+    @include double-box($purple--fade);
   }
 }
 
