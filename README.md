@@ -1,5 +1,3 @@
-![screengrab](https://repository-images.githubusercontent.com/283536118/9be9ae00-6899-11eb-893b-87953eb3123c)
-
 # Welcome to Movie Tunes!
 
 [Movietunes](https://www.movietun.es) is a full stack website that includes
@@ -40,3 +38,7 @@
 2. The list of saved searches (in the account area) renders unpredictably. Often you will need to refresh the page to update it.
 
 3. If the user searches for a film => then logs in and already has an edited saved version => the search results do not immediately update. The user must click search again to see their edited results.
+
+<br>
+
+![screengrab](https://repository-images.githubusercontent.com/283536118/9be9ae00-6899-11eb-893b-87953eb3123c)
