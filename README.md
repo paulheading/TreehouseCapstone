@@ -33,11 +33,11 @@
 
 ## Bugs
 
-1. The list of related artists renders unpredictably. Often you will need to repeat a search to see it.
+~~1. The list of related artists renders unpredictably. Often you will need to repeat a search to see it.~~
 
-2. The list of saved searches (in the account area) renders unpredictably. Often you will need to refresh the page to update it.
+~~2. The list of saved searches (in the account area) renders unpredictably. Often you will need to refresh the page to update it.~~
 
-3. If the user searches for a film => then logs in and already has an edited saved version => the search results do not immediately update. The user must click search again to see their edited results.
+~~3. If the user searches for a film => then logs in and already has an edited saved version => the search results do not immediately update. The user must click search again to see their edited results.~~
 
 <br>
 
