@@ -53,8 +53,13 @@
     &.focus-visible {
       box-shadow: none;
 
-      svg path.fill {
-        fill: $pink;
+      svg {
+        &.saved path.fill {
+          fill: $gray-100;
+        }
+        path.fill {
+          fill: $pink;
+        }
       }
     }
   }
