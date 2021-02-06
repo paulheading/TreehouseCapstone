@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -19,8 +19,6 @@ function RemoveResultButton({
   resultSaved,
 }) {
   const history = useHistory();
-  const openLogin = useCallback(() => history.push("/login"), [history]);
-
   const state = {
     searchQuery: useSelector((state) => state.searchQuery),
     currentUser: useSelector((state) => state.currentUser),
@@ -62,7 +60,7 @@ function RemoveResultButton({
       albumResults(filterAlbums(id));
     } else {
       // go to login route
-      openLogin();
+      history.push("/login");
     }
   }
   return (

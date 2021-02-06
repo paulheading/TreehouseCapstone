@@ -1,10 +1,10 @@
 // https://www.reddit.com/r/learnjavascript/comments/iei80j/why_a_function_still_returns_me_promise_pending/#t1_g2gp49m
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
-import { LoginFormButton, ExitButton, ExitArea } from "../../Buttons";
+import { LoginFormButton, ExitButton } from "../../Buttons";
 import { getAuthRoute, getRoute, isSaved } from "../../../modules/helpers";
 import { getSpotifyData, getOMDBData } from "../../../modules/search";
 import {
@@ -33,7 +33,6 @@ function LoginOverlay({
   const emailAddress = useRef(null);
   const password = useRef(null);
   const history = useHistory();
-  const closeLogin = useCallback(() => history.push("/"), [history]);
 
   async function doLogin(e) {
     e.preventDefault();
@@ -64,7 +63,7 @@ function LoginOverlay({
         ? resultSaved(true)
         : resultSaved(false);
 
-      closeLogin();
+      history.push("/");
     }
   }
 
@@ -101,10 +100,11 @@ function LoginOverlay({
         </Form>
         <p className="has-account">
           Don't have an account?
-          <Button variant="link">Sign up</Button>
+          <Button onClick={() => history.push("/signup")} variant="link">
+            Sign up
+          </Button>
         </p>
       </div>
-      <ExitArea />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
-import { ExitButton, ExitArea, SignupFormButton } from "../../Buttons";
+import { ExitButton, SignupFormButton } from "../../Buttons";
 import PropTypes from "prop-types";
 
 export default function SignupOverlay() {
@@ -10,6 +10,7 @@ export default function SignupOverlay() {
   const emailAddress = useRef(null);
   const password = useRef(null);
   const [errorMsgs, setErrorMsgs] = useState([]);
+  const history = useHistory();
 
   return (
     <div className="overlay__container signup">
@@ -69,12 +70,11 @@ export default function SignupOverlay() {
         </Form>
         <p className="has-account">
           Already have an account?
-          <Link to="/login">
-            <Button variant="link">Log in</Button>
-          </Link>
+          <Button onClick={() => history.push("/login")} variant="link">
+            Log in
+          </Button>
         </p>
       </div>
-      <ExitArea />
     </div>
   );
 }

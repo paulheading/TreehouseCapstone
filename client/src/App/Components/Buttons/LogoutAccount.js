@@ -22,7 +22,7 @@ function LogoutAccountButton({
   albumResults,
   filmResult,
 }) {
-  let history = useHistory();
+  const history = useHistory();
   const state = {
     searchQuery: useSelector((state) => state.searchQuery),
   };

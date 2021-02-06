@@ -5,14 +5,14 @@ import { Button } from "react-bootstrap";
 
 function SignupDesktopButton() {
   const currentUser = useSelector((state) => state.currentUser);
-  let history = useHistory();
-
-  function goSignup() {
-    history.push("/signup");
-  }
+  const history = useHistory();
 
   return !currentUser ? (
-    <Button variant="outline-primary" size="lg" onClick={goSignup}>
+    <Button
+      variant="outline-primary"
+      size="lg"
+      onClick={() => history.push("/signup")}
+    >
       Sign up
     </Button>
   ) : null;

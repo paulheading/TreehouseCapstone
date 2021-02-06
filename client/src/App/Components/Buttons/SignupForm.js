@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -15,7 +15,6 @@ function SignupFormButton({
   setErrorMsgs,
 }) {
   const history = useHistory();
-  const closeSignup = useCallback(() => history.push("/"), [history]);
 
   async function doSignup(e) {
     e.preventDefault();
@@ -29,7 +28,7 @@ function SignupFormButton({
     if (!newUser.errors) {
       currentUser(newUser);
       firstTime(true);
-      closeSignup();
+      history.push("/");
     } else {
       setErrorMsgs(newUser.errors);
     }

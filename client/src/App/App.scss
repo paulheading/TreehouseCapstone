@@ -81,7 +81,7 @@
         @include double-box($purple--tint);
 
         &.logout-account {
-          @include double-box;
+          @include double-box($purple--fade);
         }
       }
     }

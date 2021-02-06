@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -8,8 +8,6 @@ import { savedFilms, blacklist, resultSaved } from "../../../actions";
 
 function SaveButton({ savedFilms, resultSaved, blacklist }) {
   const history = useHistory();
-  const openLogin = useCallback(() => history.push("/login"), [history]);
-
   const state = {
     blacklist: useSelector((state) => state.blacklist),
     resultSaved: useSelector((state) => state.resultSaved),
@@ -56,7 +54,7 @@ function SaveButton({ savedFilms, resultSaved, blacklist }) {
         });
       }
     } else {
-      openLogin();
+      history.push("/login");
     }
   }
 

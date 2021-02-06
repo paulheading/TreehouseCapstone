@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { SearchIcon } from "../Icons";
 import {
@@ -22,12 +22,14 @@ function SearchSavedButton({
   searchQuery,
   loadingResult,
 }) {
+  const history = useHistory();
   const state = {
     firstTime: useSelector((state) => state.firstTime),
     blacklist: useSelector((state) => state.blacklist),
   };
 
   async function doSearch() {
+    history.push("/");
     searchQuery(savedTitle);
     loadingResult(true);
     resultSaved(true);
@@ -39,11 +41,9 @@ function SearchSavedButton({
   }
 
   return (
-    <Link to="/" className="search-saved__link">
-      <Button variant="inline" onClick={doSearch}>
-        <SearchIcon variant="secondary" size="sm" />
-      </Button>
-    </Link>
+    <Button variant="inline" onClick={doSearch}>
+      <SearchIcon variant="secondary" size="sm" />
+    </Button>
   );
 }
 

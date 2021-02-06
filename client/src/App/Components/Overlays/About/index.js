@@ -1,5 +1,5 @@
 import React from "react";
-import { ExitButton, ExitArea } from "../../Buttons";
+import { ExitButton } from "../../Buttons";
 import { ListGroup } from "react-bootstrap";
 
 export default function AboutOverlay() {
@@ -16,7 +16,6 @@ export default function AboutOverlay() {
           </ListGroup.Item>
         </ListGroup>
       </div>
-      <ExitArea />
     </div>
   );
 }

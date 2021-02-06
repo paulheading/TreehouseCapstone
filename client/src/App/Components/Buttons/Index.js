@@ -1,7 +1,6 @@
 import AboutButton from "./About";
 import BurgerButton from "./Burger";
 import ExitButton from "./Exit";
-import ExitArea from "./ExitArea";
 import HelpButton from "./Help";
 import LoginDesktopButton from "./LoginDesktop";
 import LoginFormButton from "./LoginForm";
@@ -19,7 +18,6 @@ export {
   AboutButton,
   BurgerButton,
   ExitButton,
-  ExitArea,
   HelpButton,
   LoginDesktopButton,
   LoginFormButton,

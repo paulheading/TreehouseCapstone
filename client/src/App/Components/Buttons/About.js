@@ -3,13 +3,9 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 export default function AboutButton() {
-  let history = useHistory();
-
-  function handleClick() {
-    history.push("/about");
-  }
+  const history = useHistory();
   return (
-    <Button variant="link" size="lg" onClick={handleClick}>
+    <Button variant="link" size="lg" onClick={() => history.push("/about")}>
       About
     </Button>
   );

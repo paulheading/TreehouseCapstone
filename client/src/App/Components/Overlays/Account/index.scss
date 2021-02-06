@@ -7,7 +7,7 @@
       border-bottom-color: $purple;
 
       a.focus-visible {
-        @include double-box($purple--tint, $purple);
+        text-decoration: underline;
       }
 
       .nav-link {
@@ -95,5 +95,44 @@ table.table {
   }
   .search-saved__link {
     margin-right: 1rem;
+  }
+}
+
+.account-table {
+  &__row {
+    grid-template-columns: auto 22px 22px;
+    border-bottom: 1px solid $purple;
+    background-color: $purple--fade;
+    border-right: 1px solid $purple;
+    border-left: 1px solid $purple;
+    text-transform: capitalize;
+    padding: 0.6rem 1.2rem;
+    column-gap: 1.2rem;
+    font-style: italic;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: left;
+    display: grid;
+
+    &:first-child {
+      border-top-right-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+      border-top: 1px solid $purple;
+    }
+
+    &:nth-child(odd) {
+      .btn.focus-visible {
+        @include double-box($purple--fade);
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: $purple--tint;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
   }
 }

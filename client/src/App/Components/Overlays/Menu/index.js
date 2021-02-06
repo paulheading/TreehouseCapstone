@@ -2,7 +2,6 @@ import React from "react";
 import {
   AboutButton,
   ExitButton,
-  ExitArea,
   LoginMobileButton,
   SignupMobileButton,
 } from "../../Buttons";
@@ -16,7 +15,6 @@ export default function MenuOverlay() {
         <LoginMobileButton />
         <SignupMobileButton />
       </div>
-      <ExitArea />
     </div>
   );
 }

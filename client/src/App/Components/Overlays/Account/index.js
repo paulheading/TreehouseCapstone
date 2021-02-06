@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { Tabs, Tab } from "react-bootstrap";
 import { filterDate } from "../../../modules/helpers";
-import { ExitButton, ExitArea, LogoutAccountButton } from "../../Buttons";
+import { ExitButton, LogoutAccountButton } from "../../Buttons";
 import { AvatarIcon } from "../../Icons";
 import SavedFilms from "./Saved/Films";
 
@@ -39,7 +39,7 @@ function AccountOverlay() {
       <div className="overlay__container account">
         <ExitButton />
         <div className="overlay__wrap">
-          <Tabs activeKey={key} transition={false}>
+          <Tabs activeKey={key} onSelect={(k) => setKey(k)} transition={false}>
             <Tab eventKey="profile" title="Profile" className="profile">
               <div className="profile-tab__avatar">
                 <AvatarIcon />
@@ -58,7 +58,6 @@ function AccountOverlay() {
             </Tab>
           </Tabs>
         </div>
-        {/* <ExitArea /> */}
       </div>
     );
   }

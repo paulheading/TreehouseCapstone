@@ -12,7 +12,7 @@ import {
 export default function Navigation() {
   return (
     <Navbar className="movie-tunes" expand="md">
-      <Navbar.Brand href="/">
+      <Navbar.Brand>
         <InlineLogo className="md-up" />
         <MobileLogo className="md-down" />
       </Navbar.Brand>
