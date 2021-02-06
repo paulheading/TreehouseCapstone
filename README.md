@@ -13,6 +13,10 @@
 
 <br>
 
+![screengrab](https://repository-images.githubusercontent.com/283536118/9be9ae00-6899-11eb-893b-87953eb3123c)
+
+<br>
+
 ## Features
 
 1. The user can create an account and
