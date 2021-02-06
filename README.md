@@ -1,3 +1,5 @@
+![screengrab](https://repository-images.githubusercontent.com/283536118/9be9ae00-6899-11eb-893b-87953eb3123c)
+
 # Welcome to Movie Tunes!
 
 [Movietunes](https://www.movietun.es) is a full stack website that includes
@@ -10,10 +12,6 @@
 - Customised form error handling
 - 1 internal api (between front/back ends)
 - 2 external api (omdb & spotify)
-
-<br>
-
-![screengrab](https://repository-images.githubusercontent.com/283536118/9be9ae00-6899-11eb-893b-87953eb3123c)
 
 <br>
 
